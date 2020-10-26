@@ -1,8 +1,8 @@
 import discord
-from discord.ext import commands
 import config
+
+from discord.ext import commands # you don't need to import discord.ext again, especially when you're not using it.
 from outsources import functions
-import discord.ext
 
 
 class Roborelated(commands.Cog):
@@ -24,7 +24,7 @@ class Roborelated(commands.Cog):
         # await functions.logging(ctx, "help", bot)
 
     @commands.command()
-    async def ping(ctx):
+    async def ping(self, ctx):  # functions will always have "self" as first positional argument in cogs, then ctx and then whatever stuff you want 
         em = discord.Embed(color=config.color)
         em.add_field(name='ping', value=f'{self.bot.latency * 1000} ms')
         await ctx.send(embed=em)
@@ -33,7 +33,7 @@ class Roborelated(commands.Cog):
     async def invite(self, ctx):
         e = discord.Embed(color=config.color)
         e.add_field(name=':<a:eyess:477763967209570304> exorium invites', value='[Invite exorium to your server](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=806218999&scope=bot)\n[Join the support server](https://discord.gg/CEHkNky)', inline=True)
-        e.add_footer(text="Also check out 'exo links'!")
+        e.set_footer(text="Also check out 'exo links'!")
         await ctx.send(embed=e)
         # await functions.logging(ctx, "help". bot)
 
