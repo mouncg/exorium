@@ -33,7 +33,7 @@ class Roborelated(commands.Cog):
     async def invite(self, ctx):
         e = discord.Embed(color=config.color)
         e.add_field(name=':<a:eyess:477763967209570304> exorium invites', value='[Invite exorium to your server](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=806218999&scope=bot)\n[Join the support server](https://discord.gg/CEHkNky)', inline=True)
-        e.add_footer(text="Also check out 'exo links'!")
+        e.set_footer(text="Also check out 'exo links'!")
         await ctx.send(embed=e)
         # await functions.logging(ctx, "help". bot)
 
