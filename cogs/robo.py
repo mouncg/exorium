@@ -1,8 +1,8 @@
 import discord
-from discord.ext import commands
 import config
+
+from discord.ext import commands # you don't need to import discord.ext again, especially when you're not using it.
 from outsources import functions
-import discord.ext
 
 
 class Roborelated(commands.Cog):
@@ -24,7 +24,7 @@ class Roborelated(commands.Cog):
         # await functions.logging(ctx, "help", bot)
 
     @commands.command()
-    async def ping(ctx):
+    async def ping(self, ctx):  # functions will always have "self" as first positional argument in cogs, then ctx and then whatever stuff you want 
         em = discord.Embed(color=config.color)
         em.add_field(name='ping', value=f'{self.bot.latency * 1000} ms')
         await ctx.send(embed=em)
