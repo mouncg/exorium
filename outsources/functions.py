@@ -3,7 +3,7 @@ import config
 import random
 import gifs
 
-async def interactions(ctx, members, reason, type, ending, typespecial):
+async def interactions(ctx, members, reason, type, ending):
     GIFlist = getattr(gifs, type)
     GIF = random.choice(GIFlist)
     if not (members):
