@@ -3,7 +3,7 @@ import config
 import random
 from gifs import slap
 
-async def interactions(ctx, members, reason, type, ending, typespecial):
+async def interactions(ctx, members, reason, type, ending, typespecial, gifs):
     GIFlist = getattr(gifs, type)
     GIF = random.choice(GIFlist)
     if not (members):
