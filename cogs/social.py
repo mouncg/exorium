@@ -11,9 +11,12 @@ class social(commands.Cog, name="Social"):
         if str(ctx.message.author.id) in str(members):
             await ctx.send("You can't slap yourself, derp!")
             return
-        elif reason.casefold().startswith("test"):
-            reason = "Being Bad"
         await functions.interactions(ctx, members, reason, "slap", "bad!", "slapped")
+
+    @commands.command(brief="Snuggle someone")
+    async def snuggle(ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
+        await functions.interactions(ctx, members, reason, "snuggle", "how cute", "snuggled")
+
 
 def setup(bot):
     bot.add_cog(social(bot))
