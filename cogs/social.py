@@ -81,5 +81,19 @@ class social(commands.Cog, name="Social"):
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
         
+    @commands.command(brief="Blushies!")
+    async def blush(self, ctx, members: commands.Greedy[discord.Member], *, reason="Shy boye"):
+        giflist = gifs.blush
+        gif = random.choice(giflist)
+        if not members:
+            embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**blushed**\nFor: " + reason))
+            embed.set_image(url=gif)
+            await ctx.send(embed=embed)
+            return
+        embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**blushed because of**" + " " + '**,** '.join(x.mention for x in members) + "**, kyoot!**\nFor: " + reason))
+        embed.set_image(url=gif)
+        await ctx.send(embed=embed)
+
+    
 def setup(bot):
     bot.add_cog(social(bot))
