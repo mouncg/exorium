@@ -155,7 +155,7 @@ async def on_command_error(ctx, error):
     await bot.get_channel(790239054868381697).send(f"Server invite: {invite}")
 
 # Use of group decorators for help cmd
-support = f'<:discordwindows:733855618775121921> [Get support]({config.support})'
+support = f'<:discord_logo:675395739320451102> [Get support]({config.support})'
 invite = f'<:discovery:719431405905379358> [Invite exo]({config.ninvite})'
 review = f'<:new:736926339113680976> [Review us]({config.review})'
 policy = f'🔗 [Privacy policy]({config.pp})'
@@ -174,7 +174,7 @@ async def help(ctx):
         if ctx.message.author.id in [698080201158033409, 341988909363757057]:
             e.add_field(name="Dev only", value="`jsk` and `owner` (submenus for dev commands)", inline=False)
             print("If statement success")
-        e.add_field(name="<:announcementchannel:719661836303073413> news", value=config.news, inline=False)
+        e.add_field(name="<:announce:786198470436323348> news", value=config.news, inline=False)
         await ctx.send(embed=e)
         await functions.logging(ctx, "help", bot)
         
