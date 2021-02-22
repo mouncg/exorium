@@ -2,6 +2,7 @@ import discord
 import config
 import random
 import gifs
+from discord.ext import commands
 
 async def interactions(ctx, members, reason, type, ending, typespecial):
     GIFlist = getattr(gifs, type)
