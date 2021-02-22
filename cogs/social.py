@@ -48,6 +48,26 @@ class social(commands.Cog, name="Social"):
     @commands.command(brief="Cuddle someone")
     async def cuddle(self, ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
         await functions.interactions(ctx, members, reason, "cuddle", "heartwarming", "cuddled")
+   
+    @commands.command(brief="Feed someone")
+    async def feed(self, ctx, members: commands.Greedy[discord.Member], *, reason="Hungwy"):
+        await functions.interactions(ctx, members, reason, "feed", "sweet!", "fed")
+
+
+
+    @commands.command(brief="Rawrrrr")
+    async def rawr(self, ctx, members: commands.Greedy[discord.Member], *, reason="Rawr!"):
+        giflist = gifs.rawr
+        gif = random.choice(giflist)
+        if not members:
+            embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**rawred, cute!**\nFor: " + reason))
+            embed.set_image(url=gif)
+            await ctx.send(embed=embed)
+            return
+        embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**rawred at**" + " " + '**,** '.join(x.mention for x in members) + "**, cute!**\nFor: " + reason))
+        embed.set_image(url=gif)
+        await ctx.send(embed=embed)
+
         
 def setup(bot):
     bot.add_cog(social(bot))
