@@ -22,11 +22,11 @@ class social(commands.Cog, name="Social"):
         await functions.interactions(ctx, members, reason, "hug", "how lovely", "hugged")
 
     @commands.command(brief="Bonk someone")
-    async def bonk(ctx, members: commands.Greedy[discord.Member], *, reason="bad!"):
+    async def bonk(self, ctx, members: commands.Greedy[discord.Member], *, reason="bad!"):
         await functions.interactions(ctx, members, reason, "bonk", "how mean", "bonked")
 
     @commands.command(brief="Pet someone", aliases=["pat"])
-    async def pet(ctx, members: commands.Greedy[discord.Member], *, reason="being a cutie"):
+    async def pet(self, ctx, members: commands.Greedy[discord.Member], *, reason="being a cutie"):
         await functions.interactions(ctx, members, reason, "pet", "how beautiful", "pet")
 
 def setup(bot):
