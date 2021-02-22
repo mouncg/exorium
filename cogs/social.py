@@ -30,7 +30,7 @@ class social(commands.Cog, name="Social"):
         await functions.interactions(ctx, members, reason, "pet", "how beautiful", "pet")
 
     @commands.command(brief="Boop someone")
-    async def boop(self, ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
+    async def boop(self, ctx, members: commands.Greedy[discord.Member], *, reason="Cutie snoutie"):
         await functions.interactions(ctx, members, reason, "boop", "so soft", "booped")
     
     @commands.command(brief="Smooch someone", aliases=["kiss"])
@@ -38,11 +38,11 @@ class social(commands.Cog, name="Social"):
         await functions.interactions(ctx, members, reason, "smooch", "lovely", "smooched")
         
     @commands.command(brief="Lick someone")
-    async def lick(self, ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
+    async def lick(self, ctx, members: commands.Greedy[discord.Member], *, reason="Needed a clean"):
         await functions.interactions(ctx, members, reason, "lick", "tasty", "licked")
     
     @commands.command(brief="Give bellyrubs!")
-    async def bellyrub(self, ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
+    async def bellyrub(self, ctx, members: commands.Greedy[discord.Member], *, reason="being lovely"):
         await functions.interactions(ctx, members, reason, "bellyrub", "lovely", "bellyrubbed")
 
     @commands.command(brief="Cuddle someone")
