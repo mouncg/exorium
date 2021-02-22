@@ -26,8 +26,6 @@ bot = commands.Bot(
     description="A very gay and annoying beta bot"
 )
 
-bot.cmd_edits = {}
-
 class EditingContext(commands.Context):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -50,31 +48,31 @@ class EditingContext(commands.Context):
         self.bot.cmd_edits[self.message.id] = msg
         return msg
 
-@bot.event
-async def on_message(self, message):
-    if message.author.bot:
-        return
+        self.cmd_edits = {}
 
-    try:
-        ctx = await self.get_context(message, cls=EditingContext)
-        if ctx.valid:
-            msg = await self.invoke(ctx)
-    except:
-        return
+    async def on_message(self, message):
+        if message.author.bot:
+            return
 
-@bot.event
-async def on_message_edit(self, before, after):
-
-    if before.author.bot:
-        return
-
-    if after.content != before.content:
         try:
-            ctx = await self.get_context(after, cls=EditingContext)
+            ctx = await self.get_context(message, cls=EditingContext)
             if ctx.valid:
                 msg = await self.invoke(ctx)
-        except discord.NotFound:
+        except:
             return
+
+    async def on_message_edit(self, before, after):
+
+        if before.author.bot:
+            return
+
+        if after.content != before.content:
+            try:
+                ctx = await self.get_context(after, cls=EditingContext)
+                if ctx.valid:
+                    msg = await self.invoke(ctx)
+            except discord.NotFound:
+                return
 
 @commands.Cog.listener()
 async def on_ready():
