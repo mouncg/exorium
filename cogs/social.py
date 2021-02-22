@@ -57,6 +57,9 @@ class social(commands.Cog, name="Social"):
     async def glomp(self, ctx, members: commands.Greedy[discord.Member], *, reason="Love!"):
         await functions.interactions(ctx, members, reason, "glomp", "Cute", "glomped on")
 
+    @commands.command(brief="Highfive someone")
+    async def highfive(self, ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
+        await functions.interactions(ctx, members, reason, "highfive", "awesome!", "high fived")
 
     @commands.command(brief="Rawrrrr")
     async def rawr(self, ctx, members: commands.Greedy[discord.Member], *, reason="Rawr!"):
