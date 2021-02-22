@@ -4,7 +4,7 @@ import random
 from gifs import slap
 
 async def interactions(ctx, members, reason, type, ending, typespecial):
-    GIFlist = getattr(slap, type)
+    GIFlist = getattr(type, type)
     GIF = random.choice(GIFlist)
     if not (members):
         return await ctx.send(f"Please specify at least one cutie to {type}!")
