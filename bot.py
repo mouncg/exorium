@@ -48,6 +48,8 @@ class EditingContext(commands.Context):
         self.bot.cmd_edits[self.message.id] = msg
         return msg
 
+        self.cmd_edits = {}
+
     async def on_message(self, message):
         if message.author.bot:
             return
