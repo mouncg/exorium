@@ -1,8 +1,7 @@
 import discord
 import config
 import random
-from gifs import slap
-from outsources import util
+import gifs
 
 async def interactions(ctx, members, reason, type, ending, typespecial):
     GIFlist = getattr(gifs, type)
