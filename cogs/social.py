@@ -15,7 +15,7 @@ class social(commands.Cog, name="Social"):
 
     @commands.command(brief="Snuggle someone")
     async def snuggle(ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
-        await functions.interactions(ctx, members, reason, "snuggle", "how cute")
+        await functions.interactions(ctx, members, reason, "snuggle", "how cute", "snuggled")
 
 
 def setup(bot):
