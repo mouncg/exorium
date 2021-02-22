@@ -1,6 +1,6 @@
 import discord, random, gifs
 from discord.ext import commands
-from outsources import functions, util
+from outsources import functions
 
 class social(commands.Cog, name="Social"):
     def __init__(self, bot):
