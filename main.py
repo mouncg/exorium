@@ -1246,12 +1246,12 @@ async def digest(ctx):
         await ctx.send("Got it!")
 
 key = config.statcordkey
-api = statcord.Client(bot,key)
-api.start_loop()
+statcordapi = statcord.Client(bot,key)
+statcordapi.start_loop()
           
 @bot.event
 async def on_command(ctx):
-    api.command_run(ctx)
+    statcordapi.command_run(ctx)
 
 async def api():
     while True:
