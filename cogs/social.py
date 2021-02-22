@@ -21,5 +21,13 @@ class social(commands.Cog, name="Social"):
     async def hug(self, ctx, members:commands.Greedy[discord.Member], *, reason="being lovely"):
         await functions.interactions(ctx, members, reason, "hug", "how lovely", "hugged")
 
+    @commands.command(brief="Bonk someone")
+    async def bonk(ctx, members: commands.Greedy[discord.Member], *, reason="bad!"):
+        await functions.interactions(ctx, members, reason, "bonk", "how mean", "bonked")
+
+    @commands.command(brief="Pet someone", aliases=["pat"])
+    async def pet(ctx, members: commands.Greedy[discord.Member], *, reason="being a cutie"):
+        await functions.interactions(ctx, members, reason, "pet", "how beautiful", "pet")
+
 def setup(bot):
     bot.add_cog(social(bot))
