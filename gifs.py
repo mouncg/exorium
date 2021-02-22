@@ -103,7 +103,7 @@ lick = ["https://i.kym-cdn.com/photos/images/original/001/099/490/e82.gif",
         "https://media1.tenor.com/images/cd45350c528cc577cbe0eb754e6e8241/tenor.gif?itemid=12181805"]
 
 
-pat = ["https://media1.tenor.com/images/1786de6797fd096ff503d633254786cc/tenor.gif?itemid=14598566",
+pet = ["https://media1.tenor.com/images/1786de6797fd096ff503d633254786cc/tenor.gif?itemid=14598566",
        "https://media1.tenor.com/images/be0c22e0af951aa7fa8753381663eb2c/tenor.gif?itemid=15824856",
        "https://media1.tenor.com/images/fd7365b518ee53285f39ef8b1caf5b6e/tenor.gif?itemid=15523978",
        "https://media1.tenor.com/images/adeb267fbe4ab5ddaa080297e5b2d0e4/tenor.gif?itemid=15740749",
