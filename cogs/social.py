@@ -114,7 +114,7 @@ class social(commands.Cog, name="Social"):
         await ctx.send(embed=embed)
     
     @commands.command(brief="wag yer tail")
-    async def wag(self, ctx, members: commands.Greedy[discord.Member], *, reason="Rawr!"):
+    async def wag(self, ctx, members: commands.Greedy[discord.Member], *, reason="Excited!"):
         giflist = gifs.wag
         gif = random.choice(giflist)
         if not members:
