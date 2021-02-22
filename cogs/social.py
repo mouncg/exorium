@@ -32,6 +32,12 @@ class social(commands.Cog, name="Social"):
     @commands.command(brief="Boop someone")
     async def boop(self, ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
         await functions.interactions(ctx, members, reason, "boop", "so soft", "booped")
+    
+    @commands.command(brief="Smooch someone", aliases=["kiss"])
+    async def smooch(self, ctx, members: commands.Greedy[discord.Member], *, reason="being lovely"):
+        await functions.interactions(ctx, members, reason, "smooch", "lovely", "smooched")
+        
+    
 
 def setup(bot):
     bot.add_cog(social(bot))
