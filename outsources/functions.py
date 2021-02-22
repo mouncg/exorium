@@ -1,9 +1,9 @@
 import discord
 import config
 import random
-from gifs import slap
+import gifs
 
-async def interactions(ctx, members, reason, type, ending, typespecial, gifs):
+async def interactions(ctx, members, reason, type, ending, typespecial):
     GIFlist = getattr(gifs, type)
     GIF = random.choice(GIFlist)
     if not (members):
