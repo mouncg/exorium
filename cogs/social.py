@@ -1,4 +1,4 @@
-import discord, random, gifs
+import discord, random, gifs, config
 from discord.ext import commands
 from outsources import functions
 
