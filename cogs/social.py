@@ -68,6 +68,18 @@ class social(commands.Cog, name="Social"):
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
+    @commands.command(brief="Howl to the moon, or someone", aliases=["howl"])
+    async def awoo(self, ctx, members: commands.Greedy[discord.Member], *, reason="Awoo!"):
+        giflist = gifs.awoo
+        gif = random.choice(giflist)
+        if not members:
+            embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**awoo'd, chilling!**\nFor: " + reason))
+            embed.set_image(url=gif)
+            await ctx.send(embed=embed)
+            return
+        embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**howled at**" + " " + '**,** '.join(x.mention for x in members) + "**, chilling!**\nFor: " + reason))
+        embed.set_image(url=gif)
+        await ctx.send(embed=embed)
         
 def setup(bot):
     bot.add_cog(social(bot))
