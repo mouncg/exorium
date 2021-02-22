@@ -37,7 +37,13 @@ class social(commands.Cog, name="Social"):
     async def smooch(self, ctx, members: commands.Greedy[discord.Member], *, reason="being lovely"):
         await functions.interactions(ctx, members, reason, "smooch", "lovely", "smooched")
         
+    @commands.command(brief="Lick someone")
+    async def lick(self, ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
+        await functions.interactions(ctx, members, reason, "lick", "tasty", "licked")
     
+    @commands.command(brief="Give bellyrubs!")
+    async def bellyrub(self, ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
+        await functions.interactions(ctx, members, reason, "bellyrub", "lovely", "bellyrubbed")
 
 def setup(bot):
     bot.add_cog(social(bot))
