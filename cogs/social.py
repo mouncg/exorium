@@ -97,6 +97,18 @@ class social(commands.Cog, name="Social"):
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
+    @commands.command(brief="Be happy")
+    async def happy(self, ctx, members: commands.Greedy[discord.Member], *, reason="Vibing"):
+        giflist = gifs.happy
+        gif = random.choice(giflist)
+        if not members:
+            embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**Is happy**\nFor: " + reason))
+            embed.set_image(url=gif)
+            await ctx.send(embed=embed)
+            return
+        embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**Is happy because of**" + " " + '**,** '.join(x.mention for x in members) + "**, kyoot!**\nFor: " + reason))
+        embed.set_image(url=gif)
+        await ctx.send(embed=embed)
     
 def setup(bot):
     bot.add_cog(social(bot))
