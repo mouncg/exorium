@@ -26,6 +26,7 @@ bot = commands.Bot(
     description="A very gay and annoying beta bot"
 )
 bot.cmd_edits = {}
+bot.msgedit = {}
 
 class EditingContext(commands.Context):
     def __init__(self, *args, **kwargs):
