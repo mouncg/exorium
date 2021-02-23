@@ -28,9 +28,6 @@ class mod(commands.Cog, name="Moderation"):
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True, manage_messages=True)
     async def unban(self, ctx, user: BannedMember, *, reason="No reason provided"):
-        """
-        Unbans user from server
-        """
         try:
             await ctx.message.delete()
             await ctx.guild.unban(user.user, reason=f"moderator: {ctx.message.author} | {reason}")
