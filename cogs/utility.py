@@ -89,7 +89,7 @@ class utility(commands.Cog, name="Utility"):
             pass
         e = discord.Embed(color=config.color)
         e.description = args
-        e.set_footer(text=f"Hosted by {ctx.message.author}")
+        e.set_footer(text=f"Poll hosted by {ctx.message.author}")
         bm = await ctx.send(embed=e)
         bm.add_reaction('<a:checkmark:813798012399779841>')
         bm.add_reaction('<a:cross:813798012626141185>')
