@@ -15,7 +15,7 @@ class mod(commands.Cog, name="Moderation"):
             if member == ctx.message.author:
                 return await ctx.send("You can not ban yourself, please try someone else.")
             botmember = ctx.guild.me
-            if not botmember.top_role > member.top_role:
+            if member.top_role > botmember.top_role:
                 return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to ban has.")
             await ctx.message.delete()
             messageok = f"You were banned from `{ctx.guild.name}` with reason:\n\n{reason}"
@@ -47,7 +47,7 @@ class mod(commands.Cog, name="Moderation"):
             if member == ctx.message.author:
                 return await ctx.send("You can not softban yourself, please try someone else.")
             botmember = ctx.guild.me
-            if not botmember.top_role > member.top_role:
+            if member.top_role > botmember.top_role: 
                 return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to ban has.")
             await ctx.message.delete()
             messageok = f"You were softbanned from `{ctx.guild.name}` with reason:\n\n{reason}"
@@ -59,5 +59,25 @@ class mod(commands.Cog, name="Moderation"):
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
     
+    @commands.command(brief="Kick someone from the server")
+    @commands.guild_only()
+    @commands.has_permissions(kick_members=True)
+    @commands.bot_has_permissions(kick_members=True)
+    async def kick(self, ctx, member: discord.Member, *, reason="No reason provided"):
+        try:
+            if member == ctx.message.author:
+                return await ctx.send("You can not kick yourself, please try someone else.")
+            botmember = ctx.guild.me
+            if member.top_role > botmember.top_role:
+                return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to ban has.")
+            await ctx.message.delete()
+            messageok = f"You've been kicked from __**{ctx.guild.name}**__ with reason:\n\n{reason}"
+            await member.send(messageok)
+            await member.kick(reason=f"Moderator {ctx.message.author} | Reason: {reason}")
+            e = discord.Embed(title=f"{member} was softbanned | {reason}", color=config.red)
+            await ctx.send(embed=e)
+        except Exception as e:
+            await ctx.send(f"```py\n{e}\n```")
+        
 def setup(bot):
     bot.add_cog(mod(bot))
