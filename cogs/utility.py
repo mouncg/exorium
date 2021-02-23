@@ -81,5 +81,18 @@ class utility(commands.Cog, name="Utility"):
         await ctx.send(f"I choose `{random.choice(args)}`.")
 
     
+    @commands.command(brief="Host a poll")
+    async def poll(self, ctx, *, args):
+        try:
+            await ctx.message.delete()
+        except discord.Forbidden:
+            pass
+        e = discord.Embed(color=config.color)
+        e.description = args
+        e.set_footer(text=f"Hosted by {ctx.message.author}")
+        bm = await ctx.send(embed=e)
+        bm.add_reaction('<a:checkmark:813798012399779841>')
+        bm.add_reaction('<a:cross:813798012626141185>')
+        
 def setup(bot):
     bot.add_cog(utility(bot))
