@@ -22,17 +22,20 @@ class mod(commands.Cog, name="Moderation"):
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
 
-    @commands.command(brief="Unban someone")
-    async def unban(self, ctx, member: discord.Member, *, reason="No reason provided"):
+    @commands.command(brief="Unban someone from the server")
+    @commands.guild_only()
+    @commands.has_permissions(ban_members=True)
+    @commands.bot_has_permissions(ban_members=True, manage_messages=True)
+    async def unban(self, ctx, user: BannedMember, *, reason="No reason provided"):
+        """
+        Unbans user from server
+        """
         try:
-            #banned = await fetch_ban(member)
-            #if not banned:
-            #    await ctx.send('This user is not banned.')
-            #else:
-            await ctx.guild.unban(member)
-            await ctx.send('unbanned user successfully.')
+            await ctx.message.delete()
+            await ctx.guild.unban(user.user, reason=f"moderator: {ctx.message.author} | {reason})
+            await ctx.send(f"**{user.user}** was unbanned successfully, with a reason: ``{reason}``", delete_after=15)
         except Exception as e:
-            await ctx.send(f'```py\n{e}\n```')
+            await ctx.send(f"```py\n{e}\n```")
 
 def setup(bot):
     bot.add_cog(mod(bot))
