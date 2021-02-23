@@ -209,8 +209,9 @@ __**System**__
         if len(uroles) > 10:
             uroles = [f"{', '.join(uroles[:10])} (+{len(usercheck.roles) - 11})"]
         
-        e.add_field(name=f"__**Roles ({len(user.roles) - 1})**__",
-                    value=", ".join(uroles), inline=False)
+        if len(uroles) > 0:
+            e.add_field(name=f"__**Roles ({len(user.roles) - 1})**__",
+                        value=", ".join(uroles), inline=False)
         e.set_thumbnail(url=user.avatar_url)
         await ctx.send(embed=e)
         
