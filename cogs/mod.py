@@ -7,6 +7,9 @@ class mod(commands.Cog, name="Moderation"):
         self.bot = bot
 
     @commands.command(brief="Ban someone")
+    @commands.guild_only()
+    @commands.has_permissions(ban_members=True)
+    @commands.bot_has_permissions(ban_members=True, manage_messages=True)
     async def ban(self, ctx, member: discord.Member, *, reason="No reason provided"):
         try:
             if member == ctx.message.author:
