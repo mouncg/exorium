@@ -9,9 +9,8 @@ class mod(commands.Cog, name="Moderation"):
     async def ban(self, ctx, member: discord.Member, *, reason="No reason provided"):
         try:
             if member == ctx.message.author:
-                return await ctx.send('You can not ban yourself, please try someone else.")
-        else:
-            await ctx.send('Just a minor test')
+                return await ctx.send("You can not ban yourself, please try someone else.")
+        await ctx.send('Just a minor test')
 
 def setup(bot):
     bot.add_cog(mod(bot))
