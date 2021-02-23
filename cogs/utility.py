@@ -93,6 +93,17 @@ class utility(commands.Cog, name="Utility"):
         bm = await ctx.send(embed=e)
         await bm.add_reaction('<a:checkmark:813798012399779841>')
         await bm.add_reaction('<a:cross:813798012626141185>')
-        
+
+    @commands.command(brief="Say something")
+    async def say(self, ctx, *, args):
+        try:
+            await ctx.message.delete()
+        except discord.Forbidden:
+            pass
+        e = discord.Embed(color=config.color)
+        e.set_author(name=ctx.message.author, icon_url=ctx.author.avatar_url)
+        e.description = args
+        await ctx.send(embed=e)
+
 def setup(bot):
     bot.add_cog(utility(bot))
