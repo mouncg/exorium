@@ -34,7 +34,7 @@ class mod(commands.Cog, name="Moderation"):
         try:
             await ctx.message.delete()
             await ctx.guild.unban(user.user, reason=f"moderator: {ctx.message.author} | {reason}")
-            await ctx.send(f"**{user}** was unbanned successfully, with reason: ``{reason}``", delete_after=15)
+            await ctx.send(f"**{user.user.name}** was unbanned successfully, with reason: ``{reason}``", delete_after=15)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
 
