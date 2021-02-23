@@ -44,7 +44,7 @@ class mod(commands.Cog, name="Moderation"):
     @commands.bot_has_permissions(ban_members=True, manage_messages=True)
     async def softban(self, ctx, member: discord.Member, *, reason="No reason provided"):
         try:
-            if user == ctx.message.author:
+            if member == ctx.message.author:
                 return await ctx.send("You can not softban yourself, please try someone else.")
             botmember = ctx.guild.me
             if not botmember.top_role > member.top_role:
