@@ -49,7 +49,7 @@ class mod(commands.Cog, name="Moderation"):
             botmember = ctx.guild.me
             if not botmember.top_role > member.top_role:
                 return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to ban has.")
-            await ctx.message_delete()
+            await ctx.message.delete()
             messageok = f"You were softbanned from `{ctx.guild.name}` with reason:\n\n{reason}"
             await member.send(messageok)
             await member.ban(reason=f"Moderator {ctx.message.author} | Reason: {reason}")
