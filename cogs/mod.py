@@ -1,5 +1,6 @@
 import discord, config
 from discord.ext import commands
+from utils.checks import BannedMember
 
 class mod(commands.Cog, name="Moderation"):
     def __init__(self, bot):
