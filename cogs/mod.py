@@ -25,12 +25,12 @@ class mod(commands.Cog, name="Moderation"):
     @commands.command(brief="Unban someone")
     async def unban(self, ctx, member: discord.Member, *, reason="No reason provided"):
         try:
-            banned = await fetch_ban(member)
-            if not banned:
-                await ctx.send('This user is not banned.')
-            else:
-                await ctx.guild.unban(member)
-                await ctx.send('unbanned user successfully.')
+            #banned = await fetch_ban(member)
+            #if not banned:
+            #    await ctx.send('This user is not banned.')
+            #else:
+            await ctx.guild.unban(member)
+            await ctx.send('unbanned user successfully.')
         except Exception as e:
             await ctx.send(f'```py\n{e}\n```')
 
