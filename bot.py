@@ -28,6 +28,7 @@ bot = commands.Bot(
 bot.cmd_edits = {}
 bot.msgedit = {}
 
+
 class EditingContext(commands.Context):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -50,6 +51,7 @@ class EditingContext(commands.Context):
         self.bot.cmd_edits[self.message.id] = msg
         return msg
 
+
 @commands.Cog.listener()
 async def on_message(message):
     if message.author.bot:
@@ -61,6 +63,7 @@ async def on_message(message):
             msg = await bot.invoke(ctx)
     except:
         return
+
 
 @commands.Cog.listener()
 async def on_message_edit(before, after):
@@ -76,9 +79,10 @@ async def on_message_edit(before, after):
         except discord.NotFound:
             return
 
+
 @commands.Cog.listener()
 async def on_ready():
-    #activity = discord.Activity(type=discord.ActivityType.watching, name="a movie")
+    # activity = discord.Activity(type=discord.ActivityType.watching, name="a movie")
     await bot.change_presence(status=discord.Status.dnd)
 
 for extension in config.extensions:

@@ -1,13 +1,13 @@
 from discord.ext import commands
-
-import discordlists, config
+import config
+import discordlists
 
 
 class DiscordListsPost(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.api = discordlists.Client(self.bot)  # Create a Client instance
-        self.api.set_auth("discordextremelist.xyz", config.DELTOKEN) # Set authorisation token for a bot list
+        self.api.set_auth("discordextremelist.xyz", config.DELTOKEN)  # Set authorisation token for a bot list
         self.api.start_loop()  # Posts the server count automatically every 30 minutes
 
     @commands.command()

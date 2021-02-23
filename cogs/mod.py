@@ -30,11 +30,11 @@ class mod(commands.Cog, name="Moderation"):
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True, manage_messages=True)
-    async def unban(self, ctx, user: BannedMember, *, reason="No reason provided"):
+    async def unban(self, ctx, user: BannedMember.user, *, reason="No reason provided"):
         try:
             await ctx.message.delete()
-            await ctx.guild.unban(user.user, reason=f"moderator: {ctx.message.author} | {reason}")
-            await ctx.send(f"**{user}** was unbanned successfully, with reason: ``{reason}``", delete_after=15)
+            await ctx.guild.unban(user, reason=f"moderator: {ctx.message.author} | {reason}")
+            await ctx.send(f"**{user.name}** was unbanned successfully, with reason: ``{reason}``", delete_after=15)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
 
