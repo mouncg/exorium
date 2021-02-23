@@ -10,7 +10,8 @@ class mod(commands.Cog, name="Moderation"):
         try:
             if member == ctx.message.author:
                 return await ctx.send('You can not ban yourself, please try someone else.")
-        await ctx.send('Just a minor test')
+        else:
+            await ctx.send('Just a minor test')
 
 def setup(bot):
     bot.add_cog(mod(bot))
