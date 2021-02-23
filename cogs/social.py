@@ -1,6 +1,11 @@
-import discord, random, gifs, config
+import config
+import discord
+import gifs
+import random
 from discord.ext import commands
+
 from outsources import functions
+
 
 class social(commands.Cog, name="Social"):
     def __init__(self, bot):
@@ -18,7 +23,7 @@ class social(commands.Cog, name="Social"):
         await functions.interactions(ctx, members, reason, "snuggle", "how cute", "snuggled")
 
     @commands.command(brief="Hug someone")
-    async def hug(self, ctx, members:commands.Greedy[discord.Member], *, reason="being lovely"):
+    async def hug(self, ctx, members: commands.Greedy[discord.Member], *, reason="being lovely"):
         await functions.interactions(ctx, members, reason, "hug", "how lovely", "hugged")
 
     @commands.command(brief="Bonk someone")
@@ -128,10 +133,11 @@ class social(commands.Cog, name="Social"):
 
     @commands.command(brief="Gib cookie")
     async def cookie(self, ctx, members: commands.Greedy[discord.Member]):
-        if not (members):
+        if not members:
             return await ctx.send("Please specify at least one cutie to give a cookie to!")
         e = discord.Embed(title='A cookie has been given!', description=f'{ctx.author.mention} gave {members[0].mention} a cookie', color=config.green)
         await ctx.send(embed=e)
-    
+
+
 def setup(bot):
     bot.add_cog(social(bot))
