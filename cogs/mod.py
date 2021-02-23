@@ -22,7 +22,7 @@ class mod(commands.Cog, name="Moderation"):
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
 
-    @commands.command(brief="Unban someone')
+    @commands.command(brief="Unban someone")
     async def unban(self, ctx, user: discord.Member, *, reason="No reason provided"):
         try:
             banned = await fetch_ban(user)
