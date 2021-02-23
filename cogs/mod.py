@@ -42,19 +42,19 @@ class mod(commands.Cog, name="Moderation"):
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True, manage_messages=True)
-    async def softban(self, ctx, member: discord.Member, *, reason="No reason provided"):
+    async def softban(self, ctx, user: discord.Member, *, reason="No reason provided"):
         try:
-            if member == ctx.message.author:
+            if user == ctx.message.author:
                 return await ctx.send("You can not softban yourself, please try someone else.")
             botmember = ctx.guild.me
-            if not botmember.top_role > member.top_role:
+            if not botmember.top_role > user.top_role:
                 return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to ban has.")
             await ctx.message.delete()
             messageok = f"You were softbanned from `{ctx.guild.name}` with reason:\n\n{reason}"
-            await member.send(messageok)
-            await member.ban(reason=f"Moderator {ctx.message.author} | Reason: {reason}")
-            await ctx.guild.unban(user.member, reason=f"modertor: {ctx.message.author} | softban")
-            e = discord.Embed(title=f"{member} was banned | {reason}", color=config.red)
+            await user.send(messageok)
+            await user.ban(reason=f"Moderator {ctx.message.author} | Reason: {reason}")
+            await ctx.guild.unban(user.user, reason=f"modertor: {ctx.message.author} | softban")
+            e = discord.Embed(title=f"{user} was banned | {reason}", color=config.red)
             await ctx.send(embed=e)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
