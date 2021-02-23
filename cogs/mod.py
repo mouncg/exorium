@@ -92,7 +92,7 @@ class mod(commands.Cog, name="Moderation"):
 
         if amount <= 0:
             return await ctx.send('Please provide a positive number of messages to purge. (1+ messages)')
-        if amount => 500:
+        if amount >= 500:
             return await ctx.send('Please purge less than 500 messages at a time.')
         if amount <= 500:
             try:
