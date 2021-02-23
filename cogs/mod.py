@@ -78,6 +78,29 @@ class mod(commands.Cog, name="Moderation"):
             await ctx.send(embed=e)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
-        
+
+    @commands.command(brief="Purge the chat")
+    @commands.guild_only()
+    @commands.has_permissions(manage_messages=True)
+    @commands.bot_has_permissions(manage_messages=True)
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def purge(self, ctx, amount=0):
+        def ducks_pin_message_check(duckmasteral):
+            if duckmasteral.pinned is False:
+                return True
+            return False
+
+        if amount <= 0:
+            return await ctx.send('Please provide a positive number of messages to purge. (1+ messages)')
+        if amount => 500:
+            return await ctx.send('Please purge less than 500 messages at a time.')
+        if amount <= 500:
+            try:
+                await ctx.message.delete()
+                await ctx.channel.purge(limit=amount, check=ducks_pin_message_check)
+                await ctx.send(f'{ctx.message.author} purged {amount} messages successfully.', delete_after=10)
+            except Exception as e:
+                await ctx.send(f"```py\n{e}\n```")
+
 def setup(bot):
     bot.add_cog(mod(bot))
