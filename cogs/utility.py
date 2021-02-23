@@ -76,7 +76,7 @@ class utility(commands.Cog, name="Utility"):
     
     @commands.command(brief="Random selection")
     async def random(self, ctx, *, args):
-       if args <= 1:
+        if args <= 1:
             return await ctx.send("Please give more than 1 argument for me to choose from.")
         await ctx.send(f"I choose `{random.choice(args)}`.", allowed_mentions=discord.AllowedMentions.none())
 
