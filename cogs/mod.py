@@ -54,7 +54,7 @@ class mod(commands.Cog, name="Moderation"):
             await member.send(messageok)
             await member.ban(reason=f"Moderator {ctx.message.author} | Reason: {reason}")
             await ctx.guild.unban(member, reason=f"moderator: {ctx.message.author} | softban")
-            e = discord.Embed(title=f"{member} was banned | {reason}", color=config.red)
+            e = discord.Embed(title=f"{member} was softbanned | {reason}", color=config.red)
             await ctx.send(embed=e)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
