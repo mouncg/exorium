@@ -54,7 +54,7 @@ class owner(commands.Cog, name="Owner"):
     async def change(self, ctx):
         if ctx.invoked_subcommand is None:
             pass
-   
+  
     @change.command(brief="Change playing status")
     @commands.is_owner()
     async def playing(self, ctx, *, playing: str):
@@ -63,7 +63,7 @@ class owner(commands.Cog, name="Owner"):
                 activity=discord.Game(type=0, name=playing),
                 status=discord.Status.online
             )
-            await ctx.send(f"Successfully changed Playing status to \"{playing}"\")
+            await ctx.send(f"Successfully changed Playing status to:\n{playing}")
             await ctx.message.delete()
         except discord.InvalidArgument as err:
             await ctx.send(err)
