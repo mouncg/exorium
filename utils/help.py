@@ -1,4 +1,4 @@
-import discord
+import discord, config
 from discord.ext import commands, menus
 
 def safe_get(list, index, default=None):
@@ -15,7 +15,7 @@ class GroupHelpSource(menus.ListPageSource):
     async def format_page(self, menu, entries):
         offset = menu.current_page * self.per_page
         embed = discord.Embed(title = str(self.group),
-                              color=0x36393E)
+                              color=config.color)
 
         for index, command in enumerate(entries, start=offset):
             embed.add_field(name=command.qualified_name,
