@@ -12,6 +12,7 @@ class DiscordListsPost(commands.Cog):
         self.api.start_loop()  # Posts the server count automatically every 30 minutes
 
     @commands.command()
+    @commands.is_owner()
     async def post(self, ctx: commands.Context):
         """
         Manually posts guild count using discordlists.py (BotBlock)
