@@ -60,7 +60,7 @@ class owner(commands.Cog, name="Owner"):
     async def playing(self, ctx, *, playing: str):
         try:
             await self.bot.change_presence(
-                activity=discord.Game(type=0 name=playing)
+                activity=discord.Game(type=0, name=playing)
                 status=discord.Status.online
             )
             await ctx.send(f"Successfully changed Playing status to \"{playing}"\")
