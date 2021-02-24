@@ -22,7 +22,7 @@ bot = commands.Bot(
     max_messages=10000,
     #intents=discord.Intents.all(),
     status=discord.Status.online,
-    activity=discord.Activity(type=discord.ActivityType.playing, name='sp!help'),
+    activity=discord.Activity(type=discord.ActivityType.playing, name='e!help'),
     description="A very gay and annoying beta bot"
 )
 bot.cmd_edits = {}
