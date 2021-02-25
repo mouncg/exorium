@@ -87,7 +87,7 @@ class utility(commands.Cog, name="Utility"):
             await ctx.message.delete()
         except discord.Forbidden:
             pass
-        e = discord.Embed(color=config.color)
+        e = discord.Embed(color=config.colOurr)
         e.description = args
         e.set_footer(text=f"Poll hosted by {ctx.message.author}")
         bm = await ctx.send(embed=e)
