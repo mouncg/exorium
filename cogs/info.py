@@ -209,7 +209,7 @@ __**System**__
         uroles.reverse()
         
         if len(uroles) > 10:
-            uroles = [f"{', '.join(uroles[:10])} (+{len(usercheck.roles) - 11})"]
+            uroles = [f"{', '.join(uroles[:10])} (+{len(user.roles) - 11})"]
         
         if len(uroles) > 0:
             e.add_field(name=f"__**Roles ({len(user.roles) - 1})**__",
