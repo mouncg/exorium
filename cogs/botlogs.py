@@ -28,8 +28,29 @@ class botlogs(commands.Cog, name="Bot logs"):
         
         print(f"{datetime.now().__format__('%a %d %b %y, %H:%M')} - {ctx.guild.name} | {ctx.author} > {ctx.message.clean_content}") 
 
-    #@commands.Cog.listener()
-    #soon...
+    @commands.Cog.listener()
+    async def on_guild_join(self, guild):
+        log = self.bot.channel_get(762203326519181312)
+        
+        e = discord.Embed(color=config.green)
+        e.set_author(name="Joined a new guild", icon_url=self.bot.user.avatar_url)
+        e.set_thumbnail(url=guild.icon_url)
+
+        owner = await self.bot.fetch_user(guild.owner.id)
+
+        members = len(guild.humans)
+        bots = len(guild.bots)
+        text = len(guild.text_channels)
+        voice = len(guild.voice_channels)
+
+        e.description = f"""
+**Guild name:** {ctx.guild.name} (`{guild.id}`)
+**Guild owner:** {str(owner)} (`{guild.owner.id}`)
+**Created:** {default.date(ctx.guild.created_at)}
+**Members:** {members} humans & {bots} bots
+**Channels:** {text} text channels & {voice} vc's
+"""
+        await log.send(embed=e)
               
 def setup(bot):
     bot.add_cog(botlogs(bot))
