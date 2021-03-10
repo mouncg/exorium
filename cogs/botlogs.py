@@ -22,8 +22,7 @@ class botlogs(commands.Cog, name="Bot logs"):
 
 **Guild:** {ctx.guild.name} (`{ctx.guild.id}`) 
 """
-        timestamp = datetime.now().__format__('%a %d %b %y, %H:%M')
-        e.timestamp=timestamp
+        e.set_footer(text=datetime.now().__format__('%a %d %b %y, %H:%M'))
         await log.send(embed=e)
 
 def setup(bot):
