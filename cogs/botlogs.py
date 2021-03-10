@@ -23,6 +23,7 @@ class botlogs(commands.Cog, name="Bot logs"):
 **Guild:** {ctx.guild.name} (`{ctx.guild.id}`) 
 """
         e.set_footer(text=datetime.now().__format__('%a %d %b %y, %H:%M'))
+        e.set_thumbnail(url=ctx.guild.icon_url)
         await log.send(embed=e)
 
 def setup(bot):
