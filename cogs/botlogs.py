@@ -10,7 +10,7 @@ class botlogs(commands.Cog, name="Bot logs"):
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
-        log = self.bot.fetch_channel(755138117488345118)
+        log = self.bot.get_channel(755138117488345118)
         
         e = discord.Embed(color=config.color)
         e.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
