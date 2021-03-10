@@ -30,7 +30,7 @@ class botlogs(commands.Cog, name="Bot logs"):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        log = self.bot.channel_get(762203326519181312)
+        log = self.bot.get_channel(762203326519181312)
         
         e = discord.Embed(color=config.green)
         e.set_author(name="Joined a new guild", icon_url=self.bot.user.avatar_url)
