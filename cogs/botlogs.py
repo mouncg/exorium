@@ -28,5 +28,8 @@ class botlogs(commands.Cog, name="Bot logs"):
         
         print(f"{datetime.now().__format__('%a %d %b %y, %H:%M')} - {ctx.guild.name} | {ctx.author} > {ctx.message.clean_content}") 
 
+    #@commands.Cog.listener()
+    #soon...
+              
 def setup(bot):
     bot.add_cog(botlogs(bot))
