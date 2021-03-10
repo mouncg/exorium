@@ -36,7 +36,7 @@ class botlogs(commands.Cog, name="Bot logs"):
         e.set_author(name="Joined a new guild", icon_url=self.bot.user.avatar_url)
         e.set_thumbnail(url=guild.icon_url)
 
-        owner = await self.bot.fetch_user(guild.owner.id)
+        owner = await self.bot.fetch_user(guild.owner_id)
 
         members = len(guild.humans)
         bots = len(guild.bots)
