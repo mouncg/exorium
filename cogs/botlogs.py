@@ -16,7 +16,7 @@ class botlogs(commands.Cog, name="Bot logs"):
         e.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
         e.description = f"""
 **Message content:**
-{ctx.message.clean_content}
+{ctx.message.content}
 
 **Author ID:** [{ctx.author.id}](https://discord.com/users/{ctx.author.id})
 
