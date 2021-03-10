@@ -25,6 +25,8 @@ class botlogs(commands.Cog, name="Bot logs"):
         e.set_footer(text=datetime.now().__format__('%a %d %b %y, %H:%M'))
         e.set_thumbnail(url=ctx.guild.icon_url)
         await log.send(embed=e)
+        
+        print(f"datetime.now().__format__('%a %d %b %y, %H:%M') - {ctx.guild.name} | {ctx.author} > {ctx.message.content}") 
 
 def setup(bot):
     bot.add_cog(botlogs(bot))
