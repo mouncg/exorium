@@ -22,7 +22,7 @@ Author ID: [{ctx.author.id}](https://discord.com/users/{ctx.author.id})
 
 Guild: {ctx.guild.name} (`{ctx.guild.id}`) 
 """
-        e.timestamp = datetime.now().__format__('%a %d %b %y, %H:%M')
+        #e.timestamp = datetime.now().__format__('%a %d %b %y, %H:%M')
         await log.send(embed=e)
 
 def setup(bot):
