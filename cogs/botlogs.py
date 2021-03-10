@@ -34,25 +34,25 @@ class botlogs(commands.Cog, name="Bot logs"):
         
         e = discord.Embed(color=config.green)
         e.set_author(name="Joined a new guild", icon_url=self.bot.user.avatar_url)
-        e.set_thumbnail(url=guild.icon_url)
+        e.set_thumbnail(url=ctx.guild.icon_url)
 
         owner = await self.bot.fetch_user(guild.owner.id)
 
-        members = len(guild.humans)
-        bots = len(guild.bots)
-        text = len(guild.text_channels)
-        voice = len(guild.voice_channels)
+        members = len(ctx.guild.humans)
+        bots = len(ctx.guild.bots)
+        text = len(ctx.guild.text_channels)
+        voice = len(ctx.guild.voice_channels)
 
         e.description = f"""
-**Guild name:** {ctx.guild.name} (`{guild.id}`)
-**Guild owner:** {str(owner)} (`{guild.owner.id}`)
+**Guild name:** {ctx.guild.name} (`{ctx.guild.id}`)
+**Guild owner:** {str(owner)} (`{ctx.guild.owner.id}`)
 **Created:** {default.date(ctx.guild.created_at)}
 **Members:** {members} humans & {bots} bots
 **Channels:** {text} text channels & {voice} vc's
 """
         await log.send(embed=e)
 
-        print(f"Joined guild "{guild.name}". Check the server logs in exorium support for more information.")
+        print(f"Joined guild "{ctx.guild.name}". Check the server logs in exorium support for more information.")
               
 def setup(bot):
     bot.add_cog(botlogs(bot))
