@@ -45,7 +45,7 @@ class botlogs(commands.Cog, name="Bot logs"):
 
         e.description = f"""
 **Guild name:** {guild.name} (`{guild.id}`)
-**Guild owner:** {str(owner)} (`{guild.owner.id}`)
+**Guild owner:** {str(owner)} (`{guild.owner_id}`)
 **Created:** {default.date(guild.created_at)}
 **Members:** {members} humans & {bots} bots
 **Channels:** {text} text channels & {voice} vc's
