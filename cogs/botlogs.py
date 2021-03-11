@@ -54,5 +54,31 @@ class botlogs(commands.Cog, name="Bot logs"):
 
         print(f"Joined guild {guild.name}. Check the server logs in exorium support for more information.")
               
+    @commands.Cog.listener()
+    async def on_guild_remove(self, guild):
+        log = self.bot.get_channel(762203326519181312)
+
+        e = discord.Embed(color=config.red)
+        e.set_author(name="Left a guild", icon_url=self.bot.user.avatar_url)
+        e.set_thumbnail(url=guild.icon_url)
+
+        owner = await self.bot.fetch_user(guild.owner_id)
+
+        members = len(guild.humans)
+        bots = len(guild.bots)
+        text = len(guild.text_channels)
+        voice = len(guild.voice_channels)
+
+        e.description = f"""
+**Guild name:** {guild.name} (`{guild.id}`)
+**Guild owner:** {str(owner)} (`{guild.owner_id}`)
+**Created:** {default.date(guild.created_at)}
+**Members:** {members} humans & {bots} bots
+**Channels:** {text} text channels & {voice} vc's
+"""
+        await log.send(embed=e)
+
+        print(f"Left guild {guild.name}. Check the server logs in exorium support for more information.")
+              
 def setup(bot):
     bot.add_cog(botlogs(bot))
