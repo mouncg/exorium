@@ -41,7 +41,7 @@ class info(commands.Cog, name="Info"):
         e = discord.Embed(color=config.color)
         e.description = f"{args}"
         e.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-        await ctx.send(embed=e)
+        await ctx.reply(embed=e)
 
 
     @commands.command(brief="Our privacy policy")
