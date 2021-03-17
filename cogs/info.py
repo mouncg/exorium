@@ -231,7 +231,7 @@ __**System**__
     async def info(self, ctx, emoji: discord.Emoji):
         e = discord.Embed(color=config.color)
         e.description = f"test"
-        e.set_author(name=f"Emote from {ctx.emoji.guild}", icon_url=emoji.guild.icon_url)
+        e.set_author(name=f"Emote from {emoji.guild}", icon_url=emoji.guild.icon_url)
         await ctx.send(embed=e)
 
 
