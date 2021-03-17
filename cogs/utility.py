@@ -78,7 +78,7 @@ class utility(commands.Cog, name="Utility"):
     async def servericon(self, ctx):
         e = discord.Embed(color=config.color)
         e.set_author(name=f"Icon of {ctx.guild.name}", icon_url=ctx.guild.icon_url)
-        e.set_image(URL=ctx.guild.icon_url)
+        e.set_image(url=ctx.guild.icon_url)
         await ctx.send(embed=e)
 
 
