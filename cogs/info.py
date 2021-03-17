@@ -243,7 +243,7 @@ the info command only displays info from mutual server emotes.*
 **Name:** {emoji.name}
 **Created:** {default.date(emoji.created_at)}
 **Emote ID:** `{emoji.id}`
-**Escaped:**""" + f"`<{emoji}`" + f"""
+**Escaped:**""" + f"`{emoji}`" + f"""
 **Emote link**: [Click here]({emoji.url})
 """
 
