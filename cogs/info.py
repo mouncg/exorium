@@ -216,7 +216,25 @@ __**System**__
                         value=", ".join(uroles), inline=False)
         e.set_thumbnail(url=user.avatar_url)
         await ctx.send(embed=e)
-        
+
+
+    @commands.group(brief="Emote related commands", aliases=["emoji"])
+    async def emote(self, ctx):
+        if ctx.invoked_subcommand is None:
+            pass
+
+    @emote.command(brief="Get emote URL")
+    async def url(self, ctx, emoji: discord.PartialEmoji):
+        await ctx.send(emoji.url)
+                      
+    @emote.command(brief="Get emote information")
+    async def info(self, ctx, emoji: discord.Emoji):
+        e = discord.Embed(color=config.color)
+        e.description = f"test"
+        e.set_author(name=f"Emote from {ctx.emoji.guild}", icon_url=emoji.guild.icon_url)
+        await ctx.send(embed=e)
+
+
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
