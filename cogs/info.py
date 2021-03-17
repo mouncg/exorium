@@ -265,13 +265,14 @@ the info command only displays info from mutual server emotes.*
         e.set_author(name=f"Suggestion from {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
         e.description = args
         e.set_footer(text="Cast your votes!")
-        await channel.send(embed=e)
+        ses = await channel.send(embed=e)
+        await ses.add_reaction('<a:checkmark:813798012399779841>')
+        await ses.add_reaction('<a:cross:813798012626141185>')
         await ctx.send("The suggestion was sent successfully:")
         se = discord.Embed(color=config.green)
         se.description = args
-        ses = await ctx.send(embed=se)
-        await ses.add_reaction('<a:checkmark:813798012399779841>')
-        await ses.add_reaction('<a:cross:813798012626141185>')
+        await ctx.send(embed=se)
+
         
 
 
