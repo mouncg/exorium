@@ -222,7 +222,7 @@ __**System**__
     async def emote(self, ctx):
         if ctx.invoked_subcommand is None:
             e = discord.Embed(color=config.color)
-            e.set_author(name="Emote command help", icon_url=self.bot.avatar_url)
+            e.set_author(name="Emote command help", icon_url=self.bot.icon_url)
             e.description = f"""
 *Please provide an emote behind the command,
 the info command only displays info from mutual server emotes.*
