@@ -1,6 +1,6 @@
 from discord.ext import commands
-
-import discordlists, config
+import config
+import discordlists
 
 
 class DiscordListsPost(commands.Cog):

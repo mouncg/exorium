@@ -1,6 +1,9 @@
-import discord, config
+import config
+import discord
 from discord.ext import commands
+
 from utils.checks import BannedMember
+
 
 class mod(commands.Cog, name="Moderation"):
     def __init__(self, bot):
@@ -101,6 +104,7 @@ class mod(commands.Cog, name="Moderation"):
                 await ctx.send(f'{ctx.message.author} purged {amount} messages successfully.', delete_after=10)
             except Exception as e:
                 await ctx.send(f"```py\n{e}\n```")
+
 
 def setup(bot):
     bot.add_cog(mod(bot))

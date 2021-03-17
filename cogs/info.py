@@ -1,8 +1,16 @@
-import discord, config, time, aiohttp, psutil, platform
 from collections import Counter
-from discord.ext import commands
 from datetime import datetime
+
+import aiohttp
+import config
+import discord
+import platform
+import psutil
+import time
+from discord.ext import commands
+
 from utils import default
+
 
 class info(commands.Cog, name="Info"):
     def __init__(self, bot):
@@ -19,9 +27,8 @@ class info(commands.Cog, name="Info"):
                     discord_ms = f"{round((discord_end - discord_start) * 1000)}ms"
                 else:
                     discord_ms = "fucking dead"
-                await ctx.send(f"\U0001f3d3 Pong   |   {discord_ms}")# You can use :ping_pong: instead of \U0001f3d3
+                await ctx.send(f"\U0001f3d3 Pong   |   {discord_ms}")  # You can use :ping_pong: instead of \U0001f3d3
 
-    
     @commands.command(brief="The invites for exorium")
     async def invite(self, ctx):
         e = discord.Embed(color=config.color)
@@ -35,14 +42,12 @@ class info(commands.Cog, name="Info"):
 """
         await ctx.send(embed=e)
         
-
     @commands.command(brief="test command")
     async def respond(self, ctx, *, args):
         e = discord.Embed(color=config.color)
         e.description = f"{args}"
         e.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
         await ctx.reply(embed=e)
-
 
     @commands.command(brief="Our privacy policy")
     async def privacy(self, ctx):
@@ -53,7 +58,6 @@ Want your data removed or got questions? mail to `bluewyechache@gmail.com`.
 """
         await ctx.send(embed=e)
 
-
     @commands.command(brief="Get support")
     async def support(self, ctx):
         e = discord.Embed(color=config.color)
@@ -63,7 +67,6 @@ You can get help in the following ways:
 - [Join the support server](https://discord.gg/CEHkNky)
 """
         await ctx.send(embed=e)
-
 
     @commands.command(brief="exo related links")
     async def links(self, ctx):
@@ -78,13 +81,12 @@ The open source code for exorium
 """
         await ctx.send(embed=e)
 
-
     @commands.command(brief="exorium statistics", aliases=["stats"])
     async def statistics(self, ctx):
-        startTime = datetime.now().timestamp()
-        print(startTime)
+        starttime = datetime.now().timestamp()
+        print(starttime)
         print(datetime.now().timestamp())
-        uptime = datetime.now().timestamp() - startTime
+        uptime = datetime.now().timestamp() - starttime
         channel_types = Counter(type(c) for c in self.bot.get_all_channels())
         voice = channel_types[discord.channel.VoiceChannel]
         text = channel_types[discord.channel.TextChannel]
@@ -106,7 +108,6 @@ __**System**__
 """
         e.set_image(url=config.banner)
         await ctx.send(embed=e)
-        
 
     @commands.command(brief="See a server's info", aliases=["si", "sinfo"])
     async def serverinfo(self, ctx):
@@ -126,7 +127,7 @@ __**System**__
                     value=f"**Owner:** {str(owner)}\n**Owner ID:**\n`{gu.owner_id}`\n**Created:** {default.date(ctx.guild.created_at)}\n**Region:** {str(gu.region)}\n**MFA: **{mfa}\n**Verification:** {str(ctx.guild.verification_level).capitalize()}", inline=True)
         e.add_field(name="__**Others**__",
                     value=f"**Humans:** {len(gu.bots)} ({len(gu.members)} total)\n**Bots:** {len(gu.humans)} ({len(gu.members)} total)\n**Text:** {len(gu.text_channels)} channels\n**Voice:** {len(gu.voice_channels)} channels", inline=True)
-        if features != None:
+        if features is not None:
             e.add_field(name="__**Server features**__", value=features, inline=False)
         e.set_author(name=f"{gu.name} information", icon_url=gu.icon_url)
         e.set_footer(text=f"Guild ID: {gu.id}")
@@ -134,7 +135,7 @@ __**System**__
         e.set_image(url=gu.banner_url)
         await ctx.send(embed=e)
 
-
+        
     @commands.command(brief="See a user's info", aliases=["ui"])
     async def userinfo(self, ctx, *, user: discord.Member = None):
         if not user:
@@ -283,6 +284,7 @@ the info command only displays info from mutual server emotes.*
         else:
             embed = discord.Embed(description=str(error), color=discord.Color.red())
             await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(info(bot))
