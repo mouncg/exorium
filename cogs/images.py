@@ -17,6 +17,13 @@ class images(commands.Cog, name="Images"):
         await ctx.send(embed=e)
 
 
+    @commands.command(brief="Get a meme")
+    async def meme(self, ctx):
+        meme = "https://some-random-api.ml/meme"
+        e = discord.Embed(color=config.color)
+        e.set_image(url=meme)
+        await ctx.send(embed=e)
+
     @commands.command(brief="generate random animals")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def animal(self, ctx, *args):
