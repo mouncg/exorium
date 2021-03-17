@@ -24,7 +24,7 @@ class images(commands.Cog, name="Images"):
                 
                 e = discord.Embed(color=config.color)
                 e.set_author(name="Random meme")
-                e.set_image(url=r.json('image'))
+                e.set_image(url=r.json()['image'])
                 await ctx.send(embed=e)
 
 
