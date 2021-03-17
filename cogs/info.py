@@ -239,8 +239,16 @@ the info command only displays info from mutual server emotes.*
     @emote.command(brief="Get emote information")
     async def info(self, ctx, emoji: discord.Emoji):
         e = discord.Embed(color=config.color)
-        e.description = f"test"
+        e.description = f"""
+**Name:** {emoji.name}
+**Created:** {default.date(emoji.created_at)}
+**Emote ID:** `{emoji.id}`
+**Escaped:**""" + f"`<{emoji}`" + f"""
+**Emote link**: [Click here]({emoji.url})
+"""
+
         e.set_author(name=f"Emote from {emoji.guild}", icon_url=emoji.guild.icon_url)
+        e.set_thumbnail(url=emoji.url)
         await ctx.send(embed=e)
 
 
