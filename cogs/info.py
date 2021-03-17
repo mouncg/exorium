@@ -221,7 +221,16 @@ __**System**__
     @commands.group(brief="Emote related commands", aliases=["emoji"])
     async def emote(self, ctx):
         if ctx.invoked_subcommand is None:
-            pass
+            e = discord.Embed(color=config.color)
+            e.set_author(name="Emote command help", icon_url=self.bot.avatar_url)
+            e.description = f"""
+*Please provide an emote behind the command,
+the info command only displays info from mutual server emotes.*
+
+`{ctx.prefix}emote url <emote>` | **Get emote URL**
+`{ctx.prefix}emote info <emote>` | **Get emote information**
+"""
+            await ctx.send(embed=e)
 
     @emote.command(brief="Get emote URL")
     async def url(self, ctx, emoji: discord.PartialEmoji):
