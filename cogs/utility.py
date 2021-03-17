@@ -74,6 +74,14 @@ class utility(commands.Cog, name="Utility"):
         await ctx.send(embed=e)
     
     
+    @commands.command(brief="See server icon")
+    async def servericon(self, ctx):
+    e = discord.Embed(color=config.color)
+    e.set_author(name=f"Icon of {ctx.guild.name}", icon_url=ctx.guild.icon_url)
+    e.set_image(URL=ctx.guild.icon_url)
+    await ctx.send(embed=e)
+
+
     @commands.command(brief="Random selection")
     async def random(self, ctx, *args):
         if not args:
