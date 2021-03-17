@@ -1,4 +1,4 @@
-import discord, config, json, requests, random
+import discord, config, json, requests, random, aiohttp
 from discord.ext import commands
 
 class images(commands.Cog, name="Images"):
@@ -19,10 +19,15 @@ class images(commands.Cog, name="Images"):
 
     @commands.command(brief="Get a meme")
     async def meme(self, ctx):
-        meme = "https://some-random-api.ml/meme"
-        e = discord.Embed(color=config.color)
-        e.set_image(url=meme)
-        await ctx.send(embed=e)
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://some-random-api.ml/meme") as r:
+                data = await r.json
+                
+                e = discord.Embed(color=config.color)
+                e.set_author(name="Random meme")
+                e.set_image(url=data['image'])
+                await ctx.send(embed=e)
+
 
     @commands.command(brief="generate random animals")
     @commands.cooldown(1, 10, commands.BucketType.user)
