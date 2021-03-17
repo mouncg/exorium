@@ -252,6 +252,27 @@ the info command only displays info from mutual server emotes.*
         await ctx.send(embed=e)
 
 
+    @commands.command(brief="Suggest something for exo")
+    async def suggest(self, ctx, *, args):
+        channel = self.bot.get_channel(769132481252818954)
+        try:
+            await ctx.message.delete()
+        except discord.Forbidden:
+            pass
+        except discord.NotFound:
+            pass
+        e = discord.Embed(color=config.green)
+        e.set_author(name=f"Suggestion from {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
+        e.description = args
+        e.set_footer(text="Cast your votes!")
+        await channel.send(embed=e)
+        await ctx.send("The suggestion was sent successfully:")
+        se = discord.Embed(color=config.green)
+        se.description = args
+        await ctx.send(embed=se)
+        
+
+
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
