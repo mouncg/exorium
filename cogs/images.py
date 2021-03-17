@@ -21,11 +21,10 @@ class images(commands.Cog, name="Images"):
     async def meme(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/meme") as r:
-                data = r.json()
                 
                 e = discord.Embed(color=config.color)
                 e.set_author(name="Random meme")
-                e.set_image(url=data['image'])
+                e.set_image(url=r.json(['image']))
                 await ctx.send(embed=e)
 
 
