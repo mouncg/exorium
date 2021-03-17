@@ -227,8 +227,8 @@ __**System**__
 *Please provide an emote behind the command,
 the info command only displays info from mutual server emotes.*
 
-`{ctx.prefix}emote url <emote>` | **Get emote URL**
-`{ctx.prefix}emote info <emote>` | **Get emote information**
+{ctx.prefix}emote url <emote> | **Get emote URL**
+{ctx.prefix}emote info <emote> | **Get emote information**
 """
             await ctx.send(embed=e)
 
