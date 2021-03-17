@@ -269,7 +269,9 @@ the info command only displays info from mutual server emotes.*
         await ctx.send("The suggestion was sent successfully:")
         se = discord.Embed(color=config.green)
         se.description = args
-        await ctx.send(embed=se)
+        ses = await ctx.send(embed=se)
+        await ses.add_reaction('<a:checkmark:813798012399779841>')
+        await ses.add_reaction('<a:cross:813798012626141185>')
         
 
 
