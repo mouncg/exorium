@@ -53,7 +53,7 @@ class info(commands.Cog, name="Info"):
     async def privacy(self, ctx):
         e = discord.Embed(color=config.color)
         e.description = f"""
-You can read our privacy policy [here](https://github.com/ThePawKingdom/exorium/blob/master/privacy%20policy.md).
+You can read our privacy policy [here](https://bluewydev.github.io/Discord-bot-website-template/src/pages/legal.html).
 Want your data removed or got questions? mail to `bluewyechache@gmail.com`.
 """
         await ctx.send(embed=e)
