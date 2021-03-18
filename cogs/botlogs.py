@@ -9,7 +9,8 @@ class botlogs(commands.Cog, name="Bot logs"):
         self.bot = bot
 
     @commands.Cog.listener()
-    #async def on_command(self, ctx):
+    async def on_command(self, ctx):
+        print(f"{datetime.now().__format__('%a %d %b %y, %H:%M')} - {ctx.guild.name} | {ctx.author} > {ctx.message.clean_content}") 
     #    log = self.bot.get_channel(755138117488345118)
         
     #    e = discord.Embed(color=config.color)
@@ -25,8 +26,7 @@ class botlogs(commands.Cog, name="Bot logs"):
 #        e.set_footer(text=datetime.now().__format__('%a %d %b %y, %H:%M'))
 #        e.set_thumbnail(url=ctx.guild.icon_url)
 #        await log.send(embed=e)
-        
-        print(f"{datetime.now().__format__('%a %d %b %y, %H:%M')} - {ctx.guild.name} | {ctx.author} > {ctx.message.clean_content}") 
+
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
