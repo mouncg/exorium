@@ -32,10 +32,6 @@ class social(commands.Cog, name="Social"):
     #async def bonk(self, ctx, members: commands.Greedy[discord.Member], *, reason="bad!"):
     #    await functions.interactions(ctx, members, reason, "bonk", "how mean", "bonked")
 
-    @commands.command(brief="Pet someone")
-    async def pet(self, ctx, members: commands.Greedy[discord.Member], *, reason="being a cutie"):
-        await functions.interactions(ctx, members, reason, "pet", "how beautiful", "pet")
-
     @commands.command(brief="Boop someone")
     async def boop(self, ctx, members: commands.Greedy[discord.Member], *, reason="Cutie snoutie"):
         await functions.interactions(ctx, members, reason, "boop", "so soft", "booped")
@@ -133,7 +129,7 @@ class social(commands.Cog, name="Social"):
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
-    @commands.command(brief="testing pat command")
+    @commands.command(brief="pat someone!", aliases=["pet"])
     async def pat(self, ctx, members: commands.Greedy[discord.Member], *, reason="Deserved!"):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/animu/pat") as r:
