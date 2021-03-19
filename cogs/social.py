@@ -135,7 +135,7 @@ class social(commands.Cog, name="Social"):
 
     @commands.command(brief="testing pat command")
     async def pat(self, ctx, members: commands.Greedy[discord.Member], *, reason="Deserved!"):
-        async with aiohttp.ClientSession as cs:
+        async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/animu/pat") as r:
                 js = await r.json()
                 
