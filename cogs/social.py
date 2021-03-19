@@ -3,6 +3,7 @@ import discord
 import gifs
 import random
 import aiohttp
+import json
 from discord.ext import commands
 
 from outsources import functions
