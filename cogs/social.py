@@ -138,10 +138,10 @@ class social(commands.Cog, name="Social"):
                 if not members:
                     return await ctx.send("Please specify someone to pat.")
                 e = discord.Embed(title="", color=config.color, description=f"**{ctx.message.author.mention} pats** " + '**,** '.join(x.mention for x in members) + f"\nFor: {reason}")
-
-                apigifs = js['link']
+                
                 manual = gifs.pet
-                image = random.choice(apigifs + manual)
+                manual.append(js['link'])
+                image = random.choice(manual)
                 
                 e.set_image(url=image)
                 await ctx.send(embed=e)
@@ -156,9 +156,9 @@ class social(commands.Cog, name="Social"):
                     return await ctx.send("Please specify someone to hug.")
                 e = discord.Embed(color=config.color, description=f"**{ctx.message.author.mention} hugs** " + '**,** '.join(x.mention for x in members) + f"\nFor: {reason}")
                 
-                apigifs = js['link']
-                manual = gifs.hug
-                image = random.choice(apigifs + manual)
+                manual.append(js['link'])
+                image = random.choice(manual)
+                
                 e.set_image(url=image)
                 await ctx.send(embed=e)
         
