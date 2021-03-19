@@ -148,7 +148,7 @@ class social(commands.Cog, name="Social"):
                 js = await r.json()
                 
                 if not members:
-                    return await ctx.send("Please specify someone to pat.")
+                    return await ctx.send("Please specify someone to hug.")
                 e = discord.Embed(color=config.color, description=f"*{ctx.message.author.mention} hugs**" + '**,** '.join(x.mention for x in members) + f"\nFor: {reason}")
                 e.set_image(url=js['link'])
                 await ctx.send(embed=e)
