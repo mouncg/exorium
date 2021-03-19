@@ -130,7 +130,7 @@ class social(commands.Cog, name="Social"):
         await ctx.send(embed=embed)
 
     @commands.command(brief="pat someone!", aliases=["pet"])
-    async def pat(self, ctx, members: commands.Greedy[discord.Member], *, reason="Deserved!"):
+    async def pat(self, ctx, members: commands.Greedy[discord.Member], *, reason=""):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/animu/pat") as r:
                 js = await r.json()
@@ -142,7 +142,7 @@ class social(commands.Cog, name="Social"):
                 await ctx.send(embed=e)
     
     @commands.command(brief="hug someone!")
-    async def hug(self, ctx, members: commands.Greedy[discord.Member], *, reason="None"):
+    async def hug(self, ctx, members: commands.Greedy[discord.Member], *, reason=""):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/animu/hug") as r:
                 js = await r.json()
