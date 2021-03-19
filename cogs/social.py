@@ -24,9 +24,9 @@ class social(commands.Cog, name="Social"):
     async def snuggle(self, ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
         await functions.interactions(ctx, members, reason, "snuggle", "how cute", "snuggled")
 
-    @commands.command(brief="Hug someone")
-    async def hug(self, ctx, members: commands.Greedy[discord.Member], *, reason="being lovely"):
-        await functions.interactions(ctx, members, reason, "hug", "how lovely", "hugged")
+    #@commands.command(brief="Hug someone")
+    #async def hug(self, ctx, members: commands.Greedy[discord.Member], *, reason="being lovely"):
+    #    await functions.interactions(ctx, members, reason, "hug", "how lovely", "hugged")
 
     #@commands.command(brief="Bonk someone")
     #async def bonk(self, ctx, members: commands.Greedy[discord.Member], *, reason="bad!"):
@@ -141,6 +141,18 @@ class social(commands.Cog, name="Social"):
                 e.set_image(url=js['link'])
                 await ctx.send(embed=e)
     
+    @commands.command(brief="hug someone!")
+    async def hug(self, ctx, members: commands.Greedy[discord.member], *, reason="None"):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://some-random-api.ml/animu/hug") as r:
+                js = await r.json()
+                
+                if not members:
+                    return await ctx.send("Please specify someone to pat.")
+                e = discord.Embed(color=config.color, description=f"*{ctx.message.author.mention} hugs**" + '**,** '.join(x.mention for x in members) + f"\nFor: {reason}")
+                e.set_image(url=js['link'])
+                await ctx.send(embed=e)
+        
     @commands.command(brief="Gib cookie")
     async def cookie(self, ctx, members: commands.Greedy[discord.Member]):
         if not members:
