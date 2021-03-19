@@ -30,7 +30,7 @@ class social(commands.Cog, name="Social"):
     #async def bonk(self, ctx, members: commands.Greedy[discord.Member], *, reason="bad!"):
     #    await functions.interactions(ctx, members, reason, "bonk", "how mean", "bonked")
 
-    @commands.command(brief="Pet someone", aliases=["pat"])
+    @commands.command(brief="Pet someone")
     async def pet(self, ctx, members: commands.Greedy[discord.Member], *, reason="being a cutie"):
         await functions.interactions(ctx, members, reason, "pet", "how beautiful", "pet")
 
@@ -131,13 +131,24 @@ class social(commands.Cog, name="Social"):
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
+    @commands.command(brief="testing pat command")
+    async def pat(self, ctx, members: commands.Greedy[discord.Member], *, reason="Deserved!"):
+        async with aiohttp.ClientSession as cs:
+            async with cs.get("https://some-random-api.ml/animu/pat") as r:
+                js = await r.json()
+                
+                if not members:
+                    return await ctx.send("Please specify someone to pat.")
+                e = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**Gives pats to**" + " " + '**,** '.join(x.mention for x in members) + "\nFor: " + reason))
+                e.set_image(url=js['link'])
+                await ctx.send(embed=e)
+    
     @commands.command(brief="Gib cookie")
     async def cookie(self, ctx, members: commands.Greedy[discord.Member]):
         if not members:
             return await ctx.send("Please specify at least one cutie to give a cookie to!")
         e = discord.Embed(title='A cookie has been given!', description=f'{ctx.author.mention} gave {members[0].mention} a cookie', color=config.green)
         await ctx.send(embed=e)
-
 
 def setup(bot):
     bot.add_cog(social(bot))
