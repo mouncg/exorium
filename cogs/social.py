@@ -155,7 +155,11 @@ class social(commands.Cog, name="Social"):
                 if not members:
                     return await ctx.send("Please specify someone to hug.")
                 e = discord.Embed(color=config.color, description=f"**{ctx.message.author.mention} hugs** " + '**,** '.join(x.mention for x in members) + f"\nFor: {reason}")
-                e.set_image(url=js['link'])
+                
+                apigifs = js['link']
+                manual = gifs.hug
+                image = random.choice(apigifs + manual)
+                e.set_image(url=image)
                 await ctx.send(embed=e)
         
     @commands.command(brief="Gib cookie")
