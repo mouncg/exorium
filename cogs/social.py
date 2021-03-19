@@ -156,6 +156,7 @@ class social(commands.Cog, name="Social"):
                     return await ctx.send("Please specify someone to hug.")
                 e = discord.Embed(color=config.color, description=f"**{ctx.message.author.mention} hugs** " + '**,** '.join(x.mention for x in members) + f"\nFor: {reason}")
                 
+                manual = gifs.hug
                 manual.append(js['link'])
                 image = random.choice(manual)
                 
