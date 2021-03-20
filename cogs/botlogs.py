@@ -126,7 +126,7 @@ class botlogs(commands.Cog, name="Bot logs"):
             return await ctx.send(f"{config.emotecross} I could not convert this emote")
 
         if isinstance(err, commands.MissingPermissions):
-            perms = "`" + '`, `'.join(exc.missing_perms) + "`" 
+            perms = "`" + '`, `'.join(err.missing_perms) + "`" 
             return await ctx.send(f"{config.emotecross} You are missing {perms} permissions")
 
     @commands.Cog.listener()
