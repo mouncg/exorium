@@ -89,7 +89,11 @@ class botlogs(commands.Cog, name="Bot logs"):
             return await ctx.send(f"{config.emotecross} This command has been disabled by the developers.")
 
         if isinstance(err, commands.MissingRequiredArgument):
-            return await ctx.send(f"{config.emotecross} You are missing required arguments. Try `{ctx.prefix}help <command>` for more information.")
+            if {ctx.prefix} is '<@!620990340630970425>':
+                prefix = '@exorium'
+            else:
+                prefix = {ctx.prefix} 
+            return await ctx.send(f"{config.emotecross} You are missing required arguments. Try `{prefix}help <command>` for more information.")
 
 
     @commands.Cog.listener()
