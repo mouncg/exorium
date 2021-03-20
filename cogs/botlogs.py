@@ -107,6 +107,9 @@ class botlogs(commands.Cog, name="Bot logs"):
         if isinstance(err, commands.NotOwner):
             return await ctx.send(f"{config.emotecross} Only bot developers can use this command.")
 
+        if isinstance(err, commands.MessageNotFound):
+            return await ctx.send(f"{config.emotecross} Could not find message.")
+
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         """ Tries to re-run a command when a message gets edited! """
