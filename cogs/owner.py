@@ -85,12 +85,12 @@ class owner(commands.Cog, name="Owner"):
         try:
             if isinstance(user, discord.User):
                 print('pass discord.User')
-                pass
+                user = user
             elif isinstance(user, int):
                 user = await self.bot.fetch_user(user)
             print('fetch user')
         except Exception as e:
-            return await ctx.send(f"Failed to find the user: `{e}`")
+            await ctx.send(f"Failed to find the user: `{e}`")
             print('caught exception')
         
         try:
