@@ -84,7 +84,7 @@ class owner(commands.Cog, name="Owner"):
         """ Blacklist or unblacklist a user """
         try:
             if isinstance(user, discord.User):
-            print('pass discord.User')
+                print('pass discord.User')
                 pass
             elif isinstance(user, int):
                 user = await self.bot.fetch_user(user)
