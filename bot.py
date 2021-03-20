@@ -27,9 +27,12 @@ bot = commands.Bot(
 )
 bot.cmd_edits = {}
 bot.msgedit = {}
+bot.blacklist = {}
 
 mydb = config.DBdata
-database = mydb.cursor()
+bot.database = mydb.cursor()
+bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id INT AUTO_INCREMENT PRIMARY KEY, reason VARCHAR(255))")
+
 
 class EditingContext(commands.Context):
     def __init__(self, *args, **kwargs):
@@ -95,5 +98,9 @@ for extension in config.extensions:
         tb = traceback.format_exception(type(e), e, e.__traceback__)
         tbe = "".join(tb) + ""
         print(f'[WARNING] Could not load extension {extension}: {tbe}')
+
+blacklist = bot.database.fetchall("SELECT * FROM blacklist")
+for result in blacklist:
+    bot.blacklist[result['id']] = result['reason']
 
 bot.run(config.token)
