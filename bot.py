@@ -99,7 +99,8 @@ for extension in config.extensions:
         tbe = "".join(tb) + ""
         print(f'[WARNING] Could not load extension {extension}: {tbe}')
 
-blacklist = bot.database.fetchall("SELECT * FROM blacklist")
+bot.database.execute("SELECT * FROM blacklist")
+blacklist = bot.database.fetchall()
 for result in blacklist:
     bot.blacklist[result['id']] = result['reason']
 
