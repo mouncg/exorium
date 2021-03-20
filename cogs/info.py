@@ -277,13 +277,13 @@ the info command only displays info from mutual server emotes.*
         
 
 
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        if isinstance(error, commands.CommandNotFound):
-            pass
-        else:
-            embed = discord.Embed(description=str(error), color=discord.Color.red())
-            await ctx.send(embed=embed)
+    #@commands.Cog.listener()
+    #async def on_command_error(self, ctx, error):
+    #    if isinstance(error, commands.CommandNotFound):
+    #        pass
+    #    else:
+    #        embed = discord.Embed(description=str(error), color=discord.Color.red())
+    #        await ctx.send(embed=embed)
 
 
 def setup(bot):
