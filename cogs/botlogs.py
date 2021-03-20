@@ -104,6 +104,9 @@ class botlogs(commands.Cog, name="Bot logs"):
             cd = '{:.2f}'.format(err.retry_after)
             return await ctx.send(f"{config.emotecross} This command is currently on cooldown. Retry after **{cd}** seconds.")
 
+        if isinstance(err, commands.NotOwner):
+            return await ctx.send(f"{config.emotecross} Only bot developers can use this command.")
+
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         """ Tries to re-run a command when a message gets edited! """
