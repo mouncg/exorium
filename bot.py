@@ -28,6 +28,8 @@ bot = commands.Bot(
 bot.cmd_edits = {}
 bot.msgedit = {}
 
+mydb = config.DBdata
+database = mydb.cursor()
 
 class EditingContext(commands.Context):
     def __init__(self, *args, **kwargs):
