@@ -101,7 +101,8 @@ class botlogs(commands.Cog, name="Bot logs"):
             return await ctx.send("You did not correctly specify a user. Specify users through an ID, username or their nick.")
 
         if isinstance(err, commands.CommandOnCooldwn):
-            return await ctx.send(f"{config.emotecross} This command is currently on cooldown. Retry after {retry_after} seconds.")
+            cd = '{:.2f}'.format(error.retry_after)
+            return await ctx.send(f"{config.emotecross} This command is currently on cooldown. Retry after {cd} seconds.")
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
