@@ -125,6 +125,10 @@ class botlogs(commands.Cog, name="Bot logs"):
         if isinstance(err, commands.PartialEmojiConversionFailure):
             return await ctx.send(f"{config.emotecross} I could not convert this emote")
 
+        if isinstance(err, commands.MissingPermissions):
+            perms = "`" + '`, `'.join(exc.missing_perms) + "`" 
+            return await ctx.send(f"{config.emotecross} You are missing {perms} permissions")
+
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         """ Tries to re-run a command when a message gets edited! """
