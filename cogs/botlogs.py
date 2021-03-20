@@ -94,6 +94,9 @@ class botlogs(commands.Cog, name="Bot logs"):
         if isinstance(err, commands.NoPrivateMessage):
             return await ctx.send(f"{config.emotecross} This command is restricted to servers only.")
 
+        if isinstance(err, commands.TooManyArguments):
+            return await ctx.send(f"You specified more arguments then this command requires. Use `{ctx.clean_prefix}help <command>` for more information.")
+
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         """ Tries to re-run a command when a message gets edited! """
