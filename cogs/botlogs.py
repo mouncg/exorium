@@ -90,7 +90,7 @@ class botlogs(commands.Cog, name="Bot logs"):
 
         if isinstance(err, commands.MissingRequiredArgument):
             if {ctx.prefix} is self.bot.user.mention:
-                prefix = '@exorium'
+                prefix = 'mention'
             else:
                 prefix = ctx.prefix 
             return await ctx.send(f"{config.emotecross} You are missing required arguments. Try `{prefix}help <command>` for more information.")
