@@ -82,7 +82,7 @@ class botlogs(commands.Cog, name="Bot logs"):
               
     @commands.Cog.listener()
     async def on_command_error(self, ctx, err):
-        if isistance(err, commands.CommandNotFound):
+        if isinstance(err, commands.CommandNotFound):
             return
 
         if isinstance(err, commands.DisabledCommand):
