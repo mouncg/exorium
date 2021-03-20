@@ -87,14 +87,15 @@ class botlogs(commands.Cog, name="Bot logs"):
 
         if isinstance(err, commands.DisabledCommand):
             return await ctx.send(f"{config.emotecross} This command has been disabled by the developers.")
+
+        if isinstance(err, 
         
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         """ Tries to re-run a command when a message gets edited! """
         if after.author.bot is True or before.content == after.content:
             return
-        getprefix = ['Exo ', 'exo ', 'e!']
-        prefixes = commands.when_mentioned_or(getprefix)(self.bot, after)
+        prefixes = commands.when_mentioned_or(get_prefix)(self.bot, after)
         if after.content.startswith(tuple(prefixes)):
             ctx = await self.bot.get_context(after)
             msg = await self.bot.invoke(ctx)
