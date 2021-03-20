@@ -95,7 +95,7 @@ class botlogs(commands.Cog, name="Bot logs"):
             return await ctx.send(f"{config.emotecross} This command is restricted to servers only.")
 
         if isinstance(err, commands.TooManyArguments):
-            return await ctx.send(f"You specified more arguments then this command requires. Use `{ctx.clean_prefix}help <command>` for more information.")
+            return await ctx.send(f"You specified more then needed arguments and/or wrong arguments. Use `{ctx.clean_prefix}help <command>` for more information.")
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
