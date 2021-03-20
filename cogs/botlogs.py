@@ -88,7 +88,7 @@ class botlogs(commands.Cog, name="Bot logs"):
         if isinstance(err, commands.DisabledCommand):
             return await ctx.send(f"{config.emotecross} This command has been disabled by the developers.")
 
-        if isinstance(err, commands.MissingRequiredArgument(param)):
+        if isinstance(err, commands.MissingRequiredArgument):
             return await ctx.send(f"{config.emotecross} You haven't specified required arguments. Do `exo help <command>` for more information.\n{param}")
 
 
