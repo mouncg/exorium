@@ -80,5 +80,9 @@ class botlogs(commands.Cog, name="Bot logs"):
 
         print(f"Left guild {guild.name}. Check the server logs in exorium support for more information.")
               
+    #@commands.Cog.listener()
+    #async def on_command_error(self, ctx, err):
+        
+              
 def setup(bot):
     bot.add_cog(botlogs(bot))
