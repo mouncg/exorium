@@ -13,12 +13,12 @@ class social(commands.Cog, name="Social"):
     def __init__(self, bot):
         self.bot = bot
 
-    #@commands.command(brief="Slap someone")
-    #async def slap(self, ctx, members: commands.Greedy[discord.Member], *, reason="Being bad"):
-    #    if str(ctx.message.author.id) in str(members):
-    #        await ctx.send("You can't slap yourself, derp!")
-    #        return
-    #    await functions.interactions(ctx, members, reason, "slap", "bad!", "slapped")
+    @commands.command(brief="Slap someone", disabled=True)
+    async def slap(self, ctx, members: commands.Greedy[discord.Member], *, reason="Being bad"):
+        if str(ctx.message.author.id) in str(members):
+            await ctx.send("You can't slap yourself, derp!")
+            return
+        await functions.interactions(ctx, members, reason, "slap", "bad!", "slapped")
 
     @commands.command(brief="Snuggle someone")
     async def snuggle(self, ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
