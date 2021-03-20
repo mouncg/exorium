@@ -88,7 +88,7 @@ class botlogs(commands.Cog, name="Bot logs"):
         if isinstance(err, commands.DisabledCommand):
             return await ctx.send(f"{config.emotecross} This command has been disabled by the developers.")
 
-        if isinstance(err, 
+        #if isinstance(err, 
         
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
