@@ -102,7 +102,7 @@ class botlogs(commands.Cog, name="Bot logs"):
 
         if isinstance(err, commands.CommandOnCooldown):
             cd = '{:.2f}'.format(err.retry_after)
-            return await ctx.send(f"{config.emotecross} This command is currently on cooldown. Retry after {cd} seconds.")
+            return await ctx.send(f"{config.emotecross} This command is currently on cooldown. Retry after **{cd}** seconds.")
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
