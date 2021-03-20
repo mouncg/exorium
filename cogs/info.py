@@ -110,6 +110,7 @@ __**System**__
         await ctx.send(embed=e)
 
     @commands.command(brief="See a server's info", aliases=["si", "sinfo"])
+    @commands.guild_only()
     async def serverinfo(self, ctx):
         gu = ctx.guild
         features = ", ".join(gu.features).lower().replace('_', ' ').title()
@@ -137,6 +138,7 @@ __**System**__
 
         
     @commands.command(brief="See a user's info", aliases=["ui"])
+    @commands.guild_only()
     async def userinfo(self, ctx, *, user: discord.Member = None):
         if not user:
             user = ctx.author
