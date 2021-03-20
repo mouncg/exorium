@@ -100,6 +100,9 @@ class botlogs(commands.Cog, name="Bot logs"):
         if isinstance(err, commands.UserInputError):
             return await ctx.send("You did not correctly specify a user. Specify users through an ID, username or their nick.")
 
+        if isinstance(err, commands.CommandOnCooldwn):
+            return await ctx.send(f"{config.emotecross} This command is currently on cooldown. Retry after {retry_after} seconds.")
+
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         """ Tries to re-run a command when a message gets edited! """
