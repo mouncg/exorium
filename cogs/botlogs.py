@@ -107,8 +107,11 @@ class botlogs(commands.Cog, name="Bot logs"):
         if isinstance(err, commands.NotOwner):
             return await ctx.send(f"{config.emotecross} Only bot developers can use this command.")
 
-        if isinstance(err, commands.MessageNotFound):
-            return await ctx.send(f"{config.emotecross} Could not find message.")
+        if isinstance(err, commands.MemberNotFound):
+            return await ctx.send(f"{config.emotecross} Could not find this member in my cache.")
+
+        if isinstance(err, commands.ChannelNotFound):
+            return await ctx.send(f"I could not find the specified channel. Make sure it exists and that i can see it.")
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
