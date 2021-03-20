@@ -66,6 +66,11 @@ class owner(commands.Cog, name="Owner"):
             await ctx.send(err)
         except Exception as e:
             await ctx.send(e)
+
+    @commands.command()
+    @commands.cooldown(1, 50, commands.BucketType.user)
+    async def testy(self, ctx):
+        await ctx.send("test successful")
             
 def setup(bot):
     bot.add_cog(owner(bot))
