@@ -92,7 +92,7 @@ class botlogs(commands.Cog, name="Bot logs"):
             return await ctx.send(f"{config.emotecross} You are missing required arguments. Try `{ctx.clean_prefix}help <command>` for more information.")
 
         if isinstance(err, commands.NoPrivateMessage):
-            return await ctx.send(f"{config.emotecross} You can't use this command in Direct Messages.")
+            return await ctx.send(f"{config.emotecross} This command is restricted to servers only.")
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
