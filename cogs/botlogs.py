@@ -89,7 +89,7 @@ class botlogs(commands.Cog, name="Bot logs"):
             return await ctx.send(f"{config.emotecross} This command has been disabled by the developers.")
 
         if isinstance(err, commands.MissingRequiredArgument):
-            if {ctx.prefix} is self.bot.user.mention:
+            if ctx.prefix is self.bot.user.mention:
                 prefix = 'mention'
             else:
                 prefix = ctx.prefix 
