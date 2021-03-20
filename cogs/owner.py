@@ -84,21 +84,26 @@ class owner(commands.Cog, name="Owner"):
         """ Blacklist or unblacklist a user """
         try:
             if isinstance(user, discord.User):
+            print('pass discord.User')
                 pass
             elif isinstance(user, int):
                 user = await self.bot.fetch_user(user)
+            print('fetch user')
         except Exception as e:
             return await ctx.send(f"Failed to find the user: `{e}`")
+            print('caught exception')
         
         try:
             self.bot.blacklist[user.id]
             self.bot.database.execute(f"DELETE FROM blacklist WHERE id = {user.id}")
             self.bot.blacklist.pop(user.id)
-            await ctx.send(f"unblacklisted {user}")          
+            await ctx.send(f"unblacklisted {user}")
+            print('unblacklisted')
         except Exception:
             self.bot.database.execute(f"INSERT INTO blacklist(id, reason) VALUES({user.id}, {reason})")
             self.bot.blacklist[user.id] = reason
             await ctx.send(f"blacklisted {user}")
+            print('blacklisted')
 
     @blacklist.command(name='server')
     @commands.is_owner()
