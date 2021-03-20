@@ -98,7 +98,7 @@ class botlogs(commands.Cog, name="Bot logs"):
             return await ctx.send(f"You specified more then needed arguments and/or wrong arguments.\nUse `{ctx.clean_prefix}help <command>` for more information.")
 
         if isinstance(err, commands.UserInputError):
-            return await ctx.send("Please input proper arguments. Default emotes or non-existent users won't work.")
+            return await ctx.send(f"Please use proper command input. Use `{ctx.clean_prefix}help <command>` for more information.")
 
         if isinstance(err, commands.CommandOnCooldown):
             cd = '{:.2f}'.format(err.retry_after)
