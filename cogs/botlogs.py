@@ -8,6 +8,17 @@ class botlogs(commands.Cog, name="Bot logs"):
     def __init__(self, bot):
         self.bot = bot
 
+    async def bot_check(self, ctx):
+        if ctx.author == await self.bot.fetch_user(809057677716094997):  # bluewy
+            return True  # even if gets blacklisted can't be blocked from the bot
+
+        try:
+            blacklist_check = self.bot.blacklist[ctx.author.id]
+            if blacklist_check:
+                return False  # they're blacklisted.
+        except Exception:
+            return True
+
     @commands.Cog.listener()
     async def on_command(self, ctx):
         print(f"{datetime.now().__format__('%a %d %b %y, %H:%M')} - {ctx.guild.name} | {ctx.author} > {ctx.message.clean_content}") 
@@ -31,7 +42,16 @@ class botlogs(commands.Cog, name="Bot logs"):
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
         log = self.bot.get_channel(762203326519181312)
-        
+
+        try:
+            blacklist_check = self.bot.blacklist[guild.id]
+        except Exception:
+            blacklist_check = None
+
+        if blacklist_check:
+            print(f"{guild} is blacklisted for {blacklist_check}")
+            return await guild.leave()
+
         e = discord.Embed(color=config.green)
         e.set_author(name="Joined a new guild", icon_url=self.bot.user.avatar_url)
         e.set_thumbnail(url=guild.icon_url)
