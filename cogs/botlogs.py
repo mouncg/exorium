@@ -113,6 +113,18 @@ class botlogs(commands.Cog, name="Bot logs"):
         if isinstance(err, commands.ChannelNotFound):
             return await ctx.send(f"I could not find the specified channel. Make sure it exists and that i can see it.")
 
+        if isinstance(err, commands.ChannelNotReadable):
+            return await ctx.send(f"{config.emotecross} I can not read messages from the specified channel. Make sure to give me the `view messages` permission.")
+
+        if isinstance(err, commands.RoleNotFound):
+            return await ctx.send(f"{config.emotecross} I could not find the specified role, make sure to provide a proper role ID or name.")
+
+        if isinstance(err, commands.EmojiNotFound):
+            return await ctx.send(f"{config.emotecross} Could not find emote. Make sure you are providing an emote from a server i'm in.")
+
+        if isinstance(err, commands.PartialEmojiConversionFailure):
+            return await ctx.send(f"{config.emotecross} I could not convert this emote")
+
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         """ Tries to re-run a command when a message gets edited! """
