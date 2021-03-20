@@ -97,6 +97,9 @@ class botlogs(commands.Cog, name="Bot logs"):
         if isinstance(err, commands.TooManyArguments):
             return await ctx.send(f"You specified more then needed arguments and/or wrong arguments.\nUse `{ctx.clean_prefix}help <command>` for more information.")
 
+        if isinstance(err, commands.UserInputError):
+            return await ctx.send("You did not correctly specify a user. Specify users through an ID, username or their nick.")
+
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         """ Tries to re-run a command when a message gets edited! """
