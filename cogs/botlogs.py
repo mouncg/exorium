@@ -127,7 +127,11 @@ class botlogs(commands.Cog, name="Bot logs"):
 
         if isinstance(err, commands.MissingPermissions):
             perms = "`" + '`, `'.join(err.missing_perms) + "`" 
-            return await ctx.send(f"{config.emotecross} You are missing {perms} permissions")
+            return await ctx.send(f"{config.emotecross} You are missing {perms} permissions.")
+
+        if isinstance(err, commands.BotMissingPermissions):
+            perms = "`" + '`, `'.join(err.missing_perms) + "`"
+            return await ctx.send(f"{config.emotecross} I'm missing {perms} permissions.")
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
