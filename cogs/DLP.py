@@ -9,6 +9,7 @@ class DiscordListsPost(commands.Cog):
         self.api = discordlists.Client(self.bot)  # Create a Client instance
         self.api.set_auth("discordextremelist.xyz", config.DELTOKEN) # Set authorisation token for a bot list
         self.api.set_auth("top.gg", config.TOPTOKEN)
+        self.api.set_auth("discordbotlist.com", config.DBLTOKEN)
         self.api.start_loop()  # Posts the server count automatically every 30 minutes
 
     @commands.command()
