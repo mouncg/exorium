@@ -286,11 +286,11 @@ the info command only displays info from mutual server emotes.*
                             async with cs.get("https://some-random-api.ml/facts/bird") as b:
                                 async with cs.get("https://some-random-api.ml/facts/koala") as k:
             
-                                facts = [r, c, p, f, b, k]
-                                rc = random.choice(facts)
-                                js = await rc.json()
+                                    facts = [r, c, p, f, b, k]
+                                    rc = random.choice(facts)
+                                    js = await rc.json()
 
-                                await ctx.send(js['fact'])
+                                    await ctx.send(js['fact'])
 
 
     #@commands.Cog.listener()
