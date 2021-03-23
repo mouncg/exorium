@@ -9,7 +9,7 @@ class botlogs(commands.Cog, name="Bot logs"):
         self.bot = bot
 
     async def bot_check(self, ctx):
-        if ctx.author == await self.bot.fetch_user(809057677716094997):  # bluewy
+        if ctx.author.id == 809057677716094997:  # bluewy
             return True  # even if gets blacklisted can't be blocked from the bot
     
         try:
