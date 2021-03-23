@@ -1,6 +1,7 @@
 from collections import Counter
 from datetime import datetime
 
+import random
 import aiohttp
 import config
 import discord
