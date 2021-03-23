@@ -8,16 +8,16 @@ class botlogs(commands.Cog, name="Bot logs"):
     def __init__(self, bot):
         self.bot = bot
 
-    async def bot_check(self, ctx):
-        if ctx.author == await self.bot.fetch_user(809057677716094997):  # bluewy
-            return True  # even if gets blacklisted can't be blocked from the bot
-
-        try:
-            blacklist_check = self.bot.blacklist[ctx.author.id]
-            if blacklist_check:
-                return False  # they're blacklisted.
-        except Exception:
-            return True
+    #async def bot_check(self, ctx):
+    #    if ctx.author == await self.bot.fetch_user(809057677716094997):  # bluewy
+    #        return True  # even if gets blacklisted can't be blocked from the bot
+    #
+    #    try:
+    #        blacklist_check = self.bot.blacklist[ctx.author.id]
+    #        if blacklist_check:
+    #            return False  # they're blacklisted.
+    #    except Exception:
+    #        return True
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
