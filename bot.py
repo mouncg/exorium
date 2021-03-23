@@ -29,9 +29,9 @@ bot.cmd_edits = {}
 bot.msgedit = {}
 bot.blacklist = {}
 
-mydb = config.DBdata
-bot.database = mydb.cursor()
-bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason VARCHAR(255))")
+#mydb = config.DBdata
+#bot.database = mydb.cursor()
+#bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason VARCHAR(255))")
 
 
 class EditingContext(commands.Context):
