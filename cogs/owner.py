@@ -73,12 +73,12 @@ class owner(commands.Cog, name="Owner"):
     async def testy(self, ctx):
         await ctx.send("test successful")
 
-    @commands.group(name='blacklist', invoke_without_command=True, enabled=False)  # invoke_without_command means you can have separate permissions/cooldowns for each subcommand
+    @commands.group(name='blacklist', invoke_without_command=True, enabled=True)  # invoke_without_command means you can have separate permissions/cooldowns for each subcommand
     @commands.is_owner()
     async def blacklist(self, ctx):
         await ctx.send_help(ctx.command)
     
-    @blacklist.command(name='user', enabled=False)
+    @blacklist.command(name='user', enabled=True)
     @commands.is_owner()
     async def blacklist_user(self, ctx, user: typing.Union[discord.User, int], *, reason: str):
         """ Blacklist or unblacklist a user """
@@ -105,7 +105,7 @@ class owner(commands.Cog, name="Owner"):
             await ctx.send(f"blacklisted {user}")
             print('blacklisted')
 
-    @blacklist.command(name='server', enabled=False)
+    @blacklist.command(name='server', enabled=True)
     @commands.is_owner()
     async def blacklist_server(self, ctx, server: int, *, reason: str):
         """ Blacklist or unblacklist a server """
