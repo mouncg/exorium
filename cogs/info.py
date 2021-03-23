@@ -280,7 +280,15 @@ the info command only displays info from mutual server emotes.*
     async def fact(self, ctx):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/facts/dog") as r:
-                js = await r.json()
+            async with cs.get("https://some-random-api.ml/facts/cat") as c:
+            async with cs.get("https://some-random-api.ml/facts/panda") as p:
+            async with cs.get("https://some-random-api.ml/facts/fox") as f:
+            async with cs.get("https://some-random-api.ml/facts/bird") as b:
+            async with cs.get("https://some-random-api.ml/facts/koala") as k:
+            
+            facts = [r, c, p, f, b, k]
+            rc = random.choice(facts)
+                js = await rc.json()
 
                 await ctx.send(js['fact'])
 
