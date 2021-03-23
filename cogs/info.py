@@ -276,7 +276,13 @@ the info command only displays info from mutual server emotes.*
         se.description = args
         await ctx.send(embed=se)
 
-        
+    @commands.command(brief="random animal fact")
+    async def fact(self, ctx):
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://some-random-api.ml/facts/dog") as r:
+                js = await r.json()
+
+                await ctx.send(js['fact'])
 
 
     #@commands.Cog.listener()
