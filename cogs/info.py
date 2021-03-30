@@ -34,7 +34,7 @@ class info(commands.Cog, name="Info"):
     async def invite(self, ctx):
         e = discord.Embed(color=config.color)
         e.description = f"""
-Invite me [here](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot)
+You can invite me to your server [here](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot)
 """
 # For alternative invite links, refer to [the website](https://bluewydev.github.io/exoriumbot)
 #[needed permissions (recommended)](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot) - All permissions the bot needs.
