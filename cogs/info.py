@@ -225,7 +225,7 @@ __**System**__
             e = discord.Embed(color=config.color)
             e.set_author(name="Emote command help", icon_url=self.bot.user.avatar_url)
             e.description = f"""
-*Please provide an emote behind the command,
+*Please provide an emote behind the command (no default emotes),
 the info command only displays info from mutual server emotes.*
 
 {ctx.prefix}emote url <emote> | **Get emote URL**
