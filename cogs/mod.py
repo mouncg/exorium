@@ -37,7 +37,9 @@ class mod(commands.Cog, name="Moderation"):
         try:
             await ctx.message.delete()
             await ctx.guild.unban(user.user, reason=f"moderator: {ctx.message.author} | {reason}")
-            await ctx.send(f"**{user.user.name}** was unbanned successfully, with reason: ``{reason}``", delete_after=15)
+            e = discord.Embed(color=config.green)
+            e.description = f"{user.user.name} has been unbanned | {reason}"
+            await ctx.send(embed=e)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
 
@@ -51,7 +53,7 @@ class mod(commands.Cog, name="Moderation"):
                 return await ctx.send("You can not softban yourself, please try someone else.")
             botmember = ctx.guild.me
             if member.top_role > botmember.top_role: 
-                return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to ban has.")
+                return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to softban has.")
             await ctx.message.delete()
             messageok = f"You were softbanned from `{ctx.guild.name}` with reason:\n\n{reason}"
             await member.send(messageok)
@@ -72,12 +74,12 @@ class mod(commands.Cog, name="Moderation"):
                 return await ctx.send("You can not kick yourself, please try someone else.")
             botmember = ctx.guild.me
             if member.top_role > botmember.top_role:
-                return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to ban has.")
+                return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to kick has.")
             await ctx.message.delete()
             messageok = f"You've been kicked from __**{ctx.guild.name}**__ with reason:\n\n{reason}"
             await member.send(messageok)
             await member.kick(reason=f"Moderator {ctx.message.author} | Reason: {reason}")
-            e = discord.Embed(title=f"{member} was softbanned | {reason}", color=config.red)
+            e = discord.Embed(title=f"{member} was kicked | {reason}", color=config.red)
             await ctx.send(embed=e)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
@@ -93,10 +95,10 @@ class mod(commands.Cog, name="Moderation"):
                 return True
             return False
 
-        if amount <= 0:
-            return await ctx.send('Please provide a positive number of messages to purge. (1+ messages)')
+        if amount <= 1:
+            return await ctx.send('Please provide a positive number of messages to purge. (Between 2-500 messages)', delete_after=10)
         if amount >= 500:
-            return await ctx.send('Please purge less than 500 messages at a time.')
+            return await ctx.send('Please purge less than 500 messages at a time.', delete_after=10)
         if amount <= 500:
             try:
                 await ctx.message.delete()
