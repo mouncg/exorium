@@ -58,18 +58,22 @@ class social(commands.Cog, name="Social"):
 
     @commands.command(brief="Cuddle someone")
     async def cuddle(self, ctx, members: commands.Greedy[discord.Member]):
+        """Cuddle the specified people"""
         await functions.interactions(ctx, members, "cuddle", "cuddles")
    
     @commands.command(brief="Feed someone")
     async def feed(self, ctx, members: commands.Greedy[discord.Member]):
+        """Feed the specified people"""
         await functions.interactions(ctx, members, "feed", "feeds")
 
     @commands.command(brief="Glomp someone")
     async def glomp(self, ctx, members: commands.Greedy[discord.Member]):
+        """Glomp on the specified people"""
         await functions.interactions(ctx, members, "glomp", "glomps on")
 
     @commands.command(brief="Highfive someone")
     async def highfive(self, ctx, members: commands.Greedy[discord.Member]):
+        """Highfive the specified people"""
         await functions.interactions(ctx, members, "highfive", "high fives")
 
     @commands.command(brief="Rawrrrr")
