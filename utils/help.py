@@ -102,7 +102,7 @@ class PenguinHelp(commands.HelpCommand):
                         value = "\n".join([f"`{alias}`" for alias in command.aliases]) or "None",
                         inline=False)
         embed.add_field(name="Args",
-                        value= command.signature or "None",
+                        value= f"`{command.signature}`" or "None",
                         inline=False)
         await self.get_destination().send(embed = embed)
 
