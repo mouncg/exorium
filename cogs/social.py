@@ -154,7 +154,7 @@ class social(commands.Cog, name="Social"):
                 
                 if not members:
                     return await ctx.send("Please specify someone to hug.")
-                e = discord.Embed(color=config.color, description=f"**{ctx.message.author.mention} hugs** " + '**,** '.join(x.mention for x in members) + {reason})
+                e = discord.Embed(color=config.color, description=f"**{ctx.message.author.mention} hugs** " + '**,** '.join(x.mention for x in members) + "For: {reason}")
                 
                 manual = gifs.hug
                 manual.append(js['link'])
