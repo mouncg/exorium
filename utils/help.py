@@ -87,7 +87,7 @@ class PenguinHelp(commands.HelpCommand):
                               description = ("`<arg>` This is a required arg \n"
                                              "`[arg]` This is optional \n"
                                              "`[arg...]` This can have multiple args"),
-                              color=0x36393E)
+                              color=config.color)
         command = (await self.filter_commands([command]))
 
         command = command[0] if len(command) == 1 else None
