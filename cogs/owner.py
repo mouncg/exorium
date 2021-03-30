@@ -93,13 +93,18 @@ class owner(commands.Cog, name="Owner"):
     @commands.group(name='blacklist', invoke_without_command=True, enabled=True)  # invoke_without_command means you can have separate permissions/cooldowns for each subcommand
     @commands.is_owner()
     async def blacklist(self, ctx):
+        """
+        Group command for blacklisting
+        """
         await ctx.send_help(ctx.command)
 
 
     @blacklist.command(name='user', enabled=True)
     @commands.is_owner()
     async def blacklist_user(self, ctx, user: typing.Union[discord.User, int], *, reason: str):
-        """ Blacklist or unblacklist a user """
+        """
+        Blacklist or unblacklist a user
+        """
         try:
             if isinstance(user, discord.User):
                 print('pass discord.User')
@@ -127,7 +132,9 @@ class owner(commands.Cog, name="Owner"):
     @blacklist.command(name='server', enabled=True)
     @commands.is_owner()
     async def blacklist_server(self, ctx, server: int, *, reason: str):
-        """ Blacklist or unblacklist a server """
+        """
+        Blacklist or unblacklist a server
+        """
         if not self.bot.get_guild(server):
             return await ctx.send("That server was not found make sure the ID is correct or if I'm in the server.")
         try:
