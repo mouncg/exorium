@@ -137,7 +137,7 @@ class social(commands.Cog, name="Social"):
                 
                 if not members:
                     return await ctx.send("Please specify someone to pat.")
-                e = discord.Embed(title="", color=config.color, description=f"**{ctx.message.author.mention} pats** " + "**" + '**,** '.join(x.mention for x in members) + "**")
+                e = discord.Embed(title="", color=config.color, description=f"**{ctx.message.author.display_name} pats** " + "**" + '**,** '.join(x.display_name for x in members) + "**")
                 
                 manual = gifs.pet
                 manual.append(js['link'])
