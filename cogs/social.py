@@ -99,7 +99,7 @@ class social(commands.Cog, name="Social"):
             embed.set_image(url=gif)
             await ctx.send(embed=embed)
             return
-        embed = discord.Embed(color=config.color, description=f"{ctx.message.author.display_name}** blushed because of " + "**" + '**, **'.join(x.display_name for x in members) + "**")
+        embed = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** blushed because of " + "**" + '**, **'.join(x.display_name for x in members) + "**")
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
