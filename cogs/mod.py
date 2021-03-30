@@ -9,6 +9,7 @@ class mod(commands.Cog, name="Moderation"):
     def __init__(self, bot):
         self.bot = bot
 
+
     @commands.command(brief="Ban someone")
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
@@ -33,6 +34,7 @@ class mod(commands.Cog, name="Moderation"):
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
 
+
     @commands.command(brief="Unban someone from the server")
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
@@ -50,6 +52,7 @@ class mod(commands.Cog, name="Moderation"):
             await ctx.send(embed=e)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
+
 
     @commands.command(brief="Ban and immediately unban someone")
     @commands.guild_only()
@@ -75,7 +78,8 @@ class mod(commands.Cog, name="Moderation"):
             await ctx.send(embed=e)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
-    
+
+
     @commands.command(brief="Kick someone from the server")
     @commands.guild_only()
     @commands.has_permissions(kick_members=True)
@@ -99,6 +103,7 @@ class mod(commands.Cog, name="Moderation"):
             await ctx.send(embed=e)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
+
 
     @commands.command(brief="Purge the chat")
     @commands.guild_only()
