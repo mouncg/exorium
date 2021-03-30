@@ -34,12 +34,9 @@ class info(commands.Cog, name="Info"):
     async def invite(self, ctx):
         e = discord.Embed(color=config.color)
         e.description = f"""
-[needed permissions (recommended)](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot)
-- Only has the permissions the bot needs
-[admin permissions (not recommended](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=8&scope=bot)
-- Has the admin permission alone
-[no permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=0&scope=bot)
-- Zero permissions (bot may not work well)
+[needed permissions (recommended)](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot) - All permissions the bot needs.
+[admin permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=8&scope=bot) - administrator permissions
+[no permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=0&scope=bot) no permissions at all (can break the bot in your guild)
 """
         await ctx.send(embed=e)
         
