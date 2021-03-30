@@ -110,6 +110,7 @@ __**System**__
         e.set_image(url=config.banner)
         await ctx.send(embed=e)
 
+
     @commands.command(brief="See a server's info", aliases=["si", "sinfo"])
     @commands.guild_only()
     async def serverinfo(self, ctx):
@@ -241,11 +242,13 @@ the info command only displays info from mutual server emotes.*
 """
             await ctx.send(embed=e)
 
+
     @emote.command(brief="Get emote URL")
     async def url(self, ctx, emoji: discord.PartialEmoji):
         """ Show an emote's URL """
         await ctx.send(emoji.url)
-                      
+
+
     @emote.command(brief="Get emote information")
     async def info(self, ctx, emoji: discord.Emoji):
         """ Show info about a specified emote """
@@ -284,6 +287,7 @@ the info command only displays info from mutual server emotes.*
         se = discord.Embed(color=config.green)
         se.description = args
         await ctx.send(embed=se)
+
 
     @commands.command(brief="random animal fact")
     async def fact(self, ctx):
