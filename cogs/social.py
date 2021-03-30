@@ -125,7 +125,7 @@ class social(commands.Cog, name="Social"):
             embed.set_image(url=gif)
             await ctx.send(embed=embed)
             return
-        embed = discord.Embed(title="", color=config.color, description=f"**{ctx.message.author.display_name}** wags their tail because of " + "**" + '**, **'.join(x.mention for x in members) + "**")
+        embed = discord.Embed(title="", color=config.color, description=f"**{ctx.message.author.display_name}** wags their tail because of " + "**" + '**, **'.join(x.display_name for x in members) + "**")
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
