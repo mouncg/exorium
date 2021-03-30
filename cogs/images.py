@@ -8,6 +8,7 @@ class images(commands.Cog, name="Images"):
 
     @commands.command(brief="Get a gay overlay for your avatar", aliases=["prideav"])
     async def gay(self, ctx, user: discord.Member = None):
+        """ Gay pride flag overlay on your avatar """
         if not user:
             user = ctx.message.author
         link = f"https://some-random-api.ml/canvas/gay/?avatar={user.avatar_url}"
@@ -20,6 +21,7 @@ class images(commands.Cog, name="Images"):
 
     @commands.command(brief="Get a meme")
     async def meme(self, ctx):
+        """ Get memes """
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/meme") as r:
                 js = await r.json()
@@ -34,6 +36,7 @@ class images(commands.Cog, name="Images"):
     @commands.command(brief="generate random animals")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def animal(self, ctx, *args):
+        """ Get an animal picture """
         delmsg = await ctx.send('Awaiting api results')
         query = ''
         for thing in args:
@@ -60,6 +63,7 @@ class images(commands.Cog, name="Images"):
     @commands.command(brief="Generate random images")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def image(self, ctx, *args):
+        """ Get any image you desire """
         delmsg = await ctx.send('Awaiting api results')
         query = ''
         for thing in args:
