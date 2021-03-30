@@ -83,9 +83,7 @@ class PenguinHelp(commands.HelpCommand):
         await menu.start(self.context)
 
     async def send_command_help(self, command):
-        aliases = '`' + '`, `'.join(command.aliases) + "`"
-        if aliases == "``" or aliases == '`':
-            aliases = "None"
+        aliases = ", ".join(command.aliases)
         embed = discord.Embed(title= f"[{command.cog.qualified_name}] {command.qualified_name}"),
             #title= command.qualified_name + " | " + " | ".join([f"{alias}" for alias in command.aliases]),
                               description = command.help or f"`{command.qualified_name}` does not have a description.",
