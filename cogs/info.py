@@ -72,7 +72,7 @@ You can get help in the following ways:
         e.description = f"""
 [[Status]](https://exorium.statuspage.io/) [[Repo]](https://github.com/ThePawKingdom/exorium/) [[Vote]](https://top.gg/bot/620990340630970425)
 
-[[Website]](https://bluewydev.github.io/exoriumbot/) | Invite links on `exo invite`
+[[Website]](https://bluewydev.github.io/exoriumbot/) | [Invite link](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot)
 """
         await ctx.send(embed=e)
 
