@@ -33,14 +33,14 @@ class info(commands.Cog, name="Info"):
     @commands.command(brief="The invites for exorium")
     async def invite(self, ctx):
         e = discord.Embed(color=config.color)
-        e.description = f"""
-Invite me [here](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot)
-"""
+#        e.description = f"""
+#Invite me [here](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot)
+#"""
 # For alternative invite links, refer to [the website](https://bluewydev.github.io/exoriumbot)
 #[needed permissions (recommended)](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot) - All permissions the bot needs.
 #[admin permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=8&scope=bot) - administrator permissions (Use only when necessary)
 #[no permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=0&scope=bot) no permissions at all (can break the bot in your guild)
-        e.set_author(icon_url=self.bot.user.avatar_url)
+        e.set_author(name="Invite me [here](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot)", icon_url=self.bot.user.avatar_url)
         await ctx.send(embed=e)
         
     @commands.command(brief="test command")
