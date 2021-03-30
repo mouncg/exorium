@@ -138,7 +138,7 @@ __**System**__
     @commands.guild_only()
     async def userinfo(self, ctx, *, user: discord.Member = None):
         if not user:
-            user = ctx.author
+            user = ctx.author.id
         
         if user.is_on_mobile():
             appl = "On mobile"
