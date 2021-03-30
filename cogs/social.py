@@ -95,11 +95,11 @@ class social(commands.Cog, name="Social"):
         giflist = gifs.blush
         gif = random.choice(giflist)
         if not members:
-            embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**blushed**\nFor: " + reason))
+            embed = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** blushes")
             embed.set_image(url=gif)
             await ctx.send(embed=embed)
             return
-        embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**blushed because of**" + " " + '**,** '.join(x.mention for x in members) + "**, kyoot!**\nFor: " + reason))
+        embed = discord.Embed(color=config.color, description=f"{ctx.message.author.display_name}** blushed because of " + "**" + '**, **'.join(x.display_name for x in members) + "**")
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
