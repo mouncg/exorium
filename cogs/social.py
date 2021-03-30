@@ -47,7 +47,7 @@ class social(commands.Cog, name="Social"):
     
     @commands.command(brief="Give bellyrubs!")
     async def bellyrub(self, ctx, members: commands.Greedy[discord.Member]):
-        await functions.interactions(ctx, members, "bellyrub", "lovely", "gives belly rubs to")
+        await functions.interactions(ctx, members, "bellyrub", "gives belly rubs to")
 
     @commands.command(brief="Cuddle someone")
     async def cuddle(self, ctx, members: commands.Greedy[discord.Member]):
