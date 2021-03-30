@@ -148,6 +148,7 @@ class social(commands.Cog, name="Social"):
 
     @commands.command(brief="pat someone!", aliases=["pet"])
     async def pat(self, ctx, members: commands.Greedy[discord.Member]):
+        """Pat the specified people"""
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/animu/pat") as r:
                 js = await r.json()
@@ -165,6 +166,7 @@ class social(commands.Cog, name="Social"):
     
     @commands.command(brief="hug someone!")
     async def hug(self, ctx, members: commands.Greedy[discord.Member]):
+        """Hug the specified people"""
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/animu/hug") as r:
                 js = await r.json()
@@ -182,6 +184,7 @@ class social(commands.Cog, name="Social"):
         
     @commands.command(brief="Gib cookie")
     async def cookie(self, ctx, members: commands.Greedy[discord.Member]):
+        """Give cookies to the specified people"""
         if not members:
             return await ctx.send("Please specify at least one cutie to give a cookie to!")
         e = discord.Embed(title='A cookie has been given!', description=f'{ctx.author.mention} gave {members[0].mention} a cookie', color=config.green)
