@@ -74,7 +74,7 @@ class PenguinHelp(commands.HelpCommand):
         for cog, cmds in filtered_commands.items():
             if cmds:
                 embed.add_field(name = getattr(cog, "qualified_name", "None"),
-                                value =f"{' '.join([f'`{command.name}`' for command in cmds])}",
+                                value =f"{', '.join([f'`{command.name}`' for command in cmds])}",
                                 inline=False)
         await self.get_destination().send(embed = embed)
     
