@@ -37,7 +37,7 @@ class utility(commands.Cog, name="Utility"):
         """Select a random option out of the given options"""
         if not args:
             return await ctx.send("Please give more than 1 argument for me to choose from.")
-        await ctx.send(f"I choose **{random.choice(args)}** from:" + " `" + ", ".join([args]) + "`")
+        await ctx.send(f"I choose **{random.choice(args)}** from: `{args}`)
 
     @commands.command(brief="Host a poll")
     async def poll(self, ctx, *, args):
