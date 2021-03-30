@@ -83,7 +83,7 @@ class PenguinHelp(commands.HelpCommand):
         await menu.start(self.context)
 
     async def send_command_help(self, command):
-        embed = discord.Embed(title= command.qualified_name + ",".join([f"`{alias}`" for alias in command.aliases]),
+        embed = discord.Embed(title= command.qualified_name + " | ".join([f"`{alias}`" for alias in command.aliases]),
                               description = command.help or "No description provided",
                               color=config.color)
         command = (await self.filter_commands([command]))
@@ -94,7 +94,7 @@ class PenguinHelp(commands.HelpCommand):
             return await self.get_destination().send(embed = embed)
 
         embed.add_field(name="Aliases",
-                        value = " | ".join([f"`{alias}`" for alias in command.aliases]) or "None",
+                        value = ", ".join([f"`{alias}`" for alias in command.aliases]) or "None",
                         inline=True)
         embed.add_field(name="Usage",
                         value= f"{self.clean_prefix}{command.qualified_name} {command.signature}",
