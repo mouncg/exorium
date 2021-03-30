@@ -36,7 +36,7 @@ class CogHelpSource(menus.ListPageSource):
     async def format_page(self, menu, entries):
         offset = menu.current_page * self.per_page
         embed = discord.Embed(title=self.cog.qualified_name,
-                              color= 0x36393E)
+                              color=config.color)
 
         for index, command in enumerate(entries, start=offset):
             embed.add_field(
@@ -70,11 +70,11 @@ class PenguinHelp(commands.HelpCommand):
         filtered_commands = {key: await self.filter_commands(value) for key, value in mapping.items() if getattr(key, "qualified_name", "None") != "IpcRoutes"}
         embed = discord.Embed(title = "Help",
                               description=f"Use `{self.clean_prefix}help` [command] or [module] for more help.",
-                              color=0x36393E)
+                              color=config.color)
         for cog, cmds in filtered_commands.items():
             if cmds:
                 embed.add_field(name = getattr(cog, "qualified_name", "None"),
-                                value =f"{' '.join([f'`{command.name}`' for command in cmds])}",
+                                value =f"{', '.join([f'`{command.name}`' for command in cmds])}",
                                 inline=False)
         await self.get_destination().send(embed = embed)
     
@@ -83,11 +83,14 @@ class PenguinHelp(commands.HelpCommand):
         await menu.start(self.context)
 
     async def send_command_help(self, command):
-        embed = discord.Embed(title= command.qualified_name,
-                              description = ("`<arg>` This is a required arg \n"
-                                             "`[arg]` This is optional \n"
-                                             "`[arg...]` This can have multiple args"),
-                              color=0x36393E)
+        aliases = '`' + '`, `'.join(command.aliases) + "`"
+        if aliases == "``" or aliases == '`':
+            aliases = f" {config.emotecross} No aliases found"
+        embed = discord.Embed(title= f"[{command.cog.qualified_name}] {command.qualified_name}", color=config.color)
+            #title= command.qualified_name + " | " + " | ".join([f"{alias}" for alias in command.aliases]),
+        embed.description = command.help or f"`{command.qualified_name}` does not have a description."
+        embed.set_thumbnail(url=self.context.bot.user.avatar_url)
+        
         command = (await self.filter_commands([command]))
 
         command = command[0] if len(command) == 1 else None
@@ -95,15 +98,11 @@ class PenguinHelp(commands.HelpCommand):
         if not command:
             return await self.get_destination().send(embed = embed)
 
-        embed.add_field(name="Help",
-                        value = command.help or "None",
-                        inline=False)
+        embed.add_field(name="Usage",
+                        value= f"{self.clean_prefix}{command.qualified_name} {command.signature}")
         embed.add_field(name="Aliases",
-                        value = "\n".join([f"`{alias}`" for alias in command.aliases]) or "None",
-                        inline=False)
-        embed.add_field(name="Args",
-                        value= command.signature or "None",
-                        inline=False)
+                        value = aliases,
+                        inline=True)
         await self.get_destination().send(embed = embed)
 
     async def send_group_help(self, group: commands.Group):

@@ -16,7 +16,8 @@ from utils import default
 class info(commands.Cog, name="Info"):
     def __init__(self, bot):
         self.bot = bot
-    
+
+
     @commands.command(brief="Bot's latency to discord")
     async def ping(self, ctx):
         """ See bot's latency to discord """
@@ -30,37 +31,35 @@ class info(commands.Cog, name="Info"):
                     discord_ms = "fucking dead"
                 await ctx.send(f"\U0001f3d3 Pong   |   {discord_ms}")  # You can use :ping_pong: instead of \U0001f3d3
 
+
     @commands.command(brief="The invites for exorium")
     async def invite(self, ctx):
+        """ Invite the bot to your server """
         e = discord.Embed(color=config.color)
         e.description = f"""
-[needed permissions (recommended)](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot)
-- Only has the permissions the bot needs
-[admin permissions (not recommended](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=8&scope=bot)
-- Has the admin permission alone
-[no permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=0&scope=bot)
-- Zero permissions (bot may not work well)
+You can invite me to your server [here](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot)
 """
+# For alternative invite links, refer to [the website](https://bluewydev.github.io/exoriumbot)
+#[needed permissions (recommended)](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot) - All permissions the bot needs.
+#[admin permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=8&scope=bot) - administrator permissions (Use only when necessary)
+#[no permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=0&scope=bot) no permissions at all (can break the bot in your guild)
         await ctx.send(embed=e)
-        
-    @commands.command(brief="test command")
-    async def respond(self, ctx, *, args):
-        e = discord.Embed(color=config.color)
-        e.description = f"{args}"
-        e.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-        await ctx.reply(embed=e)
+
 
     @commands.command(brief="Our privacy policy")
     async def privacy(self, ctx):
+        """ See our privacy policy """
         e = discord.Embed(color=config.color)
         e.description = f"""
-You can read our privacy policy [here](https://bluewydev.github.io/Discord-bot-website-template/src/pages/legal.html).
+You can read our privacy policy [here](https://bluewydev.github.io/exoriumbot/src/pages/legal.html).
 Want your data removed or got questions? mail to `bluewyechache@gmail.com`.
 """
         await ctx.send(embed=e)
 
+
     @commands.command(brief="Get support")
     async def support(self, ctx):
+        """ Get support with the bot """
         e = discord.Embed(color=config.color)
         e.description = f"""
 You can get help in the following ways:
@@ -69,21 +68,22 @@ You can get help in the following ways:
 """
         await ctx.send(embed=e)
 
+
     @commands.command(brief="exo related links")
     async def links(self, ctx):
+        """ See important links """
         e = discord.Embed(color=config.color)
         e.description = f"""
-- [statuspage](https://exorium.statuspage.io/)
-Displays downtime, issues and outages.
-- [bot lists](https://linktr.ee/exorium)
-Links to all botlists exorium is on
-- [GitHub repository](https://github.com/ThePawKingdom/exorium)
-The open source code for exorium
+[[Status]](https://exorium.statuspage.io/) [[Repo]](https://github.com/ThePawKingdom/exorium/) [[Vote]](https://top.gg/bot/620990340630970425)
+
+[[Website]](https://bluewydev.github.io/exoriumbot/) | [[Invite link]](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot)
 """
         await ctx.send(embed=e)
 
+
     @commands.command(brief="exorium statistics", aliases=["stats"])
     async def statistics(self, ctx):
+        """ See the bot statistics """
         starttime = datetime.now().timestamp()
         print(starttime)
         print(datetime.now().timestamp())
@@ -100,19 +100,21 @@ The open source code for exorium
         e = discord.Embed(title="exorium statistics", color=config.color)
         e.description = f"""
 __**About exorium**__
-**Developers:** [Ayzen](https://discord.com/users/809057677716094997), [DuckMasterAl](https://discord.com/users/443217277580738571) & [Moksej](https://discord.com/users/345457928972533773)\n**Library:** [Discord.py {discord.__version__}](https://github.com/Rapptz/discord.py) <:python:758139554670313493>\n**Last boot:** {lastboot}
+**Developers:** [Ayzen](https://discord.com/users/809057677716094997), [DuckMasterAl](https://discord.com/users/443217277580738571) & [Moksej](https://discord.com/users/345457928972533773)\n**Library:** [Discord.py {discord.__version__}](https://github.com/Rapptz/discord.py) <:python:758139554670313493>
     
 __**statistics**__
-**guilds:** {str(len(self.bot.guilds))}\n**users:** {str(len(self.bot.users))}\n**channels:**\nText <:channel:719660740050419935> {text:,}\nVoice <:voice:719660766269145118> {voice:,}
+**guilds:** {str(len(self.bot.guilds))}\n**users:** {str(len(self.bot.users))} (No intents to display correct number)\n**channels:**\nText <:channel:719660740050419935> {text:,}\nVoice <:voice:719660766269145118> {voice:,}
 __**System**__
 **Hosting OS:** `{platform.platform()}`\n**Cores:** `{cores}`\n**CPU:** `{cpu_per}%`\n**RAM:** `{mem_usage}/{memory} MB`\n**Storage:** `{storage_free} GB free`
 """
         e.set_image(url=config.banner)
         await ctx.send(embed=e)
 
+
     @commands.command(brief="See a server's info", aliases=["si", "sinfo"])
     @commands.guild_only()
     async def serverinfo(self, ctx):
+        """ See the server's info """
         gu = ctx.guild
         features = ", ".join(gu.features).lower().replace('_', ' ').title()
         if len(features) == 0:
@@ -123,7 +125,8 @@ __**System**__
             mfa = "Required"
 
         e = discord.Embed(color=config.color)
-        
+        e.description = f"*Intents may cause human/bot count to display incorrectly.*"
+
         owner = await self.bot.fetch_user(gu.owner_id)
         e.add_field(name="__**Generic information**__",
                     value=f"**Owner:** {str(owner)}\n**Owner ID:**\n`{gu.owner_id}`\n**Created:** {default.date(ctx.guild.created_at)}\n**Region:** {str(gu.region)}\n**MFA: **{mfa}\n**Verification:** {str(ctx.guild.verification_level).capitalize()}", inline=True)
@@ -141,6 +144,7 @@ __**System**__
     @commands.command(brief="See a user's info", aliases=["ui"])
     @commands.guild_only()
     async def userinfo(self, ctx, *, user: discord.Member = None):
+        """ See info about you, or others """
         if not user:
             user = ctx.author
         
@@ -200,9 +204,10 @@ __**System**__
             value = "None"
         else:
             value = user.public_flags.value
-
-        e.add_field(name="__**Public flags**__",
-                    value=f"**Discord staff:** {staff}\n**Discord partner:** {partner}\n**Early supporter:** {es}\n**Bug hunter:** {bh}\n**Hypesquad:** {hs}\n**Flag value:** {value}", inline=True)
+            
+        if value != "None":
+            e.add_field(name="__**Public flags**__",
+                        value=f"**Discord staff:** {staff}\n**Discord partner:** {partner}\n**Early supporter:** {es}\n**Bug hunter:** {bh}\n**Hypesquad:** {hs}\n**Flag value:** {value}", inline=True)
         
         uroles = []
         for role in user.roles:
@@ -224,11 +229,12 @@ __**System**__
 
     @commands.group(brief="Emote related commands", aliases=["emoji"])
     async def emote(self, ctx):
+        """ Information about emote commands """
         if ctx.invoked_subcommand is None:
             e = discord.Embed(color=config.color)
             e.set_author(name="Emote command help", icon_url=self.bot.user.avatar_url)
             e.description = f"""
-*Please provide an emote behind the command,
+*Please provide an emote behind the command (no default emotes),
 the info command only displays info from mutual server emotes.*
 
 {ctx.prefix}emote url <emote> | **Get emote URL**
@@ -236,12 +242,16 @@ the info command only displays info from mutual server emotes.*
 """
             await ctx.send(embed=e)
 
+
     @emote.command(brief="Get emote URL")
     async def url(self, ctx, emoji: discord.PartialEmoji):
+        """ Show an emote's URL """
         await ctx.send(emoji.url)
-                      
+
+
     @emote.command(brief="Get emote information")
     async def info(self, ctx, emoji: discord.Emoji):
+        """ Show info about a specified emote """
         e = discord.Embed(color=config.color)
         e.description = f"""
 **Name:** {emoji.name}
@@ -258,6 +268,7 @@ the info command only displays info from mutual server emotes.*
 
     @commands.command(brief="Suggest something for exo")
     async def suggest(self, ctx, *, args):
+        """ Suggest a feature or others """
         channel = self.bot.get_channel(769132481252818954)
         try:
             await ctx.message.delete()
@@ -277,8 +288,10 @@ the info command only displays info from mutual server emotes.*
         se.description = args
         await ctx.send(embed=se)
 
+
     @commands.command(brief="random animal fact")
     async def fact(self, ctx):
+        """ Get animal facts! """
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/facts/dog") as r:
                 async with cs.get("https://some-random-api.ml/facts/cat") as c:

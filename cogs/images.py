@@ -8,17 +8,20 @@ class images(commands.Cog, name="Images"):
 
     @commands.command(brief="Get a gay overlay for your avatar", aliases=["prideav"])
     async def gay(self, ctx, user: discord.Member = None):
+        """ Gay pride flag overlay on your avatar """
         if not user:
             user = ctx.message.author
         link = f"https://some-random-api.ml/canvas/gay/?avatar={user.avatar_url}"
         e = discord.Embed(color=config.color)
         e.set_author(name=f"Gay avatar of {user}", icon_url=user.avatar_url)
         e.set_image(url=link)
+        e.set_footer(text="Made using some-random-api")
         await ctx.send(embed=e)
 
 
     @commands.command(brief="Get a meme")
     async def meme(self, ctx):
+        """ Get memes """
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/meme") as r:
                 js = await r.json()
@@ -26,12 +29,14 @@ class images(commands.Cog, name="Images"):
                 e = discord.Embed(color=config.color)
                 e.set_author(name=js['caption'])
                 e.set_image(url=js['image'])
+                e.set_footer(text="Made using some-random-api")
                 await ctx.send(embed=e)
 
 
     @commands.command(brief="generate random animals")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def animal(self, ctx, *args):
+        """ Get an animal picture """
         delmsg = await ctx.send('Awaiting api results')
         query = ''
         for thing in args:
@@ -50,14 +55,16 @@ class images(commands.Cog, name="Images"):
             return
         await delmsg.delete()
         finalimg = random.choice(r.json()["hits"])["webformatURL"]
-        embed = discord.Embed(title='Random animal', color=config.color)
+        embed = discord.Embed(color=config.color)
         embed.set_image(url=finalimg)
         embed.set_footer(text='Powered by pixabay.')
         await ctx.send(embed=embed)
 
+
     @commands.command(brief="Generate random images")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def image(self, ctx, *args):
+        """ Get any image you desire """
         delmsg = await ctx.send('Awaiting api results')
         query = ''
         for thing in args:
@@ -76,7 +83,7 @@ class images(commands.Cog, name="Images"):
             return
         await delmsg.delete()
         finalimg = random.choice(r.json()["hits"])["webformatURL"]
-        embed = discord.Embed(title='Random image', color=config.color)
+        embed = discord.Embed(color=config.color)
         embed.set_image(url=finalimg)
         embed.set_footer(text='Powered by pixabay.')
         await ctx.send(embed=embed)
