@@ -14,6 +14,7 @@ class images(commands.Cog, name="Images"):
         e = discord.Embed(color=config.color)
         e.set_author(name=f"Gay avatar of {user}", icon_url=user.avatar_url)
         e.set_image(url=link)
+        e.set_footer(text="Made using some-random-api")
         await ctx.send(embed=e)
 
 
@@ -26,6 +27,7 @@ class images(commands.Cog, name="Images"):
                 e = discord.Embed(color=config.color)
                 e.set_author(name=js['caption'])
                 e.set_image(url=js['image'])
+                e.set_footer(text="Made using some-random-api")
                 await ctx.send(embed=e)
 
 
