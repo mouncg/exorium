@@ -35,7 +35,7 @@ class info(commands.Cog, name="Info"):
         e = discord.Embed(color=config.color)
         e.description = f"""
 [needed permissions (recommended)](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot) - All permissions the bot needs.
-[admin permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=8&scope=bot) - administrator permissions
+[admin permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=8&scope=bot) - administrator permissions (Use only when necessary)
 [no permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=0&scope=bot) no permissions at all (can break the bot in your guild)
 """
         await ctx.send(embed=e)
