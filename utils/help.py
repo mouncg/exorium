@@ -84,7 +84,7 @@ class PenguinHelp(commands.HelpCommand):
 
     async def send_command_help(self, command):
         
-        aliases = '`' + '`, `'.join(command.aliases) + "`"
+        aliases = '`, `'.join(command.aliases)
         if aliases == "``" or aliases == '`':
             aliases = "None"
 
