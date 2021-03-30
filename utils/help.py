@@ -85,7 +85,7 @@ class PenguinHelp(commands.HelpCommand):
     async def send_command_help(self, command):
         embed = discord.Embed(title= f"[{command.cog.qualified_name}] {command.qualified_name} | " + ", ".join([f"{alias}" for alias in command.aliases]),
             #title= command.qualified_name + " | " + " | ".join([f"{alias}" for alias in command.aliases]),
-                              description = command.help or f"{command.qualified_name} does not have a description.",
+                              description = command.help or f"`{command.qualified_name}` does not have a description.",
                               color=config.color)
         command = (await self.filter_commands([command]))
 
@@ -94,12 +94,11 @@ class PenguinHelp(commands.HelpCommand):
         if not command:
             return await self.get_destination().send(embed = embed)
 
-        embed.add_field(name="Aliases",
-                        value = ", ".join([f"`{alias}`" for alias in command.aliases]) or "None",
-                        inline=True)
+        #embed.add_field(name="Aliases",
+        #                value = ", ".join([f"`{alias}`" for alias in command.aliases]) or "None",
+        #                inline=True)
         embed.add_field(name="Usage",
-                        value= f"{self.clean_prefix}{command.qualified_name} {command.signature}",
-                        inline=True)
+                        value= f"{self.clean_prefix}{command.qualified_name} {command.signature}")
         await self.get_destination().send(embed = embed)
 
     async def send_group_help(self, group: commands.Group):
