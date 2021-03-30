@@ -15,6 +15,7 @@ class social(commands.Cog, name="Social"):
 
     @commands.command(brief="Slap someone", enabled=False)
     async def slap(self, ctx, members: commands.Greedy[discord.Member]):
+        """Slap the specified people"""
         if str(ctx.message.author.id) in str(members):
             await ctx.send("You can't slap yourself, derp!")
             return
@@ -23,6 +24,7 @@ class social(commands.Cog, name="Social"):
 
     @commands.command(brief="Snuggle someone")
     async def snuggle(self, ctx, members: commands.Greedy[discord.Member]):
+        """Snuggle the specified people"""
         await functions.interactions(ctx, members, "snuggle", "snuggles")
 
     #@commands.command(brief="Hug someone")
@@ -31,22 +33,27 @@ class social(commands.Cog, name="Social"):
 
     @commands.command(brief="Bonk someone", enabled=False)
     async def bonk(self, ctx, members: commands.Greedy[discord.Member]):
+        """Bonk the specified people"""
         await functions.interactions(ctx, members, "bonk", "bonks")
 
     @commands.command(brief="Boop someone")
     async def boop(self, ctx, members: commands.Greedy[discord.Member]):
+        """Boop the specified people"""
         await functions.interactions(ctx, members, "boop", "boops")
     
     @commands.command(brief="Smooch someone", aliases=["kiss"])
     async def smooch(self, ctx, members: commands.Greedy[discord.Member]):
+        """Smooch the specified people"""
         await functions.interactions(ctx, members, "smooch", "smooches")
         
     @commands.command(brief="Lick someone")
     async def lick(self, ctx, members: commands.Greedy[discord.Member]):
+        """Lick the specified people"""
         await functions.interactions(ctx, members, "lick", "licks")
     
     @commands.command(brief="Give bellyrubs!")
     async def bellyrub(self, ctx, members: commands.Greedy[discord.Member]):
+        """Give bellyrubs to the specified people"""
         await functions.interactions(ctx, members, "bellyrub", "gives belly rubs to")
 
     @commands.command(brief="Cuddle someone")
