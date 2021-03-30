@@ -118,7 +118,8 @@ __**System**__
             mfa = "Required"
 
         e = discord.Embed(color=config.color)
-        
+        e.description = f"*Intents may cause human * bot count to display incorrectly.*"
+
         owner = await self.bot.fetch_user(gu.owner_id)
         e.add_field(name="__**Generic information**__",
                     value=f"**Owner:** {str(owner)}\n**Owner ID:**\n`{gu.owner_id}`\n**Created:** {default.date(ctx.guild.created_at)}\n**Region:** {str(gu.region)}\n**MFA: **{mfa}\n**Verification:** {str(ctx.guild.verification_level).capitalize()}", inline=True)
