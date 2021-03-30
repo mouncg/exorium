@@ -65,33 +65,33 @@ class social(commands.Cog, name="Social"):
         await functions.interactions(ctx, members, reason, "highfive", "awesome!", "high fived")
 
     @commands.command(brief="Rawrrrr")
-    async def rawr(self, ctx, members: commands.Greedy[discord.Member], *, reason="Rawr!"):
+    async def rawr(self, ctx, members: commands.Greedy[discord.Member]):
         giflist = gifs.rawr
         gif = random.choice(giflist)
         if not members:
-            embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**rawred, cute!**\nFor: " + reason))
+            embed = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** rawrs")
             embed.set_image(url=gif)
             await ctx.send(embed=embed)
             return
-        embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**rawred at**" + " " + '**,** '.join(x.mention for x in members) + "**, cute!**\nFor: " + reason))
+        embed = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** rawrs at " + "**" + '**, **'.join(x.display_name for x in members) + "**")
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
     @commands.command(brief="Howl to the moon, or someone", aliases=["howl"])
-    async def awoo(self, ctx, members: commands.Greedy[discord.Member], *, reason="Awoo!"):
+    async def awoo(self, ctx, members: commands.Greedy[discord.Member]):
         giflist = gifs.awoo
         gif = random.choice(giflist)
         if not members:
-            embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**awoo'd, chilling!**\nFor: " + reason))
+            embed = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** howls")
             embed.set_image(url=gif)
             await ctx.send(embed=embed)
             return
-        embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**howled at**" + " " + '**,** '.join(x.mention for x in members) + "**, chilling!**\nFor: " + reason))
+        embed = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** howls at " + "**" + '**, **'.join(x.display_name for x in members) + "**")
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
         
     @commands.command(brief="Blushies!")
-    async def blush(self, ctx, members: commands.Greedy[discord.Member], *, reason="Shy boye"):
+    async def blush(self, ctx, members: commands.Greedy[discord.Member]):
         giflist = gifs.blush
         gif = random.choice(giflist)
         if not members:
@@ -99,7 +99,7 @@ class social(commands.Cog, name="Social"):
             embed.set_image(url=gif)
             await ctx.send(embed=embed)
             return
-        embed = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** blushed because of " + "**" + '**, **'.join(x.display_name for x in members) + "**")
+        embed = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** blushes because of " + "**" + '**, **'.join(x.display_name for x in members) + "**")
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
