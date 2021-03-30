@@ -14,15 +14,16 @@ class social(commands.Cog, name="Social"):
         self.bot = bot
 
     @commands.command(brief="Slap someone", enabled=False)
-    async def slap(self, ctx, members: commands.Greedy[discord.Member], *, reason="Being bad"):
+    async def slap(self, ctx, members: commands.Greedy[discord.Member]):
         if str(ctx.message.author.id) in str(members):
             await ctx.send("You can't slap yourself, derp!")
             return
-        await functions.interactions(ctx, members, reason, "slap", "bad!", "slapped")
+        await functions.interactions(ctx, members, "slap", "slaps")
+# ctx, members, type, typespecial
 
     @commands.command(brief="Snuggle someone")
     async def snuggle(self, ctx, members: commands.Greedy[discord.Member], *, reason="being adorable"):
-        await functions.interactions(ctx, members, reason, "snuggle", "how cute", "snuggled")
+        await functions.interactions(ctx, members, "snuggle", "snuggles")
 
     #@commands.command(brief="Hug someone")
     #async def hug(self, ctx, members: commands.Greedy[discord.Member], *, reason="being lovely"):
