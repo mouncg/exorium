@@ -20,6 +20,9 @@ class owner(commands.Cog, name="Owner"):
     @commands.command(brief="unload a cog")
     @commands.is_owner()
     async def unload(self, ctx, *, cog):
+        """
+        Unloads A.K.A. disables the given cog
+        """
         if cog == 'cogs.owner':
             await ctx.send('**You cannot unload the owner cog as this cog allows unloading/reloading/loading cogs.**')
             return
@@ -32,6 +35,9 @@ class owner(commands.Cog, name="Owner"):
     @commands.command(brief="load a cog")
     @commands.is_owner()
     async def load(self, ctx, *, cog):
+        """
+        Loads A.K.A. enables the given cog
+        """
         try:
             self.bot.load_extension(cog)
             await ctx.send(f'Successfully loaded `{cog}`.')
@@ -41,6 +47,9 @@ class owner(commands.Cog, name="Owner"):
     @commands.command(brief="Reload a cog")
     @commands.is_owner()
     async def reload(self, ctx, *, cog):
+        """
+        Reloads A.K.A. restarts the given cog
+        """
         try:
             self.bot.reload_extension(cog)
             await ctx.send(f'Successfully reloaded `{cog}`.')
@@ -50,12 +59,18 @@ class owner(commands.Cog, name="Owner"):
     @commands.group(brief="Change bot appearance")
     @commands.is_owner()
     async def change(self, ctx):
+        """
+        Group command for status changing
+        """
         if ctx.invoked_subcommand is None:
             pass
   
     @change.command(brief="Change playing status")
     @commands.is_owner()
     async def playing(self, ctx, *, playing: str):
+        """
+        Change the bot's playing status
+        """
         try:
             await self.bot.change_presence(
                 activity=discord.Game(type=0, name=playing),
@@ -68,10 +83,6 @@ class owner(commands.Cog, name="Owner"):
         except Exception as e:
             await ctx.send(e)
 
-    @commands.command()
-    @commands.cooldown(1, 50, commands.BucketType.user)
-    async def testy(self, ctx):
-        await ctx.send("test successful")
 
     @commands.group(name='blacklist', invoke_without_command=True, enabled=True)  # invoke_without_command means you can have separate permissions/cooldowns for each subcommand
     @commands.is_owner()
