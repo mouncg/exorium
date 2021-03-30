@@ -102,8 +102,8 @@ class PenguinHelp(commands.HelpCommand):
                         value = "\n".join([f"`{alias}`" for alias in command.aliases]) or "None",
                         inline=False)
         embed.add_field(name="Args",
-                        value= f"`{command.signature}`" or "None",
-                        inline=False)
+                        value= {command.signature} or "None",
+                        inline=True)
         await self.get_destination().send(embed = embed)
 
     async def send_group_help(self, group: commands.Group):
