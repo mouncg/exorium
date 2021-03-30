@@ -25,64 +25,12 @@ bot = commands.Bot(
     activity=discord.Activity(type=discord.ActivityType.playing, name='e!help'),
     description="A very gay and annoying beta bot"
 )
-bot.cmd_edits = {}
-bot.msgedit = {}
+
 bot.blacklist = {}
 
 mydb = config.DBdata
 bot.database = mydb.cursor()
 bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason VARCHAR(255))")
-
-
-class EditingContext(commands.Context):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    async def send(self, content=None, *, tts=False, embed=None, file=None, files=None, delete_after=None, nonce=None, allowed_mentions=discord.AllowedMentions.none()):
-        if file or files:
-            return await super().send(content=content, tts=tts, embed=embed, file=file, files=files, delete_after=delete_after, nonce=nonce, allowed_mentions=allowed_mentions)
-        reply = None
-        try:
-            reply = self.bot.cmd_edits[self.message.id]
-        except KeyError:
-            pass
-        if reply:
-            try:
-                msg = await reply.edit(content=content, embed=embed, delete_after=delete_after, allowed_mentions=allowed_mentions)
-                return msg
-            except:
-                return
-        msg = await super().send(content=content, tts=tts, embed=embed, file=file, files=files, delete_after=delete_after, nonce=nonce, allowed_mentions=allowed_mentions)
-        self.bot.cmd_edits[self.message.id] = msg
-        return msg
-
-
-@commands.Cog.listener()
-async def on_message(message):
-    if message.author.bot:
-        return
-
-    try:
-        ctx = await bot.get_context(message, cls=EditingContext)
-        if ctx.valid:
-            msg = await bot.invoke(ctx)
-    except:
-        return
-
-
-@commands.Cog.listener()
-async def on_message_edit(before, after):
-
-    if before.author.bot:
-        return
-
-    if after.content != before.content:
-        try:
-            ctx = await bot.get_context(after, cls=EditingContext)
-            if ctx.valid:
-                msg = await bot.invoke(ctx)
-        except discord.NotFound:
-            return
 
 
 @commands.Cog.listener()
