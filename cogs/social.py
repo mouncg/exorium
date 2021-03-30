@@ -147,14 +147,14 @@ class social(commands.Cog, name="Social"):
                 await ctx.send(embed=e)
     
     @commands.command(brief="hug someone!")
-    async def hug(self, ctx, members: commands.Greedy[discord.Member], *, reason=""):
+    async def hug(self, ctx, members: commands.Greedy[discord.Member], *, reason=):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/animu/hug") as r:
                 js = await r.json()
                 
                 if not members:
                     return await ctx.send("Please specify someone to hug.")
-                e = discord.Embed(color=config.color, description=f"**{ctx.message.author.mention} hugs** " + '**,** '.join(x.mention for x in members) + f"\nFor: {reason}")
+                e = discord.Embed(color=config.color, description=f"**{ctx.message.author.mention} hugs** " + '**,** '.join(x.mention for x in members) + {reason})
                 
                 manual = gifs.hug
                 manual.append(js['link'])
