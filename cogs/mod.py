@@ -14,6 +14,10 @@ class mod(commands.Cog, name="Moderation"):
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True, manage_messages=True)
     async def ban(self, ctx, member: discord.Member, *, reason="No reason provided"):
+        """
+        Ban the specified user with the specified reason
+        *Reason defaults to __no reason specified__*
+        """
         try:
             if member == ctx.message.author:
                 return await ctx.send("You can not ban yourself, please try someone else.")
@@ -34,6 +38,10 @@ class mod(commands.Cog, name="Moderation"):
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True, manage_messages=True)
     async def unban(self, ctx, user: BannedMember, *, reason="No reason provided"):
+        """
+        Unban the specified user with the specified reason
+        *Reason defaults to __no reason specified__*
+        """
         try:
             await ctx.message.delete()
             await ctx.guild.unban(user.user, reason=f"moderator: {ctx.message.author} | {reason}")
@@ -48,6 +56,10 @@ class mod(commands.Cog, name="Moderation"):
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True, manage_messages=True)
     async def softban(self, ctx, member: discord.Member, *, reason="No reason provided"):
+        """
+        bans and unbans the specified user with the specified reason
+        *Reason defaults to __no reason specified__*
+        """
         try:
             if member == ctx.message.author:
                 return await ctx.send("You can not softban yourself, please try someone else.")
@@ -69,6 +81,10 @@ class mod(commands.Cog, name="Moderation"):
     @commands.has_permissions(kick_members=True)
     @commands.bot_has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason="No reason provided"):
+        """
+        Kicks the specified user with the specified reason
+        *Reason defaults to __no reason specified__*
+        """
         try:
             if member == ctx.message.author:
                 return await ctx.send("You can not kick yourself, please try someone else.")
@@ -90,6 +106,7 @@ class mod(commands.Cog, name="Moderation"):
     @commands.bot_has_permissions(manage_messages=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def purge(self, ctx, amount=0):
+        """ Purge the channel (2-500 messages per purge) """
         def ducks_pin_message_check(duckmasteral):
             if duckmasteral.pinned is False:
                 return True
