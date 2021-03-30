@@ -100,7 +100,7 @@ class PenguinHelp(commands.HelpCommand):
                         inline=False)
         embed.add_field(name="Aliases",
                         value = "\n".join([f"`{alias}`" for alias in command.aliases]) or "None",
-                        inline=False)
+                        inline=True)
         embed.add_field(name="Args",
                         value= command.signature or "None",
                         inline=True)
