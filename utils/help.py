@@ -94,7 +94,7 @@ class PenguinHelp(commands.HelpCommand):
             return await self.get_destination().send(embed = embed)
 
         embed.add_field(name="Aliases",
-                        value = "\n".join([f"`{alias}`" for alias in command.aliases]) or "None",
+                        value = " | ".join([f"`{alias}`" for alias in command.aliases]) or "None",
                         inline=True)
         embed.add_field(name="Usage",
                         value= f"{self.clean_prefix}{command.qualified_name} {command.signature}",
