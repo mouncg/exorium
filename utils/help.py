@@ -89,7 +89,6 @@ class PenguinHelp(commands.HelpCommand):
         embed = discord.Embed(title= f"[{command.cog.qualified_name}] {command.qualified_name}", color=config.color)
             #title= command.qualified_name + " | " + " | ".join([f"{alias}" for alias in command.aliases]),
         embed.description = command.help or f"`{command.qualified_name}` does not have a description."
-        embed.thumbnail(url=self.bot.user.avatar_url)
         
         command = (await self.filter_commands([command]))
 
