@@ -78,6 +78,7 @@ class social(commands.Cog, name="Social"):
 
     @commands.command(brief="Rawrrrr")
     async def rawr(self, ctx, members: commands.Greedy[discord.Member]):
+        """Rawr at the specified people"""
         giflist = gifs.rawr
         gif = random.choice(giflist)
         if not members:
@@ -91,6 +92,7 @@ class social(commands.Cog, name="Social"):
 
     @commands.command(brief="Howl to the moon, or someone", aliases=["howl"])
     async def awoo(self, ctx, members: commands.Greedy[discord.Member]):
+        """Howl at the specified people"""
         giflist = gifs.awoo
         gif = random.choice(giflist)
         if not members:
@@ -104,6 +106,7 @@ class social(commands.Cog, name="Social"):
         
     @commands.command(brief="Blushies!")
     async def blush(self, ctx, members: commands.Greedy[discord.Member]):
+        """Blush (optionally because of specified people)"""
         giflist = gifs.blush
         gif = random.choice(giflist)
         if not members:
@@ -117,6 +120,7 @@ class social(commands.Cog, name="Social"):
 
     @commands.command(brief="Be happy")
     async def happy(self, ctx, members: commands.Greedy[discord.Member]):
+        """Be happy (optionally because of specified people)"""
         giflist = gifs.happy
         gif = random.choice(giflist)
         if not members:
@@ -130,6 +134,7 @@ class social(commands.Cog, name="Social"):
     
     @commands.command(brief="wag yer tail")
     async def wag(self, ctx, members: commands.Greedy[discord.Member]):
+        """Wag your tail (Optionally because of specified people)"""
         giflist = gifs.wag
         gif = random.choice(giflist)
         if not members:
