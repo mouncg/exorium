@@ -196,9 +196,10 @@ __**System**__
             value = "None"
         else:
             value = user.public_flags.value
-
-        e.add_field(name="__**Public flags**__",
-                    value=f"**Discord staff:** {staff}\n**Discord partner:** {partner}\n**Early supporter:** {es}\n**Bug hunter:** {bh}\n**Hypesquad:** {hs}\n**Flag value:** {value}", inline=True)
+            
+        if value != "None":
+            e.add_field(name="__**Public flags**__",
+                        value=f"**Discord staff:** {staff}\n**Discord partner:** {partner}\n**Early supporter:** {es}\n**Bug hunter:** {bh}\n**Hypesquad:** {hs}\n**Flag value:** {value}", inline=True)
         
         uroles = []
         for role in user.roles:
