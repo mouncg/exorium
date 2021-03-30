@@ -7,6 +7,7 @@ class owner(commands.Cog, name="Owner"):
     def __init__(self, bot):
         self.bot = bot
 
+
     @commands.command(name="shutdown", aliases=["logout"])
     @commands.is_owner()
     async def jsk_shutdown(self, ctx: commands.Context):
@@ -16,6 +17,7 @@ class owner(commands.Cog, name="Owner"):
 
         await ctx.send("Logging out now")
         await ctx.bot.logout()
+
 
     @commands.command(brief="unload a cog")
     @commands.is_owner()
@@ -32,6 +34,7 @@ class owner(commands.Cog, name="Owner"):
         except Exception as e:
             await ctx.send(f'Failed to unload {cog}\n```py\n{e}\n```')
 
+
     @commands.command(brief="load a cog")
     @commands.is_owner()
     async def load(self, ctx, *, cog):
@@ -43,6 +46,7 @@ class owner(commands.Cog, name="Owner"):
             await ctx.send(f'Successfully loaded `{cog}`.')
         except Exception as e:
             await ctx.send(f'Failed to load {cog}\n```py\n{e}\n```')
+
 
     @commands.command(brief="Reload a cog")
     @commands.is_owner()
@@ -56,6 +60,7 @@ class owner(commands.Cog, name="Owner"):
         except Exception as e:
             await ctx.send(f'Failed to load {cog}\n```py\n{e}\n```')
 
+
     @commands.group(brief="Change bot appearance")
     @commands.is_owner()
     async def change(self, ctx):
@@ -64,7 +69,8 @@ class owner(commands.Cog, name="Owner"):
         """
         if ctx.invoked_subcommand is None:
             pass
-  
+
+
     @change.command(brief="Change playing status")
     @commands.is_owner()
     async def playing(self, ctx, *, playing: str):
@@ -88,7 +94,8 @@ class owner(commands.Cog, name="Owner"):
     @commands.is_owner()
     async def blacklist(self, ctx):
         await ctx.send_help(ctx.command)
-    
+
+
     @blacklist.command(name='user', enabled=True)
     @commands.is_owner()
     async def blacklist_user(self, ctx, user: typing.Union[discord.User, int], *, reason: str):
@@ -115,6 +122,7 @@ class owner(commands.Cog, name="Owner"):
             self.bot.blacklist[user.id] = reason
             await ctx.send(f"blacklisted {user}")
             print('blacklisted')
+
 
     @blacklist.command(name='server', enabled=True)
     @commands.is_owner()
