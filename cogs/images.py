@@ -60,6 +60,7 @@ class images(commands.Cog, name="Images"):
         embed.set_footer(text='Powered by pixabay.')
         await ctx.send(embed=embed)
 
+
     @commands.command(brief="Generate random images")
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def image(self, ctx, *args):
