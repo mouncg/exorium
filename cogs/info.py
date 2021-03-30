@@ -118,7 +118,7 @@ __**System**__
             mfa = "Required"
 
         e = discord.Embed(color=config.color)
-        e.description = f"*Intents may cause human * bot count to display incorrectly.*"
+        e.description = f"*Intents may cause human/bot count to display incorrectly.*"
 
         owner = await self.bot.fetch_user(gu.owner_id)
         e.add_field(name="__**Generic information**__",
