@@ -52,7 +52,7 @@ class images(commands.Cog, name="Images"):
             return
         await delmsg.delete()
         finalimg = random.choice(r.json()["hits"])["webformatURL"]
-        embed = discord.Embed(title='Random animal', color=config.color)
+        embed = discord.Embed(color=config.color)
         embed.set_image(url=finalimg)
         embed.set_footer(text='Powered by pixabay.')
         await ctx.send(embed=embed)
@@ -78,7 +78,7 @@ class images(commands.Cog, name="Images"):
             return
         await delmsg.delete()
         finalimg = random.choice(r.json()["hits"])["webformatURL"]
-        embed = discord.Embed(title='Random image', color=config.color)
+        embed = discord.Embed(color=config.color)
         embed.set_image(url=finalimg)
         embed.set_footer(text='Powered by pixabay.')
         await ctx.send(embed=embed)
