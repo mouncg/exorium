@@ -16,7 +16,8 @@ from utils import default
 class info(commands.Cog, name="Info"):
     def __init__(self, bot):
         self.bot = bot
-    
+
+
     @commands.command(brief="Bot's latency to discord")
     async def ping(self, ctx):
         """ See bot's latency to discord """
@@ -30,6 +31,7 @@ class info(commands.Cog, name="Info"):
                     discord_ms = "fucking dead"
                 await ctx.send(f"\U0001f3d3 Pong   |   {discord_ms}")  # You can use :ping_pong: instead of \U0001f3d3
 
+
     @commands.command(brief="The invites for exorium")
     async def invite(self, ctx):
         e = discord.Embed(color=config.color)
@@ -41,22 +43,17 @@ You can invite me to your server [here](https://discord.com/api/oauth2/authorize
 #[admin permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=8&scope=bot) - administrator permissions (Use only when necessary)
 #[no permissions](https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=0&scope=bot) no permissions at all (can break the bot in your guild)
         await ctx.send(embed=e)
-        
-    @commands.command(brief="test command")
-    async def respond(self, ctx, *, args):
-        e = discord.Embed(color=config.color)
-        e.description = f"{args}"
-        e.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-        await ctx.reply(embed=e)
+
 
     @commands.command(brief="Our privacy policy")
     async def privacy(self, ctx):
         e = discord.Embed(color=config.color)
         e.description = f"""
-You can read our privacy policy [here](https://bluewydev.github.io/Discord-bot-website-template/src/pages/legal.html).
+You can read our privacy policy [here](https://bluewydev.github.io/exoriumbot/src/pages/legal.html).
 Want your data removed or got questions? mail to `bluewyechache@gmail.com`.
 """
         await ctx.send(embed=e)
+
 
     @commands.command(brief="Get support")
     async def support(self, ctx):
@@ -68,18 +65,17 @@ You can get help in the following ways:
 """
         await ctx.send(embed=e)
 
+
     @commands.command(brief="exo related links")
     async def links(self, ctx):
         e = discord.Embed(color=config.color)
         e.description = f"""
-- [statuspage](https://exorium.statuspage.io/)
-Displays downtime, issues and outages.
-- [bot lists](https://linktr.ee/exorium)
-Links to all botlists exorium is on
-- [GitHub repository](https://github.com/ThePawKingdom/exorium)
-The open source code for exorium
+[[Status]](https://exorium.statuspage.io/) [[Repo]](https://github.com/ThePawKingdom/exorium/) [[Vote]](https://top.gg/bot/620990340630970425)
+
+[[Website]](https://bluewydev.github.io/exoriumbot/) | Invite links on `exo invite`
 """
         await ctx.send(embed=e)
+
 
     @commands.command(brief="exorium statistics", aliases=["stats"])
     async def statistics(self, ctx):
