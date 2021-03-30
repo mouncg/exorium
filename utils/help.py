@@ -93,15 +93,15 @@ class PenguinHelp(commands.HelpCommand):
         if not command:
             return await self.get_destination().send(embed = embed)
 
-        embed.add_field(name="Help",
-                        value = command.help or "None",
-                        inline=False)
         embed.add_field(name="Aliases",
                         value = "\n".join([f"`{alias}`" for alias in command.aliases]) or "None",
                         inline=True)
         embed.add_field(name="Args",
                         value= command.signature or "None",
                         inline=True)
+        embed.add_field(name="Help",
+                        value = command.help or "None",
+                        inline=False)
         await self.get_destination().send(embed = embed)
 
     async def send_group_help(self, group: commands.Group):
