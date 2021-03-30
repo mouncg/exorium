@@ -130,14 +130,14 @@ class social(commands.Cog, name="Social"):
         await ctx.send(embed=embed)
 
     @commands.command(brief="pat someone!", aliases=["pet"])
-    async def pat(self, ctx, members: commands.Greedy[discord.Member], *, reason="No reason"):
+    async def pat(self, ctx, members: commands.Greedy[discord.Member]):
         async with aiohttp.ClientSession() as cs:
             async with cs.get("https://some-random-api.ml/animu/pat") as r:
                 js = await r.json()
                 
                 if not members:
                     return await ctx.send("Please specify someone to pat.")
-                e = discord.Embed(title="", color=config.color, description=f"**{ctx.message.author.mention} pats** " + '**,** '.join(x.mention for x in members) + f"\nFor: {reason}")
+                e = discord.Embed(title="", color=config.color, description=f"**{ctx.message.author.mention} pats** " + "**" + '**,** '.join(x.mention for x in members) + "**")
                 
                 manual = gifs.pet
                 manual.append(js['link'])
