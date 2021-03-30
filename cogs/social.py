@@ -104,15 +104,15 @@ class social(commands.Cog, name="Social"):
         await ctx.send(embed=embed)
 
     @commands.command(brief="Be happy")
-    async def happy(self, ctx, members: commands.Greedy[discord.Member], *, reason="Vibing"):
+    async def happy(self, ctx, members: commands.Greedy[discord.Member]):
         giflist = gifs.happy
         gif = random.choice(giflist)
         if not members:
-            embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**Is happy**\nFor: " + reason))
+            embed = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** is happy")
             embed.set_image(url=gif)
             await ctx.send(embed=embed)
             return
-        embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**Is happy because of**" + " " + '**,** '.join(x.mention for x in members) + "**, kyoot!**\nFor: " + reason))
+        embed = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** Is happy because of " + "**" + '**, **'.join(x.display_name for x in members) + "**")
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
     
@@ -121,11 +121,11 @@ class social(commands.Cog, name="Social"):
         giflist = gifs.wag
         gif = random.choice(giflist)
         if not members:
-            embed = discord.Embed(title="", color=config.color, description=f"**{ctx.message.author.display_name}** wags their tail")
+            embed = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** wags their tail")
             embed.set_image(url=gif)
             await ctx.send(embed=embed)
             return
-        embed = discord.Embed(title="", color=config.color, description=f"**{ctx.message.author.display_name}** wags their tail because of " + "**" + '**, **'.join(x.display_name for x in members) + "**")
+        embed = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** wags their tail because of " + "**" + '**, **'.join(x.display_name for x in members) + "**")
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
@@ -137,7 +137,7 @@ class social(commands.Cog, name="Social"):
                 
                 if not members:
                     return await ctx.send("Please specify someone to pat.")
-                e = discord.Embed(title="", color=config.color, description=f"**{ctx.message.author.display_name} pats** " + "**" + '**,** '.join(x.display_name for x in members) + "**")
+                e = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name} pats** " + "**" + '**,** '.join(x.display_name for x in members) + "**")
                 
                 manual = gifs.pet
                 manual.append(js['link'])
