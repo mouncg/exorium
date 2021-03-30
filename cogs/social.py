@@ -117,15 +117,15 @@ class social(commands.Cog, name="Social"):
         await ctx.send(embed=embed)
     
     @commands.command(brief="wag yer tail")
-    async def wag(self, ctx, members: commands.Greedy[discord.Member], *, reason="Excited!"):
+    async def wag(self, ctx, members: commands.Greedy[discord.Member]):
         giflist = gifs.wag
         gif = random.choice(giflist)
         if not members:
-            embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**wags their tail, kyoot!**\nFor: " + reason))
+            embed = discord.Embed(title="", color=config.color, description=f"**{ctx.message.author.display_name}** wags their tail")
             embed.set_image(url=gif)
             await ctx.send(embed=embed)
             return
-        embed = discord.Embed(title="", color=config.color, description=(ctx.message.author.mention + " " + "**wags their tail because of**" + " " + '**,** '.join(x.mention for x in members) + "**, cute!**\nFor: " + reason))
+        embed = discord.Embed(title="", color=config.color, description=f"**{ctx.message.author.display_name}** wags their tail because of " + "**" + '**, **'.join(x.mention for x in members) + "**")
         embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
