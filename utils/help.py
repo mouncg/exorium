@@ -84,9 +84,7 @@ class PenguinHelp(commands.HelpCommand):
 
     async def send_command_help(self, command):
         embed = discord.Embed(title= command.qualified_name,
-                              description = ("`<arg>` This is a required arg \n"
-                                             "`[arg]` This is optional \n"
-                                             "`[arg...]` This can have multiple args"),
+                              description = ("`<arg>` = required | `[arg]` = optional | `[arg...]` = can have multiple args"),
                               color=config.color)
         command = (await self.filter_commands([command]))
 
