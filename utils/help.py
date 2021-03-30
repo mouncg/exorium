@@ -83,7 +83,7 @@ class PenguinHelp(commands.HelpCommand):
         await menu.start(self.context)
 
     async def send_command_help(self, command):
-        embed = discord.Embed(title= command.qualified_name,
+        embed = discord.Embed(title= command.qualified_name + ",".join([f"`{alias}`" for alias in command.aliases]),
                               description = command.help or "No description provided",
                               color=config.color)
         command = (await self.filter_commands([command]))
