@@ -86,7 +86,7 @@ class PenguinHelp(commands.HelpCommand):
         
         aliases = '`' + '`, `'.join(command.aliases) + "`"
         if aliases == "``" or aliases == '`':
-            aliases = "No aliases were found"
+            aliases = "None"
 
         embed = discord.Embed(title= f"[{command.cog.qualified_name}] {command.qualified_name} {aliases}"),
             #title= command.qualified_name + " | " + " | ".join([f"{alias}" for alias in command.aliases]),
