@@ -22,6 +22,8 @@ class mod(commands.Cog, name="Moderation"):
         try:
             if member == ctx.message.author:
                 return await ctx.send("You can not ban yourself, please try someone else.")
+            if member == self.bot.user:
+                return f"Please ban someone else rather than me, thanks.", delete_after=5
             botmember = ctx.guild.me
             if member.top_role > botmember.top_role:
                 return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to ban has.")
@@ -45,6 +47,8 @@ class mod(commands.Cog, name="Moderation"):
         *Reason defaults to __no reason specified__*
         """
         try:
+            if member == self.bot.user:
+                return f"Please ban someone else rather than me, thanks.", delete_after=5
             await ctx.message.delete()
             await ctx.guild.unban(user.user, reason=f"moderator: {ctx.message.author} | {reason}")
             e = discord.Embed(color=config.green)
@@ -66,6 +70,8 @@ class mod(commands.Cog, name="Moderation"):
         try:
             if member == ctx.message.author:
                 return await ctx.send("You can not softban yourself, please try someone else.")
+            if member == self.bot.user:
+                return f"Please ban someone else rather than me, thanks.", delete_after=5
             botmember = ctx.guild.me
             if member.top_role > botmember.top_role: 
                 return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to softban has.")
@@ -92,6 +98,8 @@ class mod(commands.Cog, name="Moderation"):
         try:
             if member == ctx.message.author:
                 return await ctx.send("You can not kick yourself, please try someone else.")
+            if member == self.bot.user:
+                return f"Please ban someone else rather than me, thanks.", delete_after=5
             botmember = ctx.guild.me
             if member.top_role > botmember.top_role:
                 return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to kick has.")
