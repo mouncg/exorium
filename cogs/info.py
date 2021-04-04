@@ -32,6 +32,18 @@ class info(commands.Cog, name="Info"):
                 await ctx.send(f"\U0001f3d3 Pong   |   {discord_ms}")  # You can use :ping_pong: instead of \U0001f3d3
 
 
+    @commands.command()
+    async def staff(self, ctx):
+        the_list = []
+        for user in ctx.guild.members:
+            if ctx.channel.permissions_for(user).kick_members or \
+               ctx.channel.permissions_for(user).ban_members:
+                the_list.append(str(user))
+        e = discord.Embed(color=discord.Color.blue())
+        e.description = ', '.join(the_list)
+        await ctx.reply(embed=e)
+
+
     @commands.command(brief="The invites for exorium")
     async def invite(self, ctx):
         """ Invite the bot to your server """
