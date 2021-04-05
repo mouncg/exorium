@@ -18,9 +18,9 @@ bot = commands.Bot(
     case_insensitive=True, 
     allowed_mentions=discord.AllowedMentions.none(), 
     max_messages=10000,
-    #intents=discord.Intents.all(),
+    # intents=discord.Intents.all(),
     status=discord.Status.online,
-    activity=discord.Activity(type=discord.ActivityType.playing, name='e!help'),
+    activity=discord.Activity(type=discord.ActivityType.playing, name=f'esquire | {len(bot.guilds)} guilds'),
     description="A very gay and annoying beta bot"
 )
 
