@@ -1,6 +1,8 @@
 from discord.ext import commands, menus
 from utils.help import PenguinHelp
 
+import discord
+import config
 import time
 import aiohttp
 
@@ -23,6 +25,14 @@ class HelpCog(commands.Cog, name="Help"):
                 else:
                     discord_ms = "fucking dead"
                 await ctx.send(f"\U0001f3d3 Pong   |   {discord_ms}")  # You can use :ping_pong: instead of \U0001f3d3
+
+
+    @commands.command()
+    async def invite(self, ctx):
+        """ Invite Esquire to your server """
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.description = f"Invite Esquire to your server [here]({config.invite})."
+        await ctx.send(embed=e)
 
 
 def setup(bot):
