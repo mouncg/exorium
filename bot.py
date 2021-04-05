@@ -20,7 +20,7 @@ bot = commands.Bot(
     max_messages=10000,
     # intents=discord.Intents.all(),
     status=discord.Status.online,
-    activity=discord.Activity(type=discord.ActivityType.playing, name=f'esquire | guilds'),
+    activity=discord.Activity(type=discord.ActivityType.playing, name=f'with you'),
     description="A bot designed to improve chatting and discord usage."
 )
 
