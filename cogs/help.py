@@ -77,11 +77,13 @@ You can get support here:
     @commands.command()
     @commands.guild_only()
     async def id(self, ctx, member: discord.Member):
+        """ Get a user's ID """
         await ctx.reply(member.id)
 
 
     @commands.command()
     async def av(self, ctx, member: discord.Member):
+        """ Get a user's avatar """
         if not member:
             member = ctx.author
 
@@ -89,6 +91,33 @@ You can get support here:
         e.set_image(url=member.avatar_url)
         e.set_footer(text=f"avatar: {member}")
         await ctx.send(embed=e)
+
+
+    @commands.command()
+    @commands.guild_only()
+    async def servericon(self, ctx):
+        """ Get the server's icon """
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.set_image(url=ctx.guild.icon_url)
+        await ctx.send(embed=e)
+
+
+    @commands.command()
+    @commands.guild_only()
+    @commands.bot_has_guild_permissions(add_reactions=True)
+    async def poll(self, ctx, *, poll):
+        """ Host a poll """
+        try:
+            await ctx.message.delete()
+        except discord.Forbidden:
+            pass
+        e = discord.Embed(color=discord.Color.green())
+        e.description = poll
+        e.set_footer(text=f"Host: {ctx.author}")
+        pre = await ctx.send(embed=e)
+        await pre.add_reaction(config.checkmark)
+        await pre.add_reaction(config.crossmark)
+
 
     @commands.command(aliases=["statistics"])
     @commands.cooldown(1, 10, commands.BucketType.user)
