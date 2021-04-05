@@ -115,6 +115,7 @@ Hosted on **{platform.platform()}**
 **{core}** cores
 **{cpup}**% CPU load
 **{mem_usage}**/**{mem}** MB memory used
+**{storage_free}** MB storage free 
 """
 
         await ctx.send(embed=e)
