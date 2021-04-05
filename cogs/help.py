@@ -97,6 +97,9 @@ You can get support here:
         e = discord.Embed(color=discord.Color.dark_teal())
         e.set_thumbnail(url=self.bot.user.avatar_url)
 
+        humans = len(ctx.guild.humans)
+        bots = len(ctx.guild.bots)
+
         e.description = f"""
 __**About**__
 Developers:
@@ -107,7 +110,7 @@ Library: [enhanced dpy {discord.__version__}](https://github.com/iDutchy/discord
 
 __**Statistics**__
 **{len(self.bot.guilds)}** Guilds
-**N/A** Users (**{len(ctx.guild.humans)}** humans & **{len(ctx.guild.bots)}** bots)
+**N/A** Users (**N/A** humans & **N/A** bots)
 **{text}** text & **{voice}** voice channels
 
 __**System**__
@@ -119,6 +122,7 @@ Hosted on **{platform.platform()}**
 """
 
         await ctx.send(embed=e)
+
 
 def setup(bot):
     bot.add_cog(HelpCog(bot))
