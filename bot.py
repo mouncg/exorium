@@ -1,7 +1,5 @@
 import discord
 import config
-# import aiohttp
-# import psutil
 import traceback
 from discord.ext import commands
 
