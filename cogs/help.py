@@ -35,5 +35,13 @@ class HelpCog(commands.Cog, name="Help"):
         await ctx.send(embed=e)
 
 
+    @commands.command()
+    async def privacy(self, ctx):
+        """ Read our privacy policy """
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.description = f"Read Esquire's privacy policy [here]({config.privacy})."
+        await ctx.send(embed=e)
+
+
 def setup(bot):
     bot.add_cog(HelpCog(bot))
