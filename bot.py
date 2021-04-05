@@ -33,8 +33,8 @@ bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KE
 
 @commands.Cog.listener()
 async def on_ready():
-    # activity = discord.Activity(type=discord.ActivityType.watching, name="a movie")
-    await bot.change_presence(status=discord.Status.dnd)
+    print('Bot has started successfully.')
+
 
 for extension in config.extensions:
     try:
@@ -44,6 +44,7 @@ for extension in config.extensions:
         tb = traceback.format_exception(type(e), e, e.__traceback__)
         tbe = "".join(tb) + ""
         print(f'[WARNING] Could not load extension {extension}: {tbe}')
+
 
 bot.database.execute("SELECT * FROM blacklist")
 blacklist = bot.database.fetchall()
