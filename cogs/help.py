@@ -1,10 +1,13 @@
 from discord.ext import commands, menus
 from utils.help import PenguinHelp
+from collections import Counter
 
 import discord
 import config
 import time
 import aiohttp
+import psutil
+import platform
 
 
 class HelpCog(commands.Cog, name="Help"):
@@ -70,6 +73,51 @@ You can get support here:
         await ra.add_reaction(config.crossmark)
         await ctx.send(f"Your suggestion was recorded in our support server.")
 
+
+    @commands.command(alias="statistics")
+    @commands.cooldown(1, 10, commands.BucketType.user)
+    async def stats(self, ctx):
+        """ See Esquire's statistics """
+
+        chtypes = Counter(type(c) for c in self.bot.get_all_channels())
+        voice = chtypes[discord.channel.VoiceChannel]
+        text = chtypes[discord.channel.TextChannel]
+
+        cpup = psutil.cpu_percent()
+        core = psutil.cpu_count()
+        mem = psutil.virtual_memory().total >> 20
+        mem_usage = psutil.virtual_memory().used >> 20
+        storage_free = psutil.disk_usage('/').free >> 30
+
+        Joshua = await self.bot.fetch_user(809057677716094997)
+        Moksej = await self.bot.fetch_user(345457928972533773)
+        Duck = await self.bot.fetch_user(443217277580738571)
+        Tooth = await self.bot.fetch_user(341988909363757057)
+
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.set_thumbnail(url=self.bot.user.avatar_url)
+
+        e.description = f"""
+__**About**__
+Developers:
+- **{str(Joshua)}** & **{str(Moksej)}**
+- **{str(Duck)}** & **{str(Tooth)}**
+
+Library: [enhanced dpy {discord.__version__}](https://github.com/iDutchy/discord.py)
+
+__**Statistics**__
+**{len(self.bot.guilds)}** Guilds
+**N/A** Users (**{len(ctx.guild.humans)}** humans & **{len(ctx.guild.bots)}** bots)
+**{text}** text & **{voice}** voice channels
+
+__**System**__
+Hosted on **{platform.platform()}**
+**{core}** cores
+**{cpup}**% CPU load
+**{mem_usage}**/**{mem}** MB memory used
+"""
+
+        await ctx.send(embed=e)
 
 def setup(bot):
     bot.add_cog(HelpCog(bot))
