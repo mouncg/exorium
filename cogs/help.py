@@ -53,7 +53,20 @@ You can get support here:
 - [Github issue](https://github.com/ThePawKingdom/exorium/issues/new)
 """
         await ctx.send(embed=e)
-                        
+
+
+    @commands.command()
+    async def suggest(self, ctx, *, suggestion):
+        """ Make suggestions for Esquire """
+        channel = self.bot.get_channel(822611562119692304)
+        if len(suggestion) >= 500:
+            return await ctx.send(f"Please make your suggestion shorter then 500 characters.")
+        e = discord.Embed(color=discord.Color.green())
+        e.description = suggestion
+        ra = await channel.send(embed=e)
+        await ra.add_reaction(config.checkmark)
+        await ra.add_reaction(config.crossmark)
+        await ctx.send(f"Your suggestion was recorded in our support server.")
 
 
 def setup(bot):
