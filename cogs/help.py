@@ -56,6 +56,7 @@ You can get support here:
 
 
     @commands.command()
+    @commands.cooldown(1, 30, commands.BucketType.user)
     async def suggest(self, ctx, *, suggestion):
         """ Make suggestions for Esquire """
         channel = self.bot.get_channel(822611562119692304)
