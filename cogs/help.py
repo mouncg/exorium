@@ -80,6 +80,15 @@ You can get support here:
         await ctx.reply(member.id)
 
 
+    @commands.command()
+    async def av(self, ctx, member: discord.Member):
+        if not member:
+            member = ctx.author
+
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.set_image(url=member.avatar_url)
+        e.set_footer(text=f"avatar: {member}")
+        await ctx.send(embed=e)
 
     @commands.command(aliases=["statistics"])
     @commands.cooldown(1, 10, commands.BucketType.user)
