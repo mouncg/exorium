@@ -20,15 +20,15 @@ bot = commands.Bot(
     max_messages=10000,
     # intents=discord.Intents.all(),
     status=discord.Status.online,
-    activity=discord.Activity(type=discord.ActivityType.playing, name=f'esquire | {len(bot.guilds)} guilds'),
+    activity=discord.Activity(type=discord.ActivityType.playing, name=f'esquire | guilds'),
     description="A bot designed to improve chatting and discord usage."
 )
 
-bot.blacklist = {}
+# bot.blacklist = {}
 
-mydb = config.DBdata
-bot.database = mydb.cursor()
-bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason VARCHAR(255))")
+# mydb = config.DBdata
+# bot.database = mydb.cursor()
+# bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason VARCHAR(255))")
 
 
 @commands.Cog.listener()
@@ -46,9 +46,9 @@ for extension in config.extensions:
         print(f'[WARNING] Could not load extension {extension}: {tbe}')
 
 
-bot.database.execute("SELECT * FROM blacklist")
-blacklist = bot.database.fetchall()
-for result in blacklist:
-    bot.blacklist[result['id']] = result['reason']
+# bot.database.execute("SELECT * FROM blacklist")
+# blacklist = bot.database.fetchall()
+# for result in blacklist:
+#     bot.blacklist[result['id']] = result['reason']
 
 bot.run(config.token)
