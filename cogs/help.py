@@ -74,7 +74,14 @@ You can get support here:
         await ctx.send(f"Your suggestion was recorded in our support server.")
 
 
-    @commands.command(alias="statistics")
+    @commands.command()
+    @commands.guild_only()
+    async def id(self, ctx, member: discord.Member):
+        await ctx.reply(member.id)
+
+
+
+    @commands.command(aliases=["statistics"])
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def stats(self, ctx):
         """ See Esquire's statistics """
