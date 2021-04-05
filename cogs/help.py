@@ -119,6 +119,16 @@ You can get support here:
         await pre.add_reaction(config.crossmark)
 
 
+    @commands.command()
+    @commands.guild_only()
+    async def say(self, ctx, *, say):
+        """ Say something with Esquire """
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.description = say
+        e.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        await ctx.send(embed=e)
+
+
     @commands.command(aliases=["statistics"])
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def stats(self, ctx):
