@@ -43,5 +43,18 @@ class HelpCog(commands.Cog, name="Help"):
         await ctx.send(embed=e)
 
 
+    @commands.command()
+    async def support(self, ctx):
+        """ Get support with Esquire """
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.description = f"""
+You can get support here:
+- [support server]({config.support})
+- [Github issue](https://github.com/ThePawKingdom/exorium/issues/new)
+"""
+        await ctx.send(embed=e)
+                        
+
+
 def setup(bot):
     bot.add_cog(HelpCog(bot))
