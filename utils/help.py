@@ -15,7 +15,7 @@ class GroupHelpSource(menus.ListPageSource):
     async def format_page(self, menu, entries):
         offset = menu.current_page * self.per_page
         embed = discord.Embed(title = str(self.group),
-                              color=config.color)
+                              color=discord.Color.dark_teal())
 
         for index, command in enumerate(entries, start=offset):
             embed.add_field(name=command.qualified_name,
@@ -36,7 +36,7 @@ class CogHelpSource(menus.ListPageSource):
     async def format_page(self, menu, entries):
         offset = menu.current_page * self.per_page
         embed = discord.Embed(title=self.cog.qualified_name,
-                              color=config.color)
+                              color=discord.Color.dark_teal())
 
         for index, command in enumerate(entries, start=offset):
             embed.add_field(
@@ -70,7 +70,7 @@ class PenguinHelp(commands.HelpCommand):
         filtered_commands = {key: await self.filter_commands(value) for key, value in mapping.items() if getattr(key, "qualified_name", "None") != "IpcRoutes"}
         embed = discord.Embed(title = "Help",
                               description=f"Use `{self.clean_prefix}help` [command] or [module] for more help.",
-                              color=config.color)
+                              color=discord.Color.dark_teal())
         for cog, cmds in filtered_commands.items():
             if cmds:
                 embed.add_field(name = getattr(cog, "qualified_name", "None"),
