@@ -11,7 +11,7 @@ class HelpCog(commands.Cog, name="Help"):
         bot.help_command = PenguinHelp()
         bot.help_command.cog = self
 
-    @commands.command(brief="Bot's latency to discord")
+    @commands.command()
     async def ping(self, ctx):
         """ See bot's latency to discord """
         discord_start = time.monotonic()
