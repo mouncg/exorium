@@ -21,7 +21,7 @@ bot = commands.Bot(
     # intents=discord.Intents.all(),
     status=discord.Status.online,
     activity=discord.Activity(type=discord.ActivityType.playing, name=f'esquire | {len(bot.guilds)} guilds'),
-    description="A very gay and annoying beta bot"
+    description="A bot designed to improve chatting and discord usage."
 )
 
 bot.blacklist = {}
