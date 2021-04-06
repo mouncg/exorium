@@ -5,7 +5,9 @@ def date(target, clock=True):
         return target.strftime("%d %B %Y")
     return target.strftime("%d %B %Y, %H:%M")
 
-async def interactions(ctx, members, name, list, reason=None, sra_url=None):
+async def interactions(ctx, members, name, error_name, list, reason=None, sra_url=None):
+    if members is None:
+        await ctx.send(f'You must specify the user to {error_name}!')
     if sra_url is None:
         image = random.choice(list)
     else:
@@ -26,7 +28,11 @@ async def interactions(ctx, members, name, list, reason=None, sra_url=None):
         display_list.append(x.display_name)
     if len(members) >= 3:
         display_list.append(f"and {display_list.pop(-1)}")
-    embed = discord.Embed(description=f"**{ctx.author.display_name}** {name} **" + ', '.join(display_list) + f"**\n{'' if reason is None else f'**Reason:** {reason}'}", color=discord.Color.blue())
+    if len(members) == 2:
+        display_list = f"{display_list[0]} and {display_list[1]}"
+    else:
+        display_list = ', '.join(display_list)
+    embed = discord.Embed(description=f"**{ctx.author.display_name}** {name} **" + display_list + f"**\n{'' if reason is None else f'**Reason:** {reason}'}", color=discord.Color.blue())
     embed.set_thumbnail(url=image)
     await ctx.send(embed=embed)
 
@@ -41,5 +47,9 @@ async def feelings(ctx, members, name, list):
             display_list.append(x.display_name)
         if len(members) >= 3:
             display_list.append(f"and {display_list.pop(-1)}")
+        if len(members) == 2:
+            display_list = f"{display_list[0]} and {display_list[1]}"
+        else:
+            display_list = ', '.join(display_list)
         embed.description=f"**{ctx.author.display_name}** {name} because of {display_list}"
     await ctx.send(embed=embed)
