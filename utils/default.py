@@ -32,7 +32,7 @@ async def interactions(ctx, members, name, list, reason=None, sra_url=None):
 
 async def feelings(ctx, members, name, list):
     embed = discord.Embed(color=discord.Color.blue())
-    embed.set_thumbnail(url=image)
+    embed.set_thumbnail(url=random.choice(list))
     if members is None:
         embed.description = f"**{ctx.author.display_name}** {name}!"
     else:

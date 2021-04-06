@@ -5,8 +5,7 @@ import random
 import aiohttp
 import json
 from discord.ext import commands
-
-from utils import default
+from utils import default as functions
 
 
 class social(commands.Cog, name="Social"):
