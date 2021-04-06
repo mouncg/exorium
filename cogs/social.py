@@ -47,7 +47,7 @@ class social(commands.Cog, name="Social"):
     @commands.command(brief="Lick someone")
     async def lick(self, ctx, members: commands.Greedy[discord.Member]):
         """Lick the specified people"""
-        await functions.interactions(ctx, members, "licked" gifs.lick)
+        await functions.interactions(ctx, members, "licked", gifs.lick)
 
     @commands.command(brief="Give bellyrubs!")
     async def bellyrub(self, ctx, members: commands.Greedy[discord.Member]):
