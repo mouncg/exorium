@@ -149,6 +149,9 @@ You can get support here:
         Duck = await self.bot.fetch_user(443217277580738571)
         Tooth = await self.bot.fetch_user(341988909363757057)
 
+        devs = [f"{x.name}#{x.discriminator}" for x in self.bot.get_guild(755068089233834074).get_role(828339695314403378).members]
+        dev1 = ', '.join(devs)
+
         e = discord.Embed(color=discord.Color.dark_teal())
         e.set_thumbnail(url=self.bot.user.avatar_url)
 
@@ -158,8 +161,9 @@ You can get support here:
         e.description = f"""
 __**About**__
 Developers:
-- **{str(Joshua)}** & **{str(Moksej)}**
-- **{str(Duck)}** & **{str(Tooth)}**
+- **[{Joshua}](https://discordrep.com/u/809057677716094997#)**
+- **[{Moksej}](https://discordrep.com/u/345457928972533773#)**
+- **[{Duck}](https://discordrep.com/u/443217277580738571#)**
 
 Library: [enhanced dpy {discord.__version__}](https://github.com/iDutchy/discord.py)
 
