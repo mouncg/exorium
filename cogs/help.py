@@ -7,7 +7,7 @@ import platform
 
 from discord.ext import commands, menus
 from utils.help import PenguinHelp
-from utils.default import date
+from utils import default
 from collections import Counter
 
 
