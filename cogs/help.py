@@ -1,13 +1,14 @@
-from discord.ext import commands, menus
-from utils.help import PenguinHelp
-from collections import Counter
-
 import discord
 import config
 import time
 import aiohttp
 import psutil
 import platform
+
+from discord.ext import commands, menus
+from utils.help import PenguinHelp
+from utils import default
+from collections import Counter
 
 
 class HelpCog(commands.Cog, name="Help"):
@@ -92,6 +93,38 @@ You can get support here:
         e.set_footer(text=f"avatar: {member}")
         await ctx.send(embed=e)
 
+    @commands.command()
+    @commands.guild_only()
+    async def serverinfo(self, ctx):
+        """" Get information about the server """
+
+        owner = await self.bot.fetch_user(ctx.guild.owner_id)
+        member_count = ctx.guild.member_count  # last known count because you don't have intents
+        features = ", ".join(ctx.guild.features).lower().replace('_', ' ').title() if len(ctx.guild.features) != 0 else None
+        mfa = "Optional" if ctx.guild.mfa_level else "Required"
+        verification = str(ctx.guild.verification_level).capitalize()
+
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.set_author(name=f"{ctx.guild.name} Information", icon_url=ctx.guild.icon_url)
+        e.add_field(name="**General Information**",
+                    value=f"**Owner:** {owner} ({owner.id})\n**Guild Created At:** {default.date(ctx.guild.created_at)}\n"
+                          f"**Guild Region:** {ctx.guild.region}\n**MFA:** {mfa}\n**Verification Level:** {verification}")
+        e.add_field(name="**Other**",
+                    value=f"**Avg Member Count:** {member_count:,}\n**Text Channels:** {len(ctx.guild.text_channels)}\n"
+                          f"**Voice Channels:** {len(ctx.guild.voice_channels)}")
+        if features:
+            e.add_field(name="**Server Features**",
+                        value=features,
+                        inline=False)
+
+        if not ctx.guild.is_icon_animated():
+            e.set_thumbnail(url=ctx.guild.icon_url_as(format="png"))
+        elif ctx.guild.is_icon_animated():
+            e.set_thumbnail(url=ctx.guild.icon_url_as(format="gif"))
+        if ctx.guild.banner:
+            e.set_image(url=ctx.guild.banner_url_as(format="png"))
+        e.set_footer(text=f"Guild ID: {ctx.guild.id}")
+        await ctx.send(embed=e)
 
     @commands.command()
     @commands.guild_only()
