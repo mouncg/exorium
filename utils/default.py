@@ -7,7 +7,7 @@ def date(target, clock=True):
 
 async def interactions(ctx, members, name, error_name, list, reason=None, sra_url=None):
     if members is None:
-        await ctx.send(f'You must specify the user to {error_name}!')
+        return await ctx.send(f'You must specify the user to {error_name}!')
     if sra_url is None:
         image = random.choice(list)
     else:
