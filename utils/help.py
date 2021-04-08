@@ -1,5 +1,6 @@
 import discord, config
 from discord.ext import commands, menus
+from paginator import Pages
 
 def safe_get(list, index, default=None):
     try:
@@ -79,8 +80,18 @@ class PenguinHelp(commands.HelpCommand):
         await self.get_destination().send(embed = embed)
     
     async def send_cog_help(self, cog):
-        menu = CogHelpPages(source=CogHelpSource(cog, await self.filter_commands(cog.get_commands())))
-        await menu.start(self.context)
+        commands = []
+        for command in await self.filter_commands(cog.get_commands()):
+            commands.append(f"{command.qualified_name} - {command.short_doc}")
+        
+        paginator = Pages(ctx,
+                          title=f"{cog.qualified_name} help"
+                          entries=commands,
+                          thumbnail=None,
+                          per_page=10,
+                          embed_color=discord.Color.dark_teal(),
+                          show_entry_count=True)
+        await paginator.paginate()
 
     async def send_command_help(self, command):
         aliases = '`' + '`, `'.join(command.aliases) + "`"
