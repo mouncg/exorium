@@ -85,7 +85,7 @@ class PenguinHelp(commands.HelpCommand):
             commands.append(f"{command.qualified_name} - {command.short_doc}")
         
         paginator = Pages(ctx,
-                          title=f"{cog.qualified_name} help"
+                          title=f"{cog.qualified_name} help",
                           entries=commands,
                           thumbnail=None,
                           per_page=10,
