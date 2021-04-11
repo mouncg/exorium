@@ -83,14 +83,14 @@ You can get support here:
 
 
     @commands.command()
-    async def av(self, ctx, member: discord.Member):
+    async def av(self, ctx, user: discord.Member = None):
         """ Get a user's avatar """
-        if not member:
-            member = ctx.author
+        if not user:
+            user = ctx.message.author
 
         e = discord.Embed(color=discord.Color.dark_teal())
-        e.set_image(url=member.avatar_url)
-        e.set_footer(text=f"avatar: {member}")
+        e.set_image(url=user.avatar_url)
+        e.set_footer(text=f"avatar: {user}")
         await ctx.send(embed=e)
 
     @commands.command()
