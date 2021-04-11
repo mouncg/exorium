@@ -29,7 +29,10 @@ class mod(commands.Cog, name="Moderation"):
                 return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to ban has.")
             await ctx.message.delete()
             messageok = f"You were banned from `{ctx.guild.name}` with reason:\n\n{reason}"
-            await member.send(messageok)
+            try:
+                await member.send(messageok)
+            except discord.errors.HTTPException:
+                pass
             await member.ban(reason=f"Moderator: {ctx.message.author} | Reason: {reason}")
             e = discord.Embed(title=f"{member} was banned | {reason}", color=config.red)
             await ctx.send(embed=e)
@@ -47,7 +50,7 @@ class mod(commands.Cog, name="Moderation"):
         *Reason defaults to __no reason specified__*
         """
         try:
-            if member == self.bot.user:
+            if user == self.bot.user:
                 return await ctx.send(f"I was never banned from this guild.", delete_after=5)
             await ctx.message.delete()
             await ctx.guild.unban(user.user, reason=f"moderator: {ctx.message.author} | {reason}")
@@ -77,7 +80,10 @@ class mod(commands.Cog, name="Moderation"):
                 return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to softban has.")
             await ctx.message.delete()
             messageok = f"You were softbanned from `{ctx.guild.name}` with reason:\n\n{reason}"
-            await member.send(messageok)
+            try:
+                await member.send(messageok)
+            except discord.errors.HTTPException:
+                pass
             await member.ban(reason=f"Moderator {ctx.message.author} | Reason: {reason}")
             await ctx.guild.unban(member, reason=f"moderator: {ctx.message.author} | softban")
             e = discord.Embed(title=f"{member} was softbanned | {reason}", color=config.red)
@@ -105,7 +111,10 @@ class mod(commands.Cog, name="Moderation"):
                 return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to kick has.")
             await ctx.message.delete()
             messageok = f"You've been kicked from __**{ctx.guild.name}**__ with reason:\n\n{reason}"
-            await member.send(messageok)
+            try:
+                await member.send(messageok)
+            except discord.errors.HTTPException:
+                pass
             await member.kick(reason=f"Moderator {ctx.message.author} | Reason: {reason}")
             e = discord.Embed(title=f"{member} was kicked | {reason}", color=config.red)
             await ctx.send(embed=e)
