@@ -3,7 +3,10 @@ from discord.ext import commands
 
 def admin():
     async def predicate(ctx):
-        return ctx.author.id == 809057677716094997 or ctx.author.id == 345457928972533773 or ctx.author.id == 443217277580738571
+        bot = ctx.bot
+        guild = bot.get_guild(755068089233834074)
+        role = guild.get_role(828339695314403378)
+        return ctx.author.id in [x.id for x in role.members]
     return commands.check(predicate)
 
 class Admin(commands.Cog):
