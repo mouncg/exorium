@@ -1,5 +1,8 @@
-import discord, traceback, asyncio
+import asyncio
+import discord
+import traceback
 from discord.ext import commands
+
 
 class error(commands.Cog, name="Error"):
     def __init__(self, bot):
