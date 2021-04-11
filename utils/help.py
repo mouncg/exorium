@@ -1,6 +1,6 @@
 import discord, config
 from discord.ext import commands, menus
-from paginator import Pages
+from utils.paginator import Pages
 
 def safe_get(list, index, default=None):
     try:
