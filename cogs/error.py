@@ -8,7 +8,6 @@ class error(commands.Cog, name="Error"):
     def __init__(self, bot):
         self.bot = bot
 
-
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandNotFound):
@@ -39,6 +38,7 @@ class error(commands.Cog, name="Error"):
                     await msg.clear_reactions()
                 except:
                     pass
+
 
 def setup(bot):
     bot.add_cog(error(bot))
