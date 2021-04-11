@@ -180,7 +180,6 @@ You can get support here:
         Joshua = await self.bot.fetch_user(809057677716094997)
         Moksej = await self.bot.fetch_user(345457928972533773)
         Duck = await self.bot.fetch_user(443217277580738571)
-        Tooth = await self.bot.fetch_user(341988909363757057)
 
         devs = [f"{x.name}#{x.discriminator}" for x in self.bot.get_guild(755068089233834074).get_role(828339695314403378).members]
         dev1 = ', '.join(devs)
