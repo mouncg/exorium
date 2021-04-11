@@ -30,7 +30,6 @@ class HelpCog(commands.Cog, name="Help"):
                     discord_ms = "fucking dead"
                 await ctx.send(f"\U0001f3d3 Pong   |   {discord_ms}")  # You can use :ping_pong: instead of \U0001f3d3
 
-
     @commands.command()
     async def invite(self, ctx):
         """ Invite Esquire to your server """
@@ -38,14 +37,12 @@ class HelpCog(commands.Cog, name="Help"):
         e.description = f"Invite Esquire to your server [here]({config.invite})."
         await ctx.send(embed=e)
 
-
     @commands.command()
     async def privacy(self, ctx):
         """ Read our privacy policy """
         e = discord.Embed(color=discord.Color.dark_teal())
         e.description = f"Read Esquire's privacy policy [here]({config.privacy})."
         await ctx.send(embed=e)
-
 
     @commands.command()
     async def support(self, ctx):
@@ -57,7 +54,6 @@ You can get support here:
 - [Github issue](https://github.com/ThePawKingdom/exorium/issues/new)
 """
         await ctx.send(embed=e)
-
 
     @commands.command()
     @commands.cooldown(1, 30, commands.BucketType.user)
@@ -74,13 +70,11 @@ You can get support here:
         await ra.add_reaction(config.crossmark)
         await ctx.send(f"Your suggestion was recorded in our support server.")
 
-
     @commands.command()
     @commands.guild_only()
     async def id(self, ctx, member: discord.Member):
         """ Get a user's ID """
         await ctx.reply(member.id)
-
 
     @commands.command()
     async def av(self, ctx, user: discord.Member = None):
@@ -134,7 +128,6 @@ You can get support here:
         e.set_image(url=ctx.guild.icon_url)
         await ctx.send(embed=e)
 
-
     @commands.command()
     @commands.guild_only()
     @commands.bot_has_guild_permissions(add_reactions=True)
@@ -151,7 +144,6 @@ You can get support here:
         await pre.add_reaction(config.checkmark)
         await pre.add_reaction(config.crossmark)
 
-
     @commands.command()
     @commands.guild_only()
     async def say(self, ctx, *, say):
@@ -160,7 +152,6 @@ You can get support here:
         e.description = say
         e.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=e)
-
 
     @commands.command(aliases=["statistics"])
     @commands.cooldown(1, 10, commands.BucketType.user)
@@ -181,7 +172,8 @@ You can get support here:
         Moksej = await self.bot.fetch_user(345457928972533773)
         Duck = await self.bot.fetch_user(443217277580738571)
 
-        devs = [f"{x.name}#{x.discriminator}" for x in self.bot.get_guild(755068089233834074).get_role(828339695314403378).members]
+        devs = [f"{x.name}#{x.discriminator}" for x in
+                self.bot.get_guild(755068089233834074).get_role(828339695314403378).members]
         dev1 = ', '.join(devs)
 
         e = discord.Embed(color=discord.Color.dark_teal())
