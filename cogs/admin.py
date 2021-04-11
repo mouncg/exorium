@@ -1,5 +1,7 @@
-import discord, config
+import config
+import discord
 from discord.ext import commands
+
 
 def admin():
     async def predicate(ctx):
@@ -7,7 +9,9 @@ def admin():
         guild = bot.get_guild(755068089233834074)
         role = guild.get_role(828339695314403378)
         return ctx.author.id in [x.id for x in role.members]
+
     return commands.check(predicate)
+
 
 class Admin(commands.Cog):
     def __init__(self, bot):
@@ -47,6 +51,7 @@ class Admin(commands.Cog):
         await ctx.send('Shutting down.')
         await self.bot.change_presence(activity=discord.Game(type=0, name='Shutting Down.'), status=discord.Status.dnd)
         await self.bot.logout()
+
 
 def setup(bot):
     bot.add_cog(Admin(bot))
