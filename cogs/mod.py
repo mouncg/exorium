@@ -86,9 +86,47 @@ class mod(commands.Cog, name="Moderation"):
         Unban the specified user with the specified reason
         *Reason defaults to __no reason specified__*
         """
+        checkmark = '<a:checkmark:813798012399779841>'
+        crossmark = '<a:cross:813798012626141185>'
+        
         try:
-            if user == self.bot.user:
-                return await ctx.send(f"I was never banned from this guild.", delete_after=5)
+            if member == ctx.message.author:
+                return await ctx.send("You were never banned.")
+
+            if member == self.bot.user:
+                
+                def check(r, u):
+                    return u.id == ctx.author.id and r.message.id == checkmsg.id
+            
+                try:
+                    checkmsg = await ctx.reply(f"I guess you want me to leave then <:sadcat:647705878597730315> Press the {checkmark} reaction to confirm.")
+                    await checkmsg.add_reaction(checkmark)
+                    await checkmsg.add_reaction(crossmark)
+                    react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
+                    
+                    if str(react) == checkmark:
+                        try:
+                            await checkmsg.clear_reactions()
+                        except Exception:
+                            pass
+                        await checkmsg.edit(content="Okay, leaving this guild.")
+                        await ctx.guild.leave()
+                        return
+                
+                    if str(react) == crossmark:
+                        try: 
+                            await checkmsg.clear_reactions()
+                        except Exception:
+                            pass
+                        return await checkmsg.edit(content="Okay, i will stay in your server :D")
+                        
+                except asyncio.TimeoutError:
+                    try:
+                        await checkmsg.clear_reactions()
+                    except Exception:
+                        pass
+                    return await checkmsg.edit(content="Command timed out, canceling...")
+       
             await ctx.message.delete()
             await ctx.guild.unban(user.user, reason=f"moderator: {ctx.message.author} | {reason}")
             e = discord.Embed(color=config.green)
