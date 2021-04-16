@@ -102,7 +102,7 @@ class mod(commands.Cog, name="Moderation"):
         *Reason defaults to __no reason specified__*
         """
         try:
-            if member == ctx.message.author:
+            if member == self.bot.user:
                 
                 def check(r, u):
                     return u.id == ctx.author.id and r.message.id == checkmsg.id
@@ -135,8 +135,8 @@ class mod(commands.Cog, name="Moderation"):
                         pass
                     await checkmsg.edit(content="Command timed out, canceling...")
                         
-            if member == self.bot.user:
-                return await ctx.send(f"Please kick someone else rather than me, thanks.", delete_after=5)
+            if member == ctx.message.author:
+                return await ctx.send(f"Please kick someone else rather then yourself.", delete_after=5)
             botmember = ctx.guild.me
             if member.top_role > botmember.top_role:
                 return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to kick has.")
