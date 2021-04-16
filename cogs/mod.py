@@ -105,7 +105,7 @@ class mod(commands.Cog, name="Moderation"):
             if member == ctx.message.author:
                 
                 def check(r, u):
-                return u.id == ctx.author.id and r.message.id == checkmsg.id
+                    return u.id == ctx.author.id and r.message.id == checkmsg.id
             
                 try:
                     checkmsg = await ctx.reply(f"I guess you want me to leave then <:sadcat:647705878597730315> Press the {config.checkmark} reaction to confirm.")
