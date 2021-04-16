@@ -124,21 +124,22 @@ class mod(commands.Cog, name="Moderation"):
                             pass
                         await checkmsg.edit(content="Okay, leaving this guild.")
                         await guild.leave()
+                        return
                 
                     if str(react) == crossmark:
                         try: 
                             await checkmsg.clear_reactions()
                         except Exception:
                             pass
-                        await checkmsg.edit(content="Okay, i will stay in your server :D")
+                        return await checkmsg.edit(content="Okay, i will stay in your server :D")
                         
                 except asyncio.TimeoutError:
                     try:
                         await checkmsg.clear_reactions()
                     except Exception:
                         pass
-                    await checkmsg.edit(content="Command timed out, canceling...")
-                        
+                    return await checkmsg.edit(content="Command timed out, canceling...")
+       
             if member == ctx.message.author:
                 return await ctx.send(f"Please kick someone else rather then yourself.", delete_after=5)
             botmember = ctx.guild.me
