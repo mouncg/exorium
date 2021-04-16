@@ -120,6 +120,21 @@ class mod(commands.Cog, name="Moderation"):
                             pass
                         await checkmsg.edit(content="Okay, leaving this guild.")
                         await guild.leave()
+                
+                    if str(react) == config.crossmark:
+                        try: 
+                            await checkmsg.clear_reactions()
+                        except Exception:
+                            pass
+                        await checkmsg.edit(content="Okay, i will stay in your server :D")
+                        
+                except asyncio.TimeoutError:
+                    try:
+                        await checkmsg.clear_reactions()
+                    except Exception:
+                        pass
+                    await checkmsg.edit(content="Command timed out, canceling...")
+                        
             if member == self.bot.user:
                 return await ctx.send(f"Please kick someone else rather than me, thanks.", delete_after=5)
             botmember = ctx.guild.me
