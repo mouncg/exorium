@@ -102,6 +102,9 @@ class mod(commands.Cog, name="Moderation"):
         Kicks the specified user with the specified reason
         *Reason defaults to __no reason specified__*
         """
+        checkmark = '<a:checkmark:813798012399779841>'
+        crossmark = '<a:cross:813798012626141185>'
+        
         try:
             if member == self.bot.user:
                 
@@ -110,11 +113,11 @@ class mod(commands.Cog, name="Moderation"):
             
                 try:
                     checkmsg = await ctx.reply(f"I guess you want me to leave then <:sadcat:647705878597730315> Press the {config.checkmark} reaction to confirm.")
-                    await checkmsg.add_reaction(config.checkmark)
-                    await checkmsg.add_reaction(config.crossmark)
+                    await checkmsg.add_reaction(checkmark)
+                    await checkmsg.add_reaction(crossmark)
                     react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
                     
-                    if str(react) == config.checkmark:
+                    if str(react) == checkmark:
                         try:
                             await checkmsg.clear_reactions()
                         except Exception:
@@ -122,7 +125,7 @@ class mod(commands.Cog, name="Moderation"):
                         await checkmsg.edit(content="Okay, leaving this guild.")
                         await guild.leave()
                 
-                    if str(react) == config.crossmark:
+                    if str(react) == crossmark:
                         try: 
                             await checkmsg.clear_reactions()
                         except Exception:
