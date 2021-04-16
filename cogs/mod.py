@@ -103,7 +103,23 @@ class mod(commands.Cog, name="Moderation"):
         """
         try:
             if member == ctx.message.author:
-                return await ctx.send("You can not kick yourself, please try someone else.")
+                
+                def check(r, u):
+                return u.id == ctx.author.id and r.message.id == checkmsg.id
+            
+                try:
+                    checkmsg = await ctx.reply(f"I guess you want me to leave then <:sadcat:647705878597730315> Press the {config.checkmark} reaction to confirm.")
+                    await checkmsg.add_reaction(config.checkmark)
+                    await checkmsg.add_reaction(config.crossmark)
+                    react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
+                    
+                    if str(react) == config.checkmark:
+                        try:
+                            await checkmsg.clear_reactions()
+                        except Exception:
+                            pass
+                    await checkmsg.edit(content="Okay, leaving this guild.")
+                    await guild.leave()
             if member == self.bot.user:
                 return await ctx.send(f"Please kick someone else rather than me, thanks.", delete_after=5)
             botmember = ctx.guild.me
