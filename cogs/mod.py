@@ -123,7 +123,7 @@ class mod(commands.Cog, name="Moderation"):
                         except Exception:
                             pass
                         await checkmsg.edit(content="Okay, leaving this guild.")
-                        await guild.leave()
+                        await ctx.guild.leave()
                         return
                 
                     if str(react) == crossmark:
