@@ -1,5 +1,6 @@
 import config
 import discord
+import asyncio
 from discord.ext import commands
 
 from utils.checks import BannedMember
