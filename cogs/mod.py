@@ -118,8 +118,8 @@ class mod(commands.Cog, name="Moderation"):
                             await checkmsg.clear_reactions()
                         except Exception:
                             pass
-                    await checkmsg.edit(content="Okay, leaving this guild.")
-                    await guild.leave()
+                        await checkmsg.edit(content="Okay, leaving this guild.")
+                        await guild.leave()
             if member == self.bot.user:
                 return await ctx.send(f"Please kick someone else rather than me, thanks.", delete_after=5)
             botmember = ctx.guild.me
