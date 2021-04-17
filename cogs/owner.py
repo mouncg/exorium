@@ -130,7 +130,7 @@ __**Are you sure you want me to leave this guild?**__
                     pass
                 eleave = discord.Embed(color=discord.Color.dark_red(), description=f"Okay, leaving this guild.")
                 await checkmsg.edit(embed=eleave)
-                await ctx.guild.leave()
+                await guild.leave()
                 return
         
             if str(react) == crossmark:
