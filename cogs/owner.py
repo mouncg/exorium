@@ -93,7 +93,8 @@ class owner(commands.Cog, name="Owner"):
     @commands.command()
     @commands.is_owner()
     async def leave(self, ctx, *, args):
-        guild = self.bot.get_guild(755068089233834074)
+        g = args
+        guild = self.bot.get_guild(g)
         await ctx.send(guild.name)
 
 
