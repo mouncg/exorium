@@ -1,6 +1,7 @@
 import discord
 import typing
 import time
+import asyncio
 from discord.ext import commands
 from utils import default
 
@@ -94,6 +95,16 @@ class owner(commands.Cog, name="Owner"):
     @commands.command()
     @commands.is_owner()
     async def leave(self, ctx, id):
+        """
+        Forcibly leave a guild through ID
+        """
+        
+        checkmark = '<a:checkmark:813798012399779841>'
+        crossmark = '<a:cross:813798012626141185>'
+
+        def check(r, u):
+            return u.id == ctx.author.id and r.message.id == checkmsg.id
+
         guild = await self.bot.fetch_guild(id)
         e = discord.Embed(color=discord.Color.red())
         e.set_thumbnail(url=guild.icon_url)
@@ -106,8 +117,35 @@ class owner(commands.Cog, name="Owner"):
 Created on {default.date(guild.created_at)}.
 __**Are you sure you want me to leave this guild?**__
 """
-        await ctx.send(embed=e)
+        checkmsg = await ctx.send(embed=e)
+        await checkmsg.add_reaction(checkmark)
+        await checkmsg.add_reaction(crossmark)
+        react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
         
+        if str(react) == checkmark:
+            try:
+                await checkmsg.clear_reactions()
+            except Exception:
+                pass
+            await checkmsg.edit(content="Okay, leaving this guild.")
+            await ctx.guild.leave()
+            return
+        
+        if str(react) == crossmark:
+            try:
+                await checkmsg.clear_reactions()
+            except Exception:
+                pass
+            await checkmsg.edit(content="Okay, i will stay in this guild.")
+            return
+        
+        except asyncio.TimeoutError:
+            try:
+                await checkmsg.clear_reactions()
+            except Exception:
+                pass
+            return await checkmsg.edit(content="Command timed out, canceling...")
+
 
     @commands.group(name='blacklist', invoke_without_command=True, enabled=True)  # invoke_without_command means you can have separate permissions/cooldowns for each subcommand
     @commands.is_owner()
