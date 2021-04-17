@@ -96,6 +96,7 @@ class owner(commands.Cog, name="Owner"):
     async def leave(self, ctx, id):
         guild = await self.bot.fetch_guild(id)
         e = discord.Embed(color=discord.Color.red())
+        e.set_thumbnail(url=guild.icon_url)
         e.description = f"""
 **Guild name:** {guild.name}
 **Guild owner:** {await self.bot.fetch_user(guild.owner_id)}
