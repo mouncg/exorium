@@ -11,11 +11,12 @@ from utils import default
 from collections import Counter
 
 
-class HelpCog(commands.Cog, name="Help"):
+class HelpCog(commands.Cog, name="Utility"):
     def __init__(self, bot):
         self.bot = bot
         bot.help_command = PenguinHelp()
         bot.help_command.cog = self
+        self.help_icon = '<:discovery:719431405905379358>'
 
     @commands.command()
     async def ping(self, ctx):

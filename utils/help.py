@@ -1,4 +1,4 @@
-import discord, config
+import discord, config, asyncio
 from discord.ext import commands, menus
 from utils.paginator import Pages
 
@@ -58,6 +58,10 @@ class CogHelpPages(menus.MenuPages):
 
 class PenguinHelp(commands.HelpCommand):
     def __init__(self):
+        self.owner_cogs = ['Jishaku']
+        self.admin_cogs = ['admin']
+        self.ignore_cogs = ['Error']
+        self.help_icon = '<:store:729571108260675604>'
         super().__init__(command_attrs={
             "cooldown": commands.Cooldown(1, 5, commands.BucketType.member),
             "help": "The help command",
@@ -68,21 +72,86 @@ class PenguinHelp(commands.HelpCommand):
         return f"The command `{string}` was not found."
 
     async def send_bot_help(self, mapping):
-        filtered_commands = {key: await self.filter_commands(value) for key, value in mapping.items() if getattr(key, "qualified_name", "None") != "IpcRoutes"}
-        embed = discord.Embed(title = "Help",
-                              description=f"Use `{self.clean_prefix}help` [command] or [module] for more help.",
-                              color=discord.Color.dark_teal())
-        for cog, cmds in filtered_commands.items():
-            if cmds:
-                embed.add_field(name = getattr(cog, "qualified_name", "None"),
-                                value =f"{', '.join([f'`{command.name}`' for command in cmds])}",
-                                inline=False)
-        await self.get_destination().send(embed = embed)
+        """ See bot help """
+        ctx = self.context
+
+        Flitz = await self.context.bot.fetch_user(809057677716094997)
+
+        support = config.support
+        invite = config.invite
+        prefix = f"`exo `"
+        s = "Support"
+        i = "Bot invite"
+        boats = "[discord.boats](https://discord.boats/bot/620990340630970425)"
+        privacy = "[Privacy Policy](https://flitzstudios.github.io/exoriumbot/src/pages/legal.html)"
+
+        emb = discord.Embed(color=discord.Color.dark_teal())
+        emb.description = (f"[{s}]({support}) | [{i}]({invite}) "
+                           f"| {boats} | {privacy}\n\n**Made by:** {Flitz}\n{prefix}\n\n")
+
+        def check(r, u):
+            return u.id in [self.context.author.id, 809057677716094997] and r.message.id == msg.id
+
+        exts = []
+        to_react = []
+        for extension in set(self.context.bot.cogs.values()):
+            if extension.qualified_name in self.ignore_cogs:
+                continue
+            if extension.qualified_name == "Jishaku":
+                continue
+            if extension.qualified_name in self.owner_cogs and not await self.context.bot.is_owner(self.context.author):
+                continue
+            if extension.qualified_name in self.admin_cogs and not await self.context.bot.is_admin(self.context.author):
+                continue
+            #if extension.qualified_name in self.booster_cogs and not await self.context.bot.is_booster(self.context.author):
+            #    continue
+            #if await checks.cog_disabled(self.context, str(extension.qualified_name)):
+            #    continue
+            exts.append(f"{extension.help_icon} **{extension.qualified_name}**")
+            to_react.append(f"{extension.help_icon}")
+
+        emb.set_author(icon_url=self.context.bot.user.avatar_url, name=self.context.bot.user.name)
+        emb.set_thumbnail(url=self.context.bot.user.avatar_url)
+        emb.add_field(name="Categories:", value="\n".join(exts) + "\n\u200b")
+
+        if ctx.guild:
+            emb.set_footer(text="You can also click on the reactions below to view commands in each category.")
+
+        msg = await ctx.send(embed=emb)
+        try:
+            if ctx.guild:
+                for reaction in to_react:
+                    await msg.add_reaction(reaction)
+                await msg.add_reaction('\U000023f9')
+
+                cog_emojis = {
+                    "<:staff:713984949639708712>": 'Admin',
+                    "<:discovery:719431405905379358>": 'Utility',
+                    "<:hammer:832930785954758687>": 'Moderation',
+                    "<:hug:642196733706764288>": 'Social',
+                    "\U000023f9": 'Stop'
+                }
+                react, user = await self.context.bot.wait_for('reaction_add', check=check, timeout=300.0)
+                if str(react) in cog_emojis:
+                    pass
+                elif str(react) not in cog_emojis:
+                    return
+                await msg.delete()
+                await self.context.send_help(self.context.bot.get_cog(cog_emojis[str(react)]))
+
+        except asyncio.TimeoutError:
+            try:
+                await msg.clear_reactions()
+            except Exception:
+                return
+        except Exception:
+            await self.context.send(content="Failed to add reactions", embed=emb)
+
     
     async def send_cog_help(self, cog):
         commands = []
         for command in await self.filter_commands(cog.get_commands()):
-            commands.append(f"{command.qualified_name} - {command.short_doc}")
+            commands.append(f"`{command.qualified_name}` - **{command.short_doc}**\n")
         
         paginator = Pages(self.context,
                           title=f"{cog.qualified_name} help",
@@ -96,8 +165,8 @@ class PenguinHelp(commands.HelpCommand):
     async def send_command_help(self, command):
         aliases = '`' + '`, `'.join(command.aliases) + "`"
         if aliases == "``" or aliases == '`':
-            aliases = f" {config.emotecross} No aliases found"
-        embed = discord.Embed(title= f"[{command.cog.qualified_name}] {command.qualified_name}", color=config.color)
+            aliases = f" {config.crossmark} No aliases found"
+        embed = discord.Embed(title= f"[{command.cog.qualified_name}] {command.qualified_name}", color=discord.Color.dark_teal())
             #title= command.qualified_name + " | " + " | ".join([f"{alias}" for alias in command.aliases]),
         embed.description = command.help or f"`{command.qualified_name}` does not have a description."
         embed.set_thumbnail(url=self.context.bot.user.avatar_url)
