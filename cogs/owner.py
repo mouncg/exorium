@@ -105,7 +105,10 @@ class owner(commands.Cog, name="Owner"):
         def check(r, u):
             return u.id == ctx.author.id and r.message.id == checkmsg.id
 
-        guild = await self.bot.fetch_guild(id)
+        try:
+            guild = await self.bot.fetch_guild(id)
+        except Exception:
+            return await ctx.send('This is not a discord server i\'m in.')
         e = discord.Embed(color=discord.Color.red())
         e.set_thumbnail(url=guild.icon_url)
         e.description = f"""
