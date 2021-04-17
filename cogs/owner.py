@@ -117,27 +117,28 @@ class owner(commands.Cog, name="Owner"):
 Created on {default.date(guild.created_at)}.
 __**Are you sure you want me to leave this guild?**__
 """
-        checkmsg = await ctx.send(embed=e)
-        await checkmsg.add_reaction(checkmark)
-        await checkmsg.add_reaction(crossmark)
-        react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
+        try:
+            checkmsg = await ctx.send(embed=e)
+            await checkmsg.add_reaction(checkmark)
+            await checkmsg.add_reaction(crossmark)
+            react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
         
-        if str(react) == checkmark:
-            try:
-                await checkmsg.clear_reactions()
-            except Exception:
-                pass
-            await checkmsg.edit(content="Okay, leaving this guild.")
-            await ctx.guild.leave()
-            return
+            if str(react) == checkmark:
+                try:
+                    await checkmsg.clear_reactions()
+                except Exception:
+                    pass
+                await checkmsg.edit(content="Okay, leaving this guild.")
+                await ctx.guild.leave()
+                return
         
-        if str(react) == crossmark:
-            try:
-                await checkmsg.clear_reactions()
-            except Exception:
-                pass
-            await checkmsg.edit(content="Okay, i will stay in this guild.")
-            return
+            if str(react) == crossmark:
+                try:
+                    await checkmsg.clear_reactions()
+                except Exception:
+                    pass
+                await checkmsg.edit(content="Okay, i will stay in this guild.")
+                return
         
         except asyncio.TimeoutError:
             try:
