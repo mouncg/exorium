@@ -3,17 +3,17 @@
 *We reserve the right to change this at any given time without notice however, and will sometimes change it without notification.*
 
 ## What information do you store and why?
-
 We do not store any information at the current moment.
 
 We only *log* guild joins/leaves and commands.
 
-## third party sharing
-We do **not** share anything with third parties, any data saved is only visible to (certain members of) the exorium team.
+## Third Party Sharing
+We share data with [Statcord,](https://statcord.com) a service that lets us analyze bot information and provides usage statistics.
+You can read their privacy policy here: https://discordlabs.org/privacy
 
 
-## questions and concerns
-You can ask any questions or concerns in an issue, or you can join our [support server](https://discord.gg/CEHkNky) and ask. You can also DM [Bluewy](https://discord.com/users/698080201158033409) or [Toothless](https://discord.com/users/341988909363757057) on discord.
+## Questions and Concerns
+You can ask us Privacy Policy Questions in [our Support Server](https://discord.gg/uSXdGfX5xD) or by [creating a Discussion on GitHub.](https://github.com/ThePawKingdom/exorium/discussions)
 
 ## Can you remove my data?
-We can remove any data on request, you must however DM one of the developers. You can also make a github issue or PM the [exoriumbot twitter account](https://twitter.com/exoriumbot), but we don't recommend these two options. 
+You can remove data by contacting one of our developers on discord or by DMing [our Twitter account.](https://twitter.com/exoriumbot)
