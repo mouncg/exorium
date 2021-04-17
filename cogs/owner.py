@@ -1,7 +1,8 @@
 import discord
 import typing
+import time
 from discord.ext import commands
-
+from utils import default
 
 class owner(commands.Cog, name="Owner"):
     def __init__(self, bot):
