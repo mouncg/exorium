@@ -102,8 +102,8 @@ class owner(commands.Cog, name="Owner"):
 **Guild owner ID:** {guild.owner_id}
 **{len(guild.humans)}** humans & **{len(guild.bots)}** bots
 
-**Created at:** {default.date(guild.created_at)}
-Are you sure you want me to leave this guild?
+Created on {default.date(guild.created_at)}.
+__**Are you sure you want me to leave this guild?**__
 """
         await ctx.send(embed=e)
         
