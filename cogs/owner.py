@@ -95,7 +95,7 @@ class owner(commands.Cog, name="Owner"):
     async def leave(self, ctx, id):
         #guild = self.bot.get_guild(id)
         #await ctx.send(guild.name)
-        await self.bot.get_guild(id).leave()
+        await bot.get_guild(id).leave()
         await ctx.send(f"Left guild {self.bot.get_guild(id).name} successfully.")
 
 
