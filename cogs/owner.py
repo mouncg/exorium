@@ -93,8 +93,8 @@ class owner(commands.Cog, name="Owner"):
     @commands.command()
     @commands.is_owner()
     async def leave(self, ctx, *, args):
-        guild = self.bot.get_guild(args)
-        await ctx.send(f'{ctx.guild.name} owned by {ctx.guild.owner_id}')
+        server = self.bot.get_guild(args)
+        await ctx.send(f'{server.name} owned by {server.owner_id}')
 
 
     @commands.group(name='blacklist', invoke_without_command=True, enabled=True)  # invoke_without_command means you can have separate permissions/cooldowns for each subcommand
