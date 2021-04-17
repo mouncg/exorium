@@ -128,7 +128,8 @@ __**Are you sure you want me to leave this guild?**__
                     await checkmsg.clear_reactions()
                 except Exception:
                     pass
-                await checkmsg.edit(content="Okay, leaving this guild.")
+                eleave = discord.Embed(color=discord.Color.dark_red(), description=f"Okay, leaving this guild.")
+                await checkmsg.edit(embed=eleave)
                 await ctx.guild.leave()
                 return
         
@@ -137,7 +138,8 @@ __**Are you sure you want me to leave this guild?**__
                     await checkmsg.clear_reactions()
                 except Exception:
                     pass
-                await checkmsg.edit(content="Okay, i will stay in this guild.")
+                estay = discord.Embed(color=discord.Color.green(), description=f"Okay, staying in this guild.")
+                await checkmsg.edit(embed=estay)
                 return
         
         except asyncio.TimeoutError:
@@ -145,7 +147,8 @@ __**Are you sure you want me to leave this guild?**__
                 await checkmsg.clear_reactions()
             except Exception:
                 pass
-            return await checkmsg.edit(content="Command timed out, canceling...")
+            etimeout = discord.Embed(color=discord.Color.dark_red(), description=f"Command timed out, canceling...")
+            return await checkmsg.edit(embed=etimeout)
 
 
     @commands.group(name='blacklist', invoke_without_command=True, enabled=True)  # invoke_without_command means you can have separate permissions/cooldowns for each subcommand
