@@ -100,7 +100,7 @@ class owner(commands.Cog, name="Owner"):
 **Guild name:** {guild.name}
 **Guild owner:** {await self.bot.fetch_user(guild.owner_id)}
 **Guild owner ID:** {guild.owner_id}
-**{guild.humans}** humans & **{guild.bots}** bots
+**{len(guild.humans)}** humans & **{len(guild.bots)}** bots
 
 **Created at:** {default.date(guild.created_at)}
 Are you sure you want me to leave this guild?
