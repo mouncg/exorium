@@ -60,7 +60,7 @@ You can get support here:
     @commands.cooldown(1, 30, commands.BucketType.user)
     async def suggest(self, ctx, *, suggestion):
         """ Make suggestions for Esquire """
-        channel = self.bot.get_channel(822611562119692304)
+        channel = self.bot.get_channel(769132481252818954)
         if len(suggestion) >= 500:
             return await ctx.send(f"Please make your suggestion shorter then 500 characters.")
         e = discord.Embed(color=discord.Color.green())
@@ -121,6 +121,46 @@ You can get support here:
         e.set_footer(text=f"Guild ID: {ctx.guild.id}")
         await ctx.send(embed=e)
 
+    @commands.command(aliases=["ui"])
+    @commands.guild_only()
+    async def userinfo(self, ctx, *, user: discord.Member = None):
+        """ See a user's info """
+        if not user:
+            user = ctx.author
+
+        if str(user.status) == 'dnd':
+            status = 'Do Not Disturb'
+        else:
+            status = user.status
+
+        uroles = []
+        for role in user.roles:
+            if role.is_default():
+                continue
+            uroles.append(role.mention)
+
+        uroles.reverse()
+
+        if len(uroles) > 10:
+            uroles = [f"{', '.join(uroles[:10])} (+{len(user.roles) - 11})"]
+
+        e = discord.Embed(color=user.colour)
+        e.set_author(name=user.display_name, icon_url=user.avatar_url)
+        e.set_thumbnail(url=user.avatar_url)
+        e.description = f"""
+**Username:** {user}
+**User ID:** {user.id}
+**Created on {default.date(user.created_at)}**
+**Joined on {default.date(user.joined_at)}**
+**Flag value:** {user.public_flags.value}
+**Status:** {status}
+"""
+        if len(uroles) > 0:
+            e.add_field(name=f"__**Roles ({len(user.roles) - 1})**__",
+                        value=", ".join(uroles), inline=False)
+
+        await ctx.send(embed=e)
+
     @commands.command()
     @commands.guild_only()
     async def roleinfo(self, ctx, *, role: discord.Role):
@@ -138,7 +178,6 @@ You can get support here:
 
         if role.permissions.administrator:
             perms.append("Administrator")
-        perms
 
         rolemembers = []
         for member in role.members:
@@ -156,7 +195,7 @@ You can get support here:
 **Hoisted:** {hoisted}
 **Color:** `{role.colour}`
 **Permissions:** `{"`, `".join(perms)}`
-**Members {len(role.members)}:** {", ".join(rolemembers)} 
+**Members ({len(role.members)}):** {", ".join(rolemembers)} 
 """
         await ctx.send(f"Information about role **{role.name}**", embed=e)
 
