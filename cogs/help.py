@@ -286,5 +286,32 @@ Hosted on **{platform.platform()}**
         await ctx.send(embed=e)
 
 
+    @commands.group(aliases=["emoji"])
+    async def emote(self, ctx):
+        """ Get emote info/url """
+        if ctx.invoked_subcommand is None:
+            await ctx.send_help(ctx.command)
+
+    @emote.group()
+    async def url(self, ctx, emote: discord.PartialEmoji):
+        """ Get an emote's URL """
+        await ctx.send(emote.url)
+
+    @emote.group()
+    async def info(self, ctx, emote: discord.Emoji):
+        """ Get info about an emote """
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.set_author(name=emote.name, icon_url=emote.guild.icon_url)
+        e.description = f"""
+**Created on {default.date(emote.created_at)}**
+**From** {emote.guild} (`{emote.guild_id}`)
+**Emote ID:** `{emote.id}`
+**Emote URL:** [Click here]({emote.url})
+**Escaped:** \{emote}
+"""
+        e.set_thumbnail(url=emote.url)
+        await ctx.send(embed=e)
+
+
 def setup(bot):
     bot.add_cog(HelpCog(bot))
