@@ -290,7 +290,10 @@ Hosted on **{platform.platform()}**
     async def emote(self, ctx):
         """ Get emote info/url """
         if ctx.invoked_subcommand is None:
-            await ctx.send_help(ctx.command)
+            #await ctx.send_help(ctx.command)
+            e = discord.Embed(title="Emote help", color=discord.Color.dark_teal())
+            e.description = f"`url` **- Get an emote's URL**\n`info` **- Get info about an emote**"
+            await ctx.send(embed=e)
 
     @emote.group()
     async def url(self, ctx, emote: discord.PartialEmoji):
