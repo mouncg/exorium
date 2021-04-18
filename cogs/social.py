@@ -130,5 +130,15 @@ class social(commands.Cog, name="Social"):
 
                                     await ctx.send(js['fact'])
 
+    @commands.command()
+    async def gay(self, ctx, user: discord.Member = None):
+        if not user:
+            user = ctx.author
+        link = f"https://some-random-api.ml/canvas/gay/?avatar={user.avatar_url}"
+        e = discord.Embed(color=discord.Color.random())
+        e.set_image(url=link)
+        e.set_footer(text=f"Gay avatar: {user}")
+        await ctx.send(embed=e)
+
 def setup(bot):
     bot.add_cog(social(bot))
