@@ -149,3 +149,6 @@ wag = ["https://media.tenor.com/images/391f32ea35c6bd010fe29425f8a689e3/tenor.gi
        "https://media.tenor.com/images/7bd999202fde3cb64395725964ff34ac/tenor.gif"]
 
 cookie = ['https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-ms-fields-cookies-024-1544735513.jpg']
+
+
+nuzzle = [""]
