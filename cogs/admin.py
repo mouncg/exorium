@@ -14,7 +14,7 @@ def admin():
 class Admin(commands.Cog, name="Admin"):
     def __init__(self, bot):
         self.bot = bot
-        self.help_icon = "<:locked:719660754512642160>"
+        self.help_icon = "👑"
 
     @commands.command()
     @admin()
