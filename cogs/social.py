@@ -189,6 +189,18 @@ class social(commands.Cog, name="Social"):
             return await ctx.send("Please specify at least one cutie to give a cookie to!")
         e = discord.Embed(title='A cookie has been given!', description=f'{ctx.author.mention} gave {members[0].mention} a cookie', color=config.green)
         await ctx.send(embed=e)
+        
+    @commands.command(brief="Nuzzle someone!")
+    async def nuzzle(self, ctx, members: command.Greedy[discord.Member]):
+        """Nuzzle the specified people"""
+        if not members:
+            return await ctx.send("please specify someone to nuzzle.")
+        e = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** nuzzles " + "**" + '**, **'.join(x.display_name for x in members) + "**")
+        manual = gifs.nuzzle
+        image = random.choice(manual)
+        
+        e.set_image(url=image)
+        await ctx.send(embed=e)
 
 def setup(bot):
     bot.add_cog(social(bot))
