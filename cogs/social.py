@@ -191,7 +191,7 @@ class social(commands.Cog, name="Social"):
         await ctx.send(embed=e)
         
     @commands.command(brief="Nuzzle someone!")
-    async def nuzzle(self, ctx, members: command.Greedy[discord.Member]):
+    async def nuzzle(self, ctx, members: commands.Greedy[discord.Member]):
         """Nuzzle the specified people"""
         if not members:
             return await ctx.send("please specify someone to nuzzle.")
