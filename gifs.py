@@ -7,7 +7,7 @@ awoo = ["https://cdn.discordapp.com/attachments/715969701771083820/7394299024027
         "https://media.giphy.com/media/jPSjVZLPOGVa0/giphy.gif", "https://media.giphy.com/media/lLoYlICw9DEY0/giphy.gif",
         "https://media.giphy.com/media/OQI1KMVGJyniwVwnl3/giphy.gif", "https://media.giphy.com/media/2nXYb1jf0FVRK/giphy.gif"]
 
-  
+
 bellyrub = ["https://i.imgur.com/VnoVdts.gif",
             "https://i.imgur.com/AGb1AKb.gif",
             "https://i.imgur.com/PbYykOz.gif",
@@ -30,7 +30,7 @@ bonk = ["https://media1.tenor.com/images/c7db074a1f169d09f037e4a1695ce8ab/tenor.
         "https://media1.tenor.com/images/c70e5c67f32b126e8d62bb1ee099aec4/tenor.gif?itemid=17872492",
         "https://media1.tenor.com/images/5be9d9780f7f36146eef8ec6716493a5/tenor.gif?itemid=17119858"]
 
-  
+
 boop = ["https://media1.tenor.com/images/36d187af3d5e876ec0d8f11cabe1a8d4/tenor.gif?itemid=15225693",
         "https://media1.tenor.com/images/ea37d5c281b7ca7c35175bdc854b0a5b/tenor.gif?itemid=11159084",
         "https://media.tenor.com/images/3f364e971453b18a1ae2b5cc8d2d0613/tenor.gif",
@@ -40,7 +40,7 @@ boop = ["https://media1.tenor.com/images/36d187af3d5e876ec0d8f11cabe1a8d4/tenor.
         "https://media.tenor.com/images/aa41ce7ea8f138eb8e0be635cd4664d9/tenor.gif",
         "https://media1.tenor.com/images/9e42f5059137a153137af77cb898c070/tenor.gif?itemid=17599907"]
 
-  
+
 cuddle = ["https://thumbs.gfycat.com/WaterloggedFabulousIbis-small.gif",
           "https://media3.giphy.com/media/h4BprYiFYNxRe/giphy.gif",
           "https://media1.tenor.com/images/304d8bf0315c3096603afd7e6562833c/tenor.gif?itemid=12304006",
@@ -116,7 +116,7 @@ rawr = ["https://media1.tenor.com/images/5393afcde44d4be4569108e40fddb3a1/tenor.
         "https://media1.tenor.com/images/78e79fa52e3934f693ce670a3a905e64/tenor.gif?itemid=16549140"
         "https://media1.tenor.com/images/84b80c7e1fa843fd4ea7b90e1bc269c4/tenor.gif?itemid=15426315"]
 
-  
+
 slap = ["https://eppyprime.2builders2.tools/M0tqvs06dLNoyw.gif",
         "https://media1.tenor.com/images/37bc5bf5e95aa6afcd66fd779b923af5/tenor.gif?itemid=9629173",
         "https://media1.tenor.com/images/13826f5f3060ce41d8fbe4d16a7acb63/tenor.gif?itemid=5428402",
@@ -140,7 +140,7 @@ snuggle = ["https://media1.tenor.com/images/ba7829e33a9392d38e15cdc4c650b897/ten
            "https://media.giphy.com/media/kz01wlAoCLYx3v8F68/giphy.gif",
            "https://media.giphy.com/media/DAX8RixOTrWuY/giphy.gif"]
 
-  
+
 wag = ["https://media.tenor.com/images/391f32ea35c6bd010fe29425f8a689e3/tenor.gif",
        "https://media.tenor.com/images/bac4a23e4a961a274c94d2631cf63e19/tenor.gif",
        "https://media1.tenor.com/images/3562622d1c072ba2c30645b19e13bd2f/tenor.gif?itemid=7910058",
@@ -148,5 +148,7 @@ wag = ["https://media.tenor.com/images/391f32ea35c6bd010fe29425f8a689e3/tenor.gi
        "https://media.tenor.com/images/dd137df1f2badd31405967a12d862f28/tenor.gif",
        "https://media.tenor.com/images/7bd999202fde3cb64395725964ff34ac/tenor.gif"]
 
+cookie = ['https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-ms-fields-cookies-024-1544735513.jpg']
 
-nuzzle = ["https://tenor.com/YDnc.gif"]
+
+nuzzle = ['https://media1.tenor.com/images/412ed5e4675f2efa000882e933f1ffee/tenor.gif?itemid=12530414']

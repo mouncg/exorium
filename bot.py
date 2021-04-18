@@ -1,13 +1,11 @@
 import discord
 import config
-# import aiohttp
-# import psutil
 import traceback
 from discord.ext import commands
 
 
 def get_prefix(bot, message):
-    prefixes = ["exo ", "e!", "Exo "]
+    prefixes = ["esq ", "e!", "Esq "]
     
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
@@ -20,23 +18,23 @@ bot = commands.Bot(
     case_insensitive=True, 
     allowed_mentions=discord.AllowedMentions.none(), 
     max_messages=10000,
-    #intents=discord.Intents.all(),
+    # intents=discord.Intents.all(),
     status=discord.Status.online,
-    activity=discord.Activity(type=discord.ActivityType.playing, name='e!help'),
-    description="A very gay and annoying beta bot"
+    activity=discord.Activity(type=discord.ActivityType.playing, name=f'with you'),
+    description="A bot designed to improve chatting and discord usage."
 )
 
-bot.blacklist = {}
+# bot.blacklist = {}
 
-mydb = config.DBdata
-bot.database = mydb.cursor()
-bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason VARCHAR(255))")
+# mydb = config.DBdata
+# bot.database = mydb.cursor()
+# bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason VARCHAR(255))")
 
 
 @commands.Cog.listener()
 async def on_ready():
-    # activity = discord.Activity(type=discord.ActivityType.watching, name="a movie")
-    await bot.change_presence(status=discord.Status.dnd)
+    print('Bot has started successfully.')
+
 
 for extension in config.extensions:
     try:
@@ -47,9 +45,10 @@ for extension in config.extensions:
         tbe = "".join(tb) + ""
         print(f'[WARNING] Could not load extension {extension}: {tbe}')
 
-bot.database.execute("SELECT * FROM blacklist")
-blacklist = bot.database.fetchall()
-for result in blacklist:
-    bot.blacklist[result['id']] = result['reason']
+
+# bot.database.execute("SELECT * FROM blacklist")
+# blacklist = bot.database.fetchall()
+# for result in blacklist:
+#     bot.blacklist[result['id']] = result['reason']
 
 bot.run(config.token)
