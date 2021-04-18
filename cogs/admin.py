@@ -124,5 +124,36 @@ __**Are you sure you want me to leave this guild?**__
             return await checkmsg.edit(embed=etimeout)
 
 
+    @commands.command(aliases=["gi"])
+    @admin()
+    async def guildinfo(self, ctx, *, guild: int):
+        """ Administrator information of guilds """
+
+        guild = self.bot.get_guild(guild)
+        owner = await self.bot.fetch_user(guild.owner_id)
+        sperms = dict(guild.me.guild_permissions)
+        perm = []
+
+        for p in sperms.keys():
+            if sperms[p] is True and guild.me.guild_permissions.administrator is False:
+                perm.append(f"`{p.replace('_', ' ').title()}`")
+        if guild.me.guild_permissions.administrator:
+            perm.append('Administrator')
+
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.description = f"If you want me to leave this guild, use:\n`exo leave {guild.id}`"
+        e.set_thumbnail(url=guild.icon_url)
+        e.add_field(name='Generic information', value=f"""
+**Server name:** {guild}
+**Guild ID:** {guild.id}
+**Owner:** {owner} ({guild.owner_id})
+**{guild.member_count}** members
+**{len(guild.channels)}** channels & **{len(guild.roles)}** roles total
+**Created on {default.date(guild.created_at)}**
+**Joined on {default.date(guild.get_member(self.bot.user.id).joined_at)}**
+""")
+        e.add_field(name='My permissions', value=", ".join(perm))
+        await ctx.send(guild.id, embed=e)
+
 def setup(bot):
     bot.add_cog(Admin(bot))
