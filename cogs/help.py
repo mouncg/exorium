@@ -123,6 +123,45 @@ You can get support here:
 
     @commands.command()
     @commands.guild_only()
+    async def roleinfo(self, ctx, *, role: discord.Role):
+        """ See a role's info """
+
+        managed = "Yes" if role.managed else "No"
+        hoisted = "Yes" if role.hoist else "No"
+        position = len(ctx.guild.roles) - role.position
+        permissions = dict(role.permissions)
+        perms = []
+        for perm in permissions.keys():
+            if permissions[
+                perm] is True and not role.permissions.administrator:  # I guess role.permissions.administrator works, not sure
+                perms.append(perm.lower().replace('_', ' ').title())
+
+        if role.permissions.administrator:
+            perms.append("Administrator")
+        perms
+
+        rolemembers = []
+        for member in role.members:
+            rolemembers.append(member.mention)
+
+        if len(rolemembers) > 10:
+            rolemembers = [f"{', '.join(rolemembers[:10])} (+{len(role.members) - 11})"]
+
+        e = discord.Embed(color=role.color)
+        e.description = f"""
+**ID:** {role.id}
+**Created at:** {default.date(role.created_at)}
+**Managed:** {managed}
+**Position:** {position}
+**Hoisted:** {hoisted}
+**Color:** `{role.colour}`
+**Permissions:** `{"`, `".join(perms)}`
+**Members {len(role.members)}:** {", ".join(rolemembers)} 
+"""
+        await ctx.send(f"Information about role **{role.name}**", embed=e)
+
+    @commands.command()
+    @commands.guild_only()
     async def servericon(self, ctx):
         """ Get the server's icon """
         e = discord.Embed(color=discord.Color.dark_teal())
