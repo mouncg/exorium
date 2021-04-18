@@ -113,6 +113,12 @@ class social(commands.Cog, name="Social"):
     async def wag(self, ctx, members: commands.Greedy[discord.Member] = None):
         """Wag your tail (Optionally because of specified people)"""
         await functions.feelings(ctx, members, "wags their tail", gifs.wag)
+        
+    @commands.command(breif="Quack quack!")
+    async def quack(self, ctx, members: commands.Greedy[discord.Member] = None):
+        """Quack (Optionally because of specified people)"""
+        duck_list = [f"https://random-d.uk/api/{random.randint(1,191)}.jpg", f"https://random-d.uk/api/{random.randint(1,42)}.gif"]
+        await functions.feelings(ctx, members, "quacks", duck_list)
 
     @commands.command(brief="random animal fact")
     async def fact(self, ctx):
