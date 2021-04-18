@@ -53,7 +53,12 @@ class social(commands.Cog, name="Social"):
     async def bellyrub(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Give bellyrubs to the specified people"""
         await functions.interactions(ctx, members, "bellyrubbed", 'rub the belly of', gifs.bellyrub, reason)
-
+   
+    @commands.command(brief="Nuzzle someone")
+    async def nuzzle(self, ctx, members: commands.Greedy[discord.member] = None, *, reason=None):
+        """Nuzzle the specified people"""
+        await functions.interactions(ctx, members, "nuzzled", 'nuzzles', gifs.nuzzle, reason)
+    
     @commands.command(brief="Cuddle someone")
     async def cuddle(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Cuddle the specified people"""
