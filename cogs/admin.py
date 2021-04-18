@@ -7,7 +7,7 @@ from utils import default
 
 def admin():
     async def predicate(ctx):
-        return ctx.author.id == 809057677716094997 or ctx.author.id == 345457928972533773 or ctx.author.id == 443217277580738571
+        return ctx.author.id == 809057677716094997 or ctx.author.id == 345457928972533773 or ctx.author.id == 443217277580738571 or ctx.author.id == 699686304388087858
     return commands.check(predicate)
 
 
@@ -123,14 +123,24 @@ __**Are you sure you want me to leave this guild?**__
             etimeout = discord.Embed(color=discord.Color.dark_red(), description=f"Command timed out, canceling...")
             return await checkmsg.edit(embed=etimeout)
 
-
-    @commands.command(aliases=["gi"])
+    @commands.group(aliases=["i"])
     @admin()
-    async def guildinfo(self, ctx, *, guild: int):
-        """ Administrator information of guilds """
+    async def info(self, ctx):
+        if ctx.invoked_subcommand is None:
+            e = discord.Embed(title="Info help", color=discord.Color.dark_teal())
+            e.description = f"`guild` **- Guild Admin Information**\n`user` **-User Admin Information**"
+            await ctx.send(embed=e)
 
-        guild = self.bot.get_guild(guild)
-        owner = await self.bot.fetch_user(guild.owner_id)
+    @info.group(aliases=["g"])
+    @admin()
+    async def guild(self, ctx, *, guild: int):
+        """ Guild Admin Information """
+
+        try:
+            guild = self.bot.get_guild(guild)
+            owner = await self.bot.fetch_user(guild.owner_id)
+        except Exception:
+            return await ctx.send("Could not find this guild.")
         sperms = dict(guild.me.guild_permissions)
         perm = []
 
@@ -154,6 +164,27 @@ __**Are you sure you want me to leave this guild?**__
 """)
         e.add_field(name='My permissions', value=", ".join(perm))
         await ctx.send(guild.id, embed=e)
+
+    @info.group(aliases=["u"])
+    @admin()
+    async def user(self, ctx, *, user: int):
+        """ User Admin Information """
+
+        user = await self.bot.fetch_user(user)
+
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.set_author(name=user, icon_url=user.avatar_url)
+        e.set_thumbnail(url=user.avatar_url)
+        e.description = f"""
+**User profile:** [{user}](https://discord.com/users/{user.id})
+**Avatar URL:** [Click here]({user.avatar_url})
+**Created on {default.date(user.created_at)}**
+**Public Flags value:** {user.public_flags.value}
+**{len([x for x in self.bot.guilds if x.get_member(user.id)])}** mutual servers
+"""
+        await ctx.send(embed=e)
+
+
 
 def setup(bot):
     bot.add_cog(Admin(bot))
