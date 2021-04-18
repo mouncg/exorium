@@ -195,7 +195,7 @@ class social(commands.Cog, name="Social"):
         """Nuzzle the specified people"""
         if not members:
             return await ctx.send("please specify someone to nuzzle.")
-        e = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** nuzzles " + "**" + '**, **'.join(x.display_name for x in members) + "**")
+        e = discord.Embed(color=config.color, description=f"**{ctx.message.author.display_name}** nuzzled " + "**" + '**, **'.join(x.display_name for x in members) + "**")
         manual = gifs.nuzzle
         image = random.choice(manual)
         
