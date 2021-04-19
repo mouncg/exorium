@@ -138,6 +138,7 @@ class social(commands.Cog, name="Social"):
 
     @commands.command()
     async def gay(self, ctx, user: discord.Member = None):
+        """ Gay overlay on avatar """
         if not user:
             user = ctx.author
         link = f"https://some-random-api.ml/canvas/gay/?avatar={user.avatar_url}"
@@ -145,6 +146,33 @@ class social(commands.Cog, name="Social"):
         e.set_image(url=link)
         e.set_footer(text=f"Gay avatar: {user}")
         await ctx.send(embed=e)
+
+    @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def pokemon(self, ctx, pokemon):
+        """ Get pokemon info """
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f"https://pokeapi.co/api/v2/pokemon/{pokemon}") as r:
+                js = await r.json()
+
+                abilities = []
+                for x in js['abilities']:
+                    abilities.append(f"[{x['ability']['name'].replace('-', ' ').capitalize()}]({x['ability']['url']})")
+
+                type = []
+                for x in js['types']:
+                    type.append(f"[{x['type']['name'].replace('-', ' ').capitalize()}]({x['type']['url']})")
+
+                e = discord.Embed(color=discord.Color.dark_teal())
+                #e.set_author(name=js['caption'])
+                e.title = js['name']
+                e.description = f"""
+**Abilities:** {.join(abilities)}
+**Type:** {", ".join(type)}
+"""
+                e.set_thumbnail(url=js['sprites']['other']['official-artwork']['front_default'])
+                #e.set_footer(text="Made using some-random-api")
+                await ctx.send(embed=e)
 
 def setup(bot):
     bot.add_cog(social(bot))

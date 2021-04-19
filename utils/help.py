@@ -129,6 +129,7 @@ class PenguinHelp(commands.HelpCommand):
                     "<:hammer:832930785954758687>": 'Moderation',
                     "👑": 'Admin',
                     "<:hug:642196733706764288>": 'Social',
+                    "<:slash:833803136199032882>": 'Slash',
                     "\U000023f9": 'Stop'
                 }
                 react, user = await self.context.bot.wait_for('reaction_add', check=check, timeout=300.0)

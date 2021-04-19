@@ -12,7 +12,7 @@ from discord_slash import cog_ext, SlashContext
 class slash(commands.Cog, name="Slash"):
     def __init__(self, bot):
         self.bot = bot
-        self.help_icon = ""
+        self.help_icon = "<:slash:833803136199032882>"
 
     @cog_ext.cog_slash(description="Slap someone", options=[{"name": "members", "description": "The member you want to slap.", "type": 6, "required": True}, {"name": "reason", "description": "The reason you're slapping the members.", "type": 3, "required": False}])
     async def slash_slap(self, ctx: SlashContext, members: commands.Greedy[discord.Member], *, reason=None):
