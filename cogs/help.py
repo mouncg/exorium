@@ -4,6 +4,7 @@ import time
 import aiohttp
 import psutil
 import platform
+import asyncio
 
 from discord.ext import commands, menus
 from utils.help import PenguinHelp
@@ -324,6 +325,63 @@ Hosted on **{platform.platform()}**
         e1.description = review
         await channel.send(embed=e1)
         await ctx.send("Thank you! Your review has been recorded in our support server.")
+
+    @commands.command()
+    @commands.guild_only()
+    @commands.has_permissions(manage_messages=True)
+    async def announce(self, ctx, channel: discord.TextChannel, *, desc):
+        if not channel:
+            return await ctx.send('Please provide a channel to use.')
+        if len(desc) > 2000:
+            return await ctx.send('Please make your announcement shorter then 2000 characters.')
+        if len(desc) < 2000:
+            e = discord.Embed(color=discord.Color.dark_teal())
+            e.description = f"Do you want the message embedded?"
+
+            checkmark = '<a:checkmark:813798012399779841>'
+            crossmark = '<a:cross:813798012626141185>'
+
+            def check(r, u):
+                return u.id == ctx.author.id and r.message.id == checkmsg.id
+
+            try:
+                checkmsg = await ctx.send(embed=e)
+                await checkmsg.add_reaction(checkmark)
+                await checkmsg.add_reaction(crossmark)
+                react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
+
+                if str(react) == checkmark:
+                    try:
+                        await checkmsg.clear_reactions()
+                    except Exception:
+                        pass
+                    e = discord.Embed(color=discord.Color.random(), description=desc)
+                    e.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
+                    await channel.send(embed=e)
+
+                    embed = discord.Embed(color=discord.Color.green(), description=f"Sent embedded announcement in **{channel}**.")
+                    await checkmsg.edit(embed=embed)
+                    return
+
+                if str(react) == crossmark:
+                    try:
+                        await checkmsg.clear_reactions()
+                    except Exception:
+                        pass
+                    await channel.send(desc)
+
+                    embed2 = discord.Embed(color=discord.Color.green(), description=f"Sent plain announcement in **{channel}**.")
+                    await checkmsg.edit(embed=embed2)
+                    return
+
+            except asyncio.TimeoutError:
+                try:
+                    await checkmsg.clear_reactions()
+                except Exception:
+                    pass
+                etimeout = discord.Embed(color=discord.Color.dark_red(), description=f"Command timed out, canceling...")
+                return await checkmsg.edit(embed=etimeout)
+
 
 def setup(bot):
     bot.add_cog(HelpCog(bot))
