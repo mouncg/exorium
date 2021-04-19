@@ -2,7 +2,7 @@ from discord.ext import commands
 import config
 import discordlists
 
-class DiscordListsPost(commands.Cog):
+class DiscordListsPost(commands.Cog, name="DLP"):
     def __init__(self, bot):
         self.bot = bot
         self.api = discordlists.Client(self.bot)  # Create a Client instance
