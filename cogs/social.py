@@ -13,7 +13,7 @@ class social(commands.Cog, name="Social"):
         self.bot = bot
         self.help_icon = "<:hug:642196733706764288>"
 
-    @commands.command(brief="Slap someone", enabled=False)
+    @commands.command(brief="Slap someone")
     async def slap(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Slap the specified people"""
         if str(ctx.author.id) in str(members):
@@ -114,7 +114,7 @@ class social(commands.Cog, name="Social"):
         """Wag your tail (Optionally because of specified people)"""
         await functions.feelings(ctx, members, "wags their tail", gifs.wag)
         
-    @commands.command(breif="Quack quack!")
+    @commands.command(brief="Quack quack!")
     async def quack(self, ctx, members: commands.Greedy[discord.Member] = None):
         """Quack (Optionally because of specified people)"""
         duck_list = [f"https://random-d.uk/api/{random.randint(1,191)}.jpg", f"https://random-d.uk/api/{random.randint(1,42)}.gif"]
