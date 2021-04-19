@@ -51,5 +51,5 @@ async def feelings(ctx, members, name, list):
             display_list = f"{display_list[0]} and {display_list[1]}"
         else:
             display_list = ', '.join(display_list)
-        embed.description=f"**{ctx.author.display_name}** {name} because of {display_list}"
+        embed.description=f"**{ctx.author.display_name}** {name} because of **{display_list}**"
     await ctx.send(embed=embed)
