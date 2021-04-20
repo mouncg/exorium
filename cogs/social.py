@@ -167,7 +167,7 @@ class social(commands.Cog, name="Social"):
                 #e.set_author(name=js['caption'])
                 e.title = js['name']
                 e.description = f"""
-**Abilities:** {.join(abilities)}
+**Abilities:** {". ".join(abilities)}
 **Type:** {", ".join(type)}
 """
                 e.set_thumbnail(url=js['sprites']['other']['official-artwork']['front_default'])
