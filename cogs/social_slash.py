@@ -119,7 +119,13 @@ class slash(commands.Cog, name="Slash"):
     async def slash_quack(self, ctx: SlashContext, members=None):
         """Quack (Optionally because of specified people)"""
         duck_list = [f"https://random-d.uk/api/{random.randint(1,191)}.jpg", f"https://random-d.uk/api/{random.randint(1,42)}.gif"]
-        await functions.feelings(ctx, list(members) if members is not None else None, "quacks", duck_list)
+        await functions.feelings(ctx, list(members) if members is not None else None, "quacks", duck_list
+                                 
+    @commands.Cog.listener()
+    async def on_slash_command_error(self, ctx: SlashContext, error):
+      embed = discord.Embed(title="An error has occured!", color=discord.Color.red())
+      embed.add_field(name='Full Traceback', value=f"``" + "`py\n{''.join(traceback.format_exception(type(error), error, error.__traceback__))}\n`" + "``", inline=False)
+      await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(slash(bot))
