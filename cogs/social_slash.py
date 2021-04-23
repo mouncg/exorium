@@ -124,7 +124,7 @@ class slash(commands.Cog, name="Slash"):
     @commands.Cog.listener()
     async def on_slash_command_error(self, ctx: SlashContext, error):
       embed = discord.Embed(title="An error has occured!", color=discord.Color.red())
-      embed.add_field(name='Full Traceback', value=f"``" + "`py\n{''.join(traceback.format_exception(type(error), error, error.__traceback__))}\n`" + "``", inline=False)
+      embed.add_field(name='Full Traceback', value=f"```py\n{''.join(traceback.format_exception(type(error), error, error.__traceback__))}\n```", inline=False)
       await ctx.send(embed=embed)
 
 def setup(bot):
