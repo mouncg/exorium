@@ -92,7 +92,7 @@ You can get support here:
     @commands.command()
     @commands.guild_only()
     async def serverinfo(self, ctx):
-        """" Get information about the server """
+        """ Get information about the server """
 
         owner = await self.bot.fetch_user(ctx.guild.owner_id)
         member_count = ctx.guild.member_count  # last known count because you don't have intents
@@ -319,6 +319,7 @@ Hosted on **{platform.platform()}**
 
     @commands.command()
     async def review(self, ctx, *, review):
+        """ Review our bot """
         channel = await self.bot.fetch_channel(833309771959762944)
         e1 = discord.Embed(color=discord.Color.dark_teal())
         e1.set_author(name=f'From {ctx.author}', icon_url=ctx.author.avatar_url)
