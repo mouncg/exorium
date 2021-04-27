@@ -126,6 +126,7 @@ __**Are you sure you want me to leave this guild?**__
     @commands.group(aliases=["i"])
     @admin()
     async def info(self, ctx):
+        """ Display admin user/guild info """
         if ctx.invoked_subcommand is None:
             e = discord.Embed(title="Info help", color=discord.Color.dark_teal())
             e.description = f"`guild` **- Guild Admin Information**\n`user` **-User Admin Information**"
