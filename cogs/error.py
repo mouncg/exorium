@@ -17,17 +17,17 @@ class error(commands.Cog, name="Error"):
 
         if isinstance(err, commands.MissingPermissions):
             perms = "`" + '`, `'.join(err.missing_perms) + "`"
-            return await ctx.send(f"{config.crossmark} You are missing {perms} permissions.")
+            return await ctx.send(f"{config.crossmark} **You are missing {perms} permissions.**")
 
         if isinstance(err, commands.BotMissingPermissions):
             perms = "`" + '`, `'.join(err.missing_perms) + "`"
-            return await ctx.send(f"{config.crossmark} I'm missing {perms} permissions")
+            return await ctx.send(f"{config.crossmark} **I'm missing {perms} permissions**")
 
         if isinstance(err, admin_only):
-            await ctx.send(f"{config.crossmark} You must be a bot administrator for this command.")
+            await ctx.send(f"{config.crossmark} **Only __bot admins__ can use this command.**")
 
         if isinstance(err, commands.MissingRequiredArgument):
-            return await ctx.send(f"You are missing arguments - {err.param}")
+            return await ctx.send(f"**You are missing required arguments - {err.param}**")
 
         else:
             e = discord.Embed(title="traceback", color=discord.Color.red())
