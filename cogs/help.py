@@ -36,7 +36,7 @@ class HelpCog(commands.Cog, name="Utility"):
     async def invite(self, ctx):
         """ Invite Esquire to your server """
         e = discord.Embed(color=discord.Color.dark_teal())
-        e.description = f"Invite Esquire to your server [here]({config.invite})."
+        e.description = f'{config.inv}[Default perms]({config.invite})\n {config.inv}[All perms]({config.invite2})'
         await ctx.send(embed=e)
 
     @commands.command()
@@ -319,7 +319,7 @@ Hosted on **{platform.platform()}**
 
     @commands.command()
     async def review(self, ctx, *, review):
-        """ Review our bot """
+        """ Review our bot! """
         channel = await self.bot.fetch_channel(833309771959762944)
         e1 = discord.Embed(color=discord.Color.dark_teal())
         e1.set_author(name=f'From {ctx.author}', icon_url=ctx.author.avatar_url)
