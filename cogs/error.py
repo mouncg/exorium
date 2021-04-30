@@ -13,7 +13,7 @@ class error(commands.Cog, name="Error"):
     @commands.Cog.listener()
     async def on_command_error(self, ctx, err):
         if isinstance(err, commands.CommandNotFound):
-            pass
+            return
 
         if isinstance(err, commands.MissingPermissions):
             perms = "`" + '`, `'.join(err.missing_perms) + "`"
