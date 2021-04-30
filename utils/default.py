@@ -19,8 +19,8 @@ async def interactions(ctx, members, name, error_name, list, reason=None, sra_ur
         elif api_random == 'sra':
             try:
                 await ctx.trigger_typing()
-            except AttributeError:# Slash commands can't trigger typing.
-                pass
+            except AttributeError:# Slash commands can't trigger typing, so we trigger defer instead.
+                await ctx.defer()
             async with aiohttp.ClientSession() as session:
                 async with session.get(f'https://some-random-api.ml/animu/{sra_url}') as r:
                     if r.status == 200:
