@@ -20,6 +20,7 @@ class HelpCog(commands.Cog, name="Utility"):
         self.help_icon = '<:discovery:719431405905379358>'
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def ping(self, ctx):
         """ See bot's latency to discord """
         discord_start = time.monotonic()
@@ -54,6 +55,7 @@ class HelpCog(commands.Cog, name="Utility"):
 You can get support here:
 - [support server]({config.support})
 - [Github issue](https://github.com/ThePawKingdom/exorium/issues/new)
+- [Email us](https://quacky.xyz/email?email=flitzdevelopment@gmail.com)
 """
         await ctx.send(embed=e)
 
