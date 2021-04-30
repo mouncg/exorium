@@ -29,6 +29,27 @@ class error(commands.Cog, name="Error"):
         if isinstance(err, commands.MissingRequiredArgument):
             return await ctx.send(f"**You are missing required arguments - {err.param}**")
 
+        if isinstance(err, commands.CommandOnCooldown):
+            clog = await self.bot.fetch_channel(837690526789533697)
+            e = discord.Embed(color=discord.Color.red())
+            e.description = f"**{ctx.author} has a `{err.retry_after:.0f}` second cooldown on command `{ctx.command.qualified_name}`**" \
+                            f"\nGuild **{ctx.guild}** with ID `{ctx.guild.id}` | User ID: `{ctx.author.id}`"
+            await clog.send(embed=e)
+            return await ctx.send(f"`{ctx.command.qualified_name}` **is on cooldown for __{err.retry_after:.0f}__ more seconds.**")
+
+        if isinstance(err, commands.NotOwner):
+            return await ctx.send(f"{config.crossmark} **Only __bot owners__ can use this command.**")
+
+        if isinstance(err, commands.MemberNotFound):
+            return await ctx.send(f"{config.confused} **Could not find user `{err.argument}`**")
+
+        if isinstance(err, commands.ChannelNotFound):
+            return await ctx.send(f"{config.confused} **Could not find channel `{err.argument}`**")
+
+        if isinstance(err, discord.Forbidden):
+            return await ctx.send(f"`Could not access this channel`")
+
+
         else:
             e = discord.Embed(title="traceback", color=discord.Color.red())
             e.description = f"**Full traceback**\n```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
