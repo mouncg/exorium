@@ -8,8 +8,9 @@ def date(target, clock=True):
 async def interactions(ctx, members, name, error_name, list, reason=None, sra_url=None):
     if members is None:
         return await ctx.send(f'You must specify the user to {error_name}!')
-    if len(reason) > 256:
-        return await ctx.send(f'{config.crossmark} **You can only put max 256 characters in your reason.**')
+    if reason is not None:
+        if len(reason) > 256:
+            return await ctx.send(f'{config.crossmark} **You can only put max 256 characters in your reason.**')
     if sra_url is None:
         image = random.choice(list)
     else:
