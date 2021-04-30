@@ -4,6 +4,7 @@ import gifs
 import random
 import aiohttp
 import json
+import traceback
 from discord.ext import commands
 from utils import default as functions
 from discord_slash import cog_ext, SlashContext
