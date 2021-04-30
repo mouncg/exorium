@@ -5,11 +5,48 @@ from discord.ext import commands
 from utils import default
 from utils.checks import admin
 
+async def suggestion_command(self, ctx, type, color, reason):
+    if ctx.channel.id != 769132481252818954:
+        return await ctx.send(f"{config.crossmark} You must run this command in a suggestion channel!")
+    elif ctx.message.reference is None:
+        return await ctx.send(f"{config.crossmark} You must reply to the message you want to approve!")
+
+    if ctx.message.reference.cached_message is None:
+        message = await ctx.channel.fetch_message(ctx.message.reference.message_id)
+    else:
+        message = ctx.message.reference.cached_message
+    embed = message.embeds[0]
+    embed.color = color
+    if reason is not None:
+        embed.add_field(name=f'Reason from {ctx.author.name}', value=str(reason))
+    await message.edit(embed=embed)
+    user = await self.bot.try_user(int(embed.author.icon_url.split('/')[4]))
+    if user is not None:
+        try:
+            await user.send(content=f"{ctx.author.name} just {type} your suggestion!", embed=embed)
+        except:
+            pass
+    await ctx.send(f'{config.checkmark} {type.capitalize()} the following suggestion.')
 
 class Admin(commands.Cog, name="Admin"):
     def __init__(self, bot):
         self.bot = bot
         self.help_icon = "👑"
+
+    @commands.group(invoke_without_command=True, aliases=['s'])
+    async def suggestion(self, ctx):
+        """ Manage the Suggestion Queue """
+        await ctx.send_help(ctx.command)
+
+    @suggestion.command(aliases=['a'])
+    @admin()
+    async def approve(self, ctx, *, reason=None):
+        await suggestion_command(self, ctx, 'approved', discord.Color.green(), reason)
+
+    @suggestion.command(aliases=['d'])
+    @admin()
+    async def deny(self, ctx, *, reason=None):
+        await suggestion_command(self, ctx, 'denied', discord.Color.red(), reason)
 
     @commands.command()
     @admin()
