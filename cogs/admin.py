@@ -3,12 +3,7 @@ import discord
 import asyncio
 from discord.ext import commands
 from utils import default
-
-
-def admin():
-    async def predicate(ctx):
-        return ctx.author.id == 809057677716094997 or ctx.author.id == 345457928972533773 or ctx.author.id == 443217277580738571 or ctx.author.id == 699686304388087858
-    return commands.check(predicate)
+from utils.checks import admin
 
 
 class Admin(commands.Cog, name="Admin"):
