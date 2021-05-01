@@ -34,6 +34,7 @@ class Admin(commands.Cog, name="Admin"):
         self.help_icon = "👑"
 
     @commands.group(invoke_without_command=True, aliases=['s'])
+    @admin()
     async def suggestion(self, ctx):
         """ Manage the Suggestion Queue """
         await ctx.send_help(ctx.command)
