@@ -34,6 +34,7 @@ class HelpCog(commands.Cog, name="Utility"):
                 await ctx.send(f"\U0001f3d3 Pong   |   {discord_ms}")  # You can use :ping_pong: instead of \U0001f3d3
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def invite(self, ctx):
         """ Invite Esquire to your server """
         e = discord.Embed(color=discord.Color.dark_teal())
@@ -41,6 +42,7 @@ class HelpCog(commands.Cog, name="Utility"):
         await ctx.send(embed=e)
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def privacy(self, ctx):
         """ Read our privacy policy """
         e = discord.Embed(color=discord.Color.dark_teal())
@@ -48,6 +50,7 @@ class HelpCog(commands.Cog, name="Utility"):
         await ctx.send(embed=e)
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def support(self, ctx):
         """ Get support with Esquire """
         e = discord.Embed(color=discord.Color.dark_teal())
@@ -76,11 +79,13 @@ You can get support here:
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def id(self, ctx, member: discord.Member):
         """ Get a user's ID """
         await ctx.reply(member.id)
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def av(self, ctx, user: discord.Member = None):
         """ Get a user's avatar """
         if not user:
@@ -93,6 +98,7 @@ You can get support here:
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def serverinfo(self, ctx):
         """ Get information about the server """
 
@@ -126,6 +132,7 @@ You can get support here:
 
     @commands.command(aliases=["ui"])
     @commands.guild_only()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def userinfo(self, ctx, *, user: discord.Member = None):
         """ See a user's info """
         if not user:
@@ -166,6 +173,7 @@ You can get support here:
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def roleinfo(self, ctx, *, role: discord.Role):
         """ See a role's info """
 
@@ -204,6 +212,7 @@ You can get support here:
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def servericon(self, ctx):
         """ Get the server's icon """
         e = discord.Embed(color=discord.Color.dark_teal())
@@ -213,6 +222,7 @@ You can get support here:
     @commands.command()
     @commands.guild_only()
     @commands.bot_has_guild_permissions(add_reactions=True)
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def poll(self, ctx, *, poll):
         """ Host a poll """
         try:
@@ -228,6 +238,7 @@ You can get support here:
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def say(self, ctx, *, say):
         """ Say something with Esquire """
         e = discord.Embed(color=discord.Color.dark_teal())
@@ -300,11 +311,13 @@ Hosted on **{platform.platform()}**
             await ctx.send(embed=e)
 
     @emote.group()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def url(self, ctx, emote: discord.PartialEmoji):
         """ Get an emote's URL """
         await ctx.send(emote.url)
 
     @emote.group()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def info(self, ctx, emote: discord.Emoji):
         """ Get info about an emote """
         e = discord.Embed(color=discord.Color.dark_teal())
@@ -320,6 +333,7 @@ Hosted on **{platform.platform()}**
         await ctx.send(embed=e)
 
     @commands.command()
+    @commands.cooldown(1, 30, commands.BucketType.user)
     async def review(self, ctx, *, review):
         """ Review our bot! """
         channel = await self.bot.fetch_channel(833309771959762944)
@@ -332,6 +346,7 @@ Hosted on **{platform.platform()}**
     @commands.command()
     @commands.guild_only()
     @commands.has_permissions(manage_messages=True)
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def announce(self, ctx, channel: discord.TextChannel, *, desc):
         if not channel:
             return await ctx.send('Please provide a channel to use.')
