@@ -53,9 +53,63 @@ class error(commands.Cog, name="Error"):
             return await ctx.send(f"{config.confused} **Could not find this role**")
 
         else:
+
+            elog = await self.bot.fetch_channel(838000482894610462)
+            le = discord.Embed(color=discord.Color.red())
+            le.description = f"__**Full traceback**__" \
+                            f"\n```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
+            le.set_author(name=f"{ctx.author} | {ctx.author.id} (Guild {ctx.guild.id})", icon_url=ctx.author.avatar_url)
+            await elog.send(embed=le)
+
+            def check(r, u):
+                return u.id == ctx.author.id and r.message.id == checkmsg.id
+
             e = discord.Embed(title="traceback", color=discord.Color.red())
-            e.description = f"**Full traceback**\n```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
-            await ctx.send(embed=e)
+            e.description = f"```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
+            e.set_footer(text="Do you want a developer to join and investigate?")
+            try:
+                checkmsg = await ctx.reply(embed=e)
+                await checkmsg.add_reaction(config.checkmark)
+                await checkmsg.add_reaction(config.crossmark)
+                react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
+
+                if str(react) == config.checkmark:
+                    try:
+                        await checkmsg.clear_reactions()
+                    except Exception:
+                        pass
+
+                    se = discord.Embed(title="traceback", color=discord.Color.red())
+                    se.description = f"```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
+                    se.set_footer(text="A developer will join soon. Thank you.")
+
+                    await checkmsg.edit(embed=se)
+                    invite = await ctx.channel.create_invite()
+                    return await elog.send(invite)
+
+                if str(react) == config.crossmark:
+                    try:
+                        await checkmsg.clear_reactions()
+                    except Exception:
+                        pass
+
+                    se = discord.Embed(title="traceback", color=discord.Color.red())
+                    se.description = f"```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
+                    se.set_footer(text="A invite will not be created.")
+
+                    return await checkmsg.edit(embed=se)
+
+            except asyncio.TimeoutError:
+                try:
+                    await checkmsg.clear_reactions()
+                except Exception:
+                    pass
+
+                se = discord.Embed(title="traceback", color=discord.Color.red())
+                se.description = f"```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
+                se.set_footer(text="Automatically canceled notifications.")
+
+                return await checkmsg.edit(embed=se)
 
 def setup(bot):
     bot.add_cog(error(bot))
