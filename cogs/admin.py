@@ -3,7 +3,11 @@ import discord
 import asyncio
 from discord.ext import commands
 from utils import default
-from utils.checks import admin
+
+def admin():
+    async def predicate(ctx):
+            return ctx.author.id == 809057677716094997 or ctx.author.id == 345457928972533773 or ctx.author.id == 443217277580738571 or ctx.author.id == 699686304388087858
+    return commands.check(predicate)
 
 async def suggestion_command(self, ctx, type, color, reason):
     if ctx.channel.id != 769132481252818954:
@@ -137,6 +141,11 @@ __**Are you sure you want me to leave this guild?**__
                 eleave = discord.Embed(color=discord.Color.dark_red(), description=f"Okay, leaving this guild.")
                 await checkmsg.edit(embed=eleave)
                 await guild.leave()
+                await asyncio.sleep(3)
+
+                log = await self.bot.fetch_channel(762203326519181312)
+
+                await log.send(f"Forcibly left guild {guild}.")
                 return
 
             if str(react) == crossmark:
