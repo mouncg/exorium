@@ -115,12 +115,14 @@ class social(commands.Cog, name="Social"):
         await functions.feelings(ctx, members, "wags their tail", gifs.wag)
         
     @commands.command(brief="Quack quack!")
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def quack(self, ctx, members: commands.Greedy[discord.Member] = None):
         """Quack (Optionally because of specified people)"""
         duck_list = [f"https://random-d.uk/api/{random.randint(1,191)}.jpg", f"https://random-d.uk/api/{random.randint(1,42)}.gif"]
         await functions.feelings(ctx, members, "quacks", duck_list)
 
     @commands.command(brief="random animal fact")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def fact(self, ctx):
         """ Get animal facts! """
         async with aiohttp.ClientSession() as cs:
@@ -137,6 +139,19 @@ class social(commands.Cog, name="Social"):
                                     await ctx.send(js['fact'])
 
     @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def fox(self, ctx):
+        """ Get a random fox """
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://randomfox.ca/floof/") as r:
+                js = await r.json()
+
+                e = discord.Embed(title="Floofy fox!", color=discord.Color.orange())
+                e.set_image(url=js['image'])
+                await ctx.send(embed=e)
+
+    @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def gay(self, ctx, user: discord.Member = None):
         """ Gay overlay on avatar """
         if not user:
