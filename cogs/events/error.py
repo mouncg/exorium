@@ -3,8 +3,7 @@ import discord
 import traceback
 import config
 from discord.ext import commands
-from utils.checks import admin_only
-
+#from cogs.admin import admin_only
 
 class error(commands.Cog, name="Error"):
     def __init__(self, bot):
@@ -22,9 +21,6 @@ class error(commands.Cog, name="Error"):
         if isinstance(err, commands.BotMissingPermissions):
             perms = "`" + '`, `'.join(err.missing_perms) + "`"
             return await ctx.send(f"{config.crossmark} **I'm missing {perms} permissions**")
-
-        if isinstance(err, admin_only):
-            await ctx.send(f"{config.crossmark} **Only __bot admins__ can use this command.**")
 
         if isinstance(err, commands.MissingRequiredArgument):
             return await ctx.send(f"**You are missing required arguments - {err.param}**")
@@ -51,6 +47,12 @@ class error(commands.Cog, name="Error"):
 
         if isinstance(err, commands.RoleNotFound):
             return await ctx.send(f"{config.confused} **Could not find this role**")
+
+        if isinstance(err, commands.NoPrivateMessage):
+            return await ctx.send(f"{config.crossmark} **You can only use this command in servers.**")
+
+        if isinstance(err, commands.CheckFailure):
+            await ctx.send(f"{config.crossmark} **You do not have permission to use this command.**")
 
         else:
 
