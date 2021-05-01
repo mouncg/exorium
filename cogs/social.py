@@ -163,6 +163,20 @@ class social(commands.Cog, name="Social"):
         await ctx.send(embed=e)
 
     @commands.command()
+    @commands.cooldown(1, 10, commands.BucketType.user)
+    async def lyrics(self, ctx, *, title):
+        """ Get song lyrics """
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f"https://some-random-api.ml/lyrics?title={title}") as r:
+                js = await r.json()
+
+                e = discord.Embed(color=discord.Color.random(), title=js['title'])
+                e.set_author(name=js['author'], url=js['links']['genius'])
+                e.description = js['lyrics']
+
+                await ctx.send(embed=e)
+
+    @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def pokemon(self, ctx, pokemon):
         """ Get pokemon info """
