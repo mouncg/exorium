@@ -49,6 +49,8 @@ class error(commands.Cog, name="Error"):
         if isinstance(err, commands.MessageNotFound):
             return await ctx.send(f"{config.confused} **Could not find message `{err.argument}`**")
 
+        if isinstance(err, commands.RoleNotFound):
+            return await ctx.send(f"{config.confused} **Could not find this role**")
 
         else:
             e = discord.Embed(title="traceback", color=discord.Color.red())
