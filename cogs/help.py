@@ -301,7 +301,7 @@ Hosted on **{platform.platform()}**
         await ctx.send(embed=e)
 
 
-    @commands.group(aliases=["emoji"])
+    @commands.group(aliases=["emoji", "e"])
     async def emote(self, ctx):
         """ Get emote info/url """
         if ctx.invoked_subcommand is None:
@@ -310,13 +310,13 @@ Hosted on **{platform.platform()}**
             e.description = f"`url` **- Get an emote's URL**\n`info` **- Get info about an emote**"
             await ctx.send(embed=e)
 
-    @emote.group()
+    @emote.group(aliases=["link", "u"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def url(self, ctx, emote: discord.PartialEmoji):
         """ Get an emote's URL """
         await ctx.send(emote.url)
 
-    @emote.group()
+    @emote.group(aliases=["i"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def info(self, ctx, emote: discord.Emoji):
         """ Get info about an emote """
@@ -343,11 +343,76 @@ Hosted on **{platform.platform()}**
         await channel.send(embed=e1)
         await ctx.send("Thank you! Your review has been recorded in our support server.")
 
+    @commands.group(aliases=["b"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def binary(self, ctx):
+        """ Encode/decode binary """
+        if ctx.invoked_subcommand is None:
+            e = discord.Embed(color=discord.Color.dark_teal(), title="Binary help")
+            e.description = f"`encode` **- Encode text to binary**" \
+                            f"\n`decode` **- Decode binary to text**"
+            await ctx.send(embed=e)
+
+    @binary.group(aliases=["e"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def encode(self, ctx, *, text):
+        """ Encode text to binary """
+        if len(text) > 200:
+            return await ctx.send("Please limit it to 200 characters maximum, the bot will error out otherwise.")
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f"https://some-random-api.ml/binary?text={text}") as r:
+                js = await r.json()
+
+                await ctx.send(js['binary'])
+
+    @binary.group(aliases=["d"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def decode(self, ctx, *, binary):
+        """ Decode binary to text """
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f"https://some-random-api.ml/binary?decode={binary}") as r:
+                js = await r.json()
+
+                await ctx.send(js['text'])
+
+    @commands.group(aliases=["b64"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def base64(self, ctx):
+        """ Encode/Decode base64 """
+        if ctx.invoked_subcommand is None:
+            e = discord.Embed(color=discord.Color.dark_teal(), title="Base64 help")
+            e.description = f"`encode` **- Encode text to base64**" \
+                            f"\n`decode` **- Decode base64 to text**"
+            await ctx.send(embed=e)
+
+    @base64.group(aliases=["e"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def encode(self, ctx, *, text):
+        """ Encode text to base64 """
+        if len(text) > 1500:
+            return await ctx.send('Please limit it to 1500 characters maximum, the bot will error out otherwise.')
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f"https://some-random-api.ml/base64?encode={text}") as r:
+                js = await r.json()
+
+                await ctx.send(js['base64'])
+
+    @base64.group(aliases=["d"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def decode(self, ctx, *, base64):
+        """ Decode base64 to text """
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f"https://some-random-api.ml/base64?decode={base64}") as r:
+                js = await r.json()
+
+                await ctx.send(js['text'])
+
     @commands.command()
     @commands.guild_only()
     @commands.has_permissions(manage_messages=True)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def announce(self, ctx, channel: discord.TextChannel, *, desc):
+        """ Announce something """
         if not channel:
             return await ctx.send('Please provide a channel to use.')
         if len(desc) > 2000:
