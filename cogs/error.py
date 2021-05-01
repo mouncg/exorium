@@ -46,8 +46,8 @@ class error(commands.Cog, name="Error"):
         if isinstance(err, commands.ChannelNotFound):
             return await ctx.send(f"{config.confused} **Could not find channel `{err.argument}`**")
 
-        if isinstance(err, discord.Forbidden):
-            return await ctx.send(f"`Could not access this channel`")
+        if isinstance(err, commands.MessageNotFound):
+            return await ctx.send(f"{config.confused} **Could not find message `{err.argument}`**")
 
 
         else:
