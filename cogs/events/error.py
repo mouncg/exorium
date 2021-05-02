@@ -47,6 +47,9 @@ class error(commands.Cog, name="Error"):
 
         if isinstance(err, commands.RoleNotFound):
             return await ctx.send(f"{config.confused} **Could not find this role**")
+        
+        if isinstance(err, commands.EmojiNotFound):
+            return await ctx.send(f"{config.confused} **Could not find emote `{err.emote}~**")
 
         if isinstance(err, commands.NoPrivateMessage):
             return await ctx.send(f"{config.crossmark} **You can only use this command in servers.**")
