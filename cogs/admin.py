@@ -4,17 +4,54 @@ import asyncio
 from discord.ext import commands
 from utils import default
 
-
 def admin():
     async def predicate(ctx):
-        return ctx.author.id == 809057677716094997 or ctx.author.id == 345457928972533773 or ctx.author.id == 443217277580738571
+            return ctx.author.id == 809057677716094997 or ctx.author.id == 345457928972533773 or ctx.author.id == 443217277580738571 or ctx.author.id == 699686304388087858
     return commands.check(predicate)
 
+async def suggestion_command(self, ctx, type, color, reason):
+    if ctx.channel.id != 769132481252818954:
+        return await ctx.send(f"{config.crossmark} You must run this command in a suggestion channel!")
+    elif ctx.message.reference is None:
+        return await ctx.send(f"{config.crossmark} You must reply to the message you want to approve!")
+
+    if ctx.message.reference.cached_message is None:
+        message = await ctx.channel.fetch_message(ctx.message.reference.message_id)
+    else:
+        message = ctx.message.reference.cached_message
+    embed = message.embeds[0]
+    embed.color = color
+    if reason is not None:
+        embed.add_field(name=f'Reason from {ctx.author.name}', value=str(reason))
+    await message.edit(embed=embed)
+    user = await self.bot.try_user(int(embed.author.icon_url.split('/')[4]))
+    if user is not None:
+        try:
+            await user.send(content=f"{ctx.author.name} just {type} your suggestion!", embed=embed)
+        except:
+            pass
+    await ctx.send(f'{config.checkmark} {type.capitalize()} the following suggestion.')
 
 class Admin(commands.Cog, name="Admin"):
     def __init__(self, bot):
         self.bot = bot
         self.help_icon = "👑"
+
+    @commands.group(invoke_without_command=True, aliases=['s'])
+    @admin()
+    async def suggestion(self, ctx):
+        """ Manage the Suggestion Queue """
+        await ctx.send_help(ctx.command)
+
+    @suggestion.command(aliases=['a'])
+    @admin()
+    async def approve(self, ctx, *, reason=None):
+        await suggestion_command(self, ctx, 'approved', discord.Color.green(), reason)
+
+    @suggestion.command(aliases=['d'])
+    @admin()
+    async def deny(self, ctx, *, reason=None):
+        await suggestion_command(self, ctx, 'denied', discord.Color.red(), reason)
 
     @commands.command()
     @admin()
@@ -85,7 +122,7 @@ class Admin(commands.Cog, name="Admin"):
 **Guild name:** {guild.name}
 **Guild owner:** {await self.bot.fetch_user(guild.owner_id)}
 **Guild owner ID:** {guild.owner_id}
-**{len(guild.humans)}** humans & **{len(guild.bots)}** bots
+Approximately **N/A** members
 
 Created on {default.date(guild.created_at)}.
 __**Are you sure you want me to leave this guild?**__
@@ -104,6 +141,11 @@ __**Are you sure you want me to leave this guild?**__
                 eleave = discord.Embed(color=discord.Color.dark_red(), description=f"Okay, leaving this guild.")
                 await checkmsg.edit(embed=eleave)
                 await guild.leave()
+                await asyncio.sleep(3)
+
+                log = await self.bot.fetch_channel(762203326519181312)
+
+                await log.send(f"Forcibly left guild {guild}.")
                 return
 
             if str(react) == crossmark:
@@ -122,6 +164,69 @@ __**Are you sure you want me to leave this guild?**__
                 pass
             etimeout = discord.Embed(color=discord.Color.dark_red(), description=f"Command timed out, canceling...")
             return await checkmsg.edit(embed=etimeout)
+
+    @commands.group(aliases=["i"])
+    @admin()
+    async def info(self, ctx):
+        """ Display admin user/guild info """
+        if ctx.invoked_subcommand is None:
+            e = discord.Embed(title="Info help", color=discord.Color.dark_teal())
+            e.description = f"`guild` **- Guild Admin Information**\n`user` **-User Admin Information**"
+            await ctx.send(embed=e)
+
+    @info.group(aliases=["g"])
+    @admin()
+    async def guild(self, ctx, *, guild: int):
+        """ Guild Admin Information """
+
+        try:
+            guild = self.bot.get_guild(guild)
+            owner = await self.bot.fetch_user(guild.owner_id)
+        except Exception:
+            return await ctx.send("Could not find this guild.")
+        sperms = dict(guild.me.guild_permissions)
+        perm = []
+
+        for p in sperms.keys():
+            if sperms[p] is True and guild.me.guild_permissions.administrator is False:
+                perm.append(f"`{p.replace('_', ' ').title()}`")
+        if guild.me.guild_permissions.administrator:
+            perm.append('Administrator')
+
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.description = f"If you want me to leave this guild, use:\n`exo leave {guild.id}`"
+        e.set_thumbnail(url=guild.icon_url)
+        e.add_field(name='Generic information', value=f"""
+**Server name:** {guild}
+**Guild ID:** {guild.id}
+**Owner:** {owner} ({guild.owner_id})
+**{guild.member_count}** members
+**{len(guild.channels)}** channels & **{len(guild.roles)}** roles total
+**Created on {default.date(guild.created_at)}**
+**Joined on {default.date(guild.get_member(self.bot.user.id).joined_at)}**
+""")
+        e.add_field(name='My permissions', value=", ".join(perm))
+        await ctx.send(guild.id, embed=e)
+
+    @info.group(aliases=["u"])
+    @admin()
+    async def user(self, ctx, *, user: int):
+        """ User Admin Information """
+
+        user = await self.bot.fetch_user(user)
+
+        e = discord.Embed(color=discord.Color.dark_teal())
+        e.set_author(name=user, icon_url=user.avatar_url)
+        e.set_thumbnail(url=user.avatar_url)
+        e.description = f"""
+**User profile:** [{user}](https://discord.com/users/{user.id})
+**Avatar URL:** [Click here]({user.avatar_url})
+**Created on {default.date(user.created_at)}**
+**Public Flags value:** {user.public_flags.value}
+**{len([x for x in self.bot.guilds if x.get_member(user.id)])}** mutual servers
+"""
+        await ctx.send(embed=e)
+
 
 
 def setup(bot):

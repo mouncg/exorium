@@ -4,6 +4,7 @@ import time
 import aiohttp
 import psutil
 import platform
+import asyncio
 
 from discord.ext import commands, menus
 from utils.help import PenguinHelp
@@ -19,6 +20,7 @@ class HelpCog(commands.Cog, name="Utility"):
         self.help_icon = '<:discovery:719431405905379358>'
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def ping(self, ctx):
         """ See bot's latency to discord """
         discord_start = time.monotonic()
@@ -32,13 +34,15 @@ class HelpCog(commands.Cog, name="Utility"):
                 await ctx.send(f"\U0001f3d3 Pong   |   {discord_ms}")  # You can use :ping_pong: instead of \U0001f3d3
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def invite(self, ctx):
         """ Invite Esquire to your server """
         e = discord.Embed(color=discord.Color.dark_teal())
-        e.description = f"Invite Esquire to your server [here]({config.invite})."
+        e.description = f'{config.inv}[Default perms]({config.invite})\n {config.inv}[All perms]({config.invite2})'
         await ctx.send(embed=e)
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def privacy(self, ctx):
         """ Read our privacy policy """
         e = discord.Embed(color=discord.Color.dark_teal())
@@ -46,6 +50,7 @@ class HelpCog(commands.Cog, name="Utility"):
         await ctx.send(embed=e)
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def support(self, ctx):
         """ Get support with Esquire """
         e = discord.Embed(color=discord.Color.dark_teal())
@@ -53,6 +58,7 @@ class HelpCog(commands.Cog, name="Utility"):
 You can get support here:
 - [support server]({config.support})
 - [Github issue](https://github.com/ThePawKingdom/exorium/issues/new)
+- [Email us](https://quacky.xyz/email?email=flitzdevelopment@gmail.com)
 """
         await ctx.send(embed=e)
 
@@ -63,7 +69,7 @@ You can get support here:
         channel = self.bot.get_channel(769132481252818954)
         if len(suggestion) >= 500:
             return await ctx.send(f"Please make your suggestion shorter then 500 characters.")
-        e = discord.Embed(color=discord.Color.green())
+        e = discord.Embed(color=discord.Color.orange())
         e.set_author(icon_url=ctx.message.author.avatar_url, name=ctx.message.author)
         e.description = suggestion
         ra = await channel.send(embed=e)
@@ -73,11 +79,13 @@ You can get support here:
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def id(self, ctx, member: discord.Member):
         """ Get a user's ID """
         await ctx.reply(member.id)
 
     @commands.command()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def av(self, ctx, user: discord.Member = None):
         """ Get a user's avatar """
         if not user:
@@ -88,10 +96,11 @@ You can get support here:
         e.set_footer(text=f"avatar: {user}")
         await ctx.send(embed=e)
 
-    @commands.command()
+    @commands.command(aliases=["si"])
     @commands.guild_only()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def serverinfo(self, ctx):
-        """" Get information about the server """
+        """ Get information about the server """
 
         owner = await self.bot.fetch_user(ctx.guild.owner_id)
         member_count = ctx.guild.member_count  # last known count because you don't have intents
@@ -123,6 +132,7 @@ You can get support here:
 
     @commands.command(aliases=["ui"])
     @commands.guild_only()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def userinfo(self, ctx, *, user: discord.Member = None):
         """ See a user's info """
         if not user:
@@ -163,6 +173,7 @@ You can get support here:
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def roleinfo(self, ctx, *, role: discord.Role):
         """ See a role's info """
 
@@ -201,6 +212,7 @@ You can get support here:
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def servericon(self, ctx):
         """ Get the server's icon """
         e = discord.Embed(color=discord.Color.dark_teal())
@@ -210,6 +222,7 @@ You can get support here:
     @commands.command()
     @commands.guild_only()
     @commands.bot_has_guild_permissions(add_reactions=True)
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def poll(self, ctx, *, poll):
         """ Host a poll """
         try:
@@ -225,6 +238,7 @@ You can get support here:
 
     @commands.command()
     @commands.guild_only()
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def say(self, ctx, *, say):
         """ Say something with Esquire """
         e = discord.Embed(color=discord.Color.dark_teal())
@@ -250,6 +264,7 @@ You can get support here:
         Joshua = await self.bot.fetch_user(809057677716094997)
         Moksej = await self.bot.fetch_user(345457928972533773)
         Duck = await self.bot.fetch_user(443217277580738571)
+        Fenny = await self.bot.fetch_user(699686304388087858)
 
         devs = [f"{x.name}#{x.discriminator}" for x in
                 self.bot.get_guild(755068089233834074).get_role(828339695314403378).members]
@@ -257,9 +272,9 @@ You can get support here:
 
         e = discord.Embed(color=discord.Color.dark_teal())
         e.set_thumbnail(url=self.bot.user.avatar_url)
+        e.set_image(url="https://cdn.bluewy.xyz/yerZ.png")
 
-        humans = len(ctx.guild.humans)
-        bots = len(ctx.guild.bots)
+        users = sum(x.member_count for x in self.bot.guilds)
 
         e.description = f"""
 __**About**__
@@ -267,12 +282,13 @@ Developers:
 - **[{Joshua}](https://discordrep.com/u/809057677716094997#)**
 - **[{Moksej}](https://discordrep.com/u/345457928972533773#)**
 - **[{Duck}](https://discordrep.com/u/443217277580738571#)**
+- **[{Fenny}](https://discordrep.com/u/699686304388087858#)**
 
 Library: [enhanced dpy {discord.__version__}](https://github.com/iDutchy/discord.py)
 
 __**Statistics**__
 **{len(self.bot.guilds)}** Guilds
-**N/A** Users (**N/A** humans & **N/A** bots)
+**{users:,}** Users
 **{text}** text & **{voice}** voice channels
 
 __**System**__
@@ -286,7 +302,7 @@ Hosted on **{platform.platform()}**
         await ctx.send(embed=e)
 
 
-    @commands.group(aliases=["emoji"])
+    @commands.group(aliases=["emoji", "e"])
     async def emote(self, ctx):
         """ Get emote info/url """
         if ctx.invoked_subcommand is None:
@@ -295,12 +311,14 @@ Hosted on **{platform.platform()}**
             e.description = f"`url` **- Get an emote's URL**\n`info` **- Get info about an emote**"
             await ctx.send(embed=e)
 
-    @emote.group()
+    @emote.group(aliases=["link", "u"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def url(self, ctx, emote: discord.PartialEmoji):
         """ Get an emote's URL """
         await ctx.send(emote.url)
 
-    @emote.group()
+    @emote.group(aliases=["i"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
     async def info(self, ctx, emote: discord.Emoji):
         """ Get info about an emote """
         e = discord.Embed(color=discord.Color.dark_teal())
@@ -314,6 +332,139 @@ Hosted on **{platform.platform()}**
 """
         e.set_thumbnail(url=emote.url)
         await ctx.send(embed=e)
+
+    @commands.command()
+    @commands.cooldown(1, 30, commands.BucketType.user)
+    async def review(self, ctx, *, review):
+        """ Review our bot! """
+        channel = await self.bot.fetch_channel(833309771959762944)
+        e1 = discord.Embed(color=discord.Color.dark_teal())
+        e1.set_author(name=f'From {ctx.author}', icon_url=ctx.author.avatar_url)
+        e1.description = review
+        await channel.send(embed=e1)
+        await ctx.send("Thank you! Your review has been recorded in our support server.")
+
+    @commands.group(aliases=["b"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def binary(self, ctx):
+        """ Encode/decode binary """
+        if ctx.invoked_subcommand is None:
+            e = discord.Embed(color=discord.Color.dark_teal(), title="Binary help")
+            e.description = f"`encode` **- Encode text to binary**" \
+                            f"\n`decode` **- Decode binary to text**"
+            await ctx.send(embed=e)
+
+    @binary.group(aliases=["e"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def encode(self, ctx, *, text):
+        """ Encode text to binary """
+        if len(text) > 200:
+            return await ctx.send("Please limit it to 200 characters maximum, the bot will error out otherwise.")
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f"https://some-random-api.ml/binary?text={text}") as r:
+                js = await r.json()
+
+                await ctx.send(js['binary'])
+
+    @binary.group(aliases=["d"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def decode(self, ctx, *, binary):
+        """ Decode binary to text """
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f"https://some-random-api.ml/binary?decode={binary}") as r:
+                js = await r.json()
+
+                await ctx.send(js['text'])
+
+    @commands.group(aliases=["b64"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def base64(self, ctx):
+        """ Encode/Decode base64 """
+        if ctx.invoked_subcommand is None:
+            e = discord.Embed(color=discord.Color.dark_teal(), title="Base64 help")
+            e.description = f"`encode` **- Encode text to base64**" \
+                            f"\n`decode` **- Decode base64 to text**"
+            await ctx.send(embed=e)
+
+    @base64.group(aliases=["e"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def encode(self, ctx, *, text):
+        """ Encode text to base64 """
+        if len(text) > 1500:
+            return await ctx.send('Please limit it to 1500 characters maximum, the bot will error out otherwise.')
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f"https://some-random-api.ml/base64?encode={text}") as r:
+                js = await r.json()
+
+                await ctx.send(js['base64'])
+
+    @base64.group(aliases=["d"])
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    async def decode(self, ctx, *, base64):
+        """ Decode base64 to text """
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(f"https://some-random-api.ml/base64?decode={base64}") as r:
+                js = await r.json()
+
+                await ctx.send(js['text'])
+
+    @commands.command()
+    @commands.guild_only()
+    @commands.has_permissions(manage_messages=True)
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def announce(self, ctx, channel: discord.TextChannel, *, desc):
+        """ Announce something """
+        if not channel:
+            return await ctx.send('Please provide a channel to use.')
+        if len(desc) > 2000:
+            return await ctx.send('Please make your announcement shorter then 2000 characters.')
+        if len(desc) < 2000:
+            e = discord.Embed(color=discord.Color.dark_teal())
+            e.description = f"Do you want the message embedded?"
+
+            checkmark = '<a:checkmark:813798012399779841>'
+            crossmark = '<a:cross:813798012626141185>'
+
+            def check(r, u):
+                return u.id == ctx.author.id and r.message.id == checkmsg.id
+
+            try:
+                checkmsg = await ctx.send(embed=e)
+                await checkmsg.add_reaction(checkmark)
+                await checkmsg.add_reaction(crossmark)
+                react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
+
+                if str(react) == checkmark:
+                    try:
+                        await checkmsg.clear_reactions()
+                    except Exception:
+                        pass
+                    e = discord.Embed(color=discord.Color.random(), description=desc)
+                    e.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
+                    await channel.send(embed=e)
+
+                    embed = discord.Embed(color=discord.Color.green(), description=f"Sent embedded announcement in **{channel}**.")
+                    await checkmsg.edit(embed=embed)
+                    return
+
+                if str(react) == crossmark:
+                    try:
+                        await checkmsg.clear_reactions()
+                    except Exception:
+                        pass
+                    await channel.send(desc)
+
+                    embed2 = discord.Embed(color=discord.Color.green(), description=f"Sent plain announcement in **{channel}**.")
+                    await checkmsg.edit(embed=embed2)
+                    return
+
+            except asyncio.TimeoutError:
+                try:
+                    await checkmsg.clear_reactions()
+                except Exception:
+                    pass
+                etimeout = discord.Embed(color=discord.Color.dark_red(), description=f"Command timed out, canceling...")
+                return await checkmsg.edit(embed=etimeout)
 
 
 def setup(bot):

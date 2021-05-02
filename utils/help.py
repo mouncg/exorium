@@ -60,7 +60,7 @@ class PenguinHelp(commands.HelpCommand):
     def __init__(self):
         self.owner_cogs = ['Jishaku']
         self.admin_cogs = ['admin']
-        self.ignore_cogs = ['Error']
+        self.ignore_cogs = ['Error', 'DLP', 'Slash', 'Logs']
         self.help_icon = '<:store:729571108260675604>'
         super().__init__(command_attrs={
             "cooldown": commands.Cooldown(1, 5, commands.BucketType.member),
@@ -129,6 +129,7 @@ class PenguinHelp(commands.HelpCommand):
                     "<:hammer:832930785954758687>": 'Moderation',
                     "👑": 'Admin',
                     "<:hug:642196733706764288>": 'Social',
+                    "<:slash:833803136199032882>": 'Slash',
                     "\U000023f9": 'Stop'
                 }
                 react, user = await self.context.bot.wait_for('reaction_add', check=check, timeout=300.0)

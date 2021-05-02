@@ -1,4 +1,4 @@
-import discord, random, aiohttp
+import discord, random, aiohttp, config
 
 def date(target, clock=True):
     if clock is False:
@@ -8,6 +8,9 @@ def date(target, clock=True):
 async def interactions(ctx, members, name, error_name, list, reason=None, sra_url=None):
     if members is None:
         return await ctx.send(f'You must specify the user to {error_name}!')
+    if reason is not None:
+        if len(reason) > 256:
+            return await ctx.send(f'{config.crossmark} **You can only put max 256 characters in your reason.**')
     if sra_url is None:
         image = random.choice(list)
     else:
@@ -15,7 +18,10 @@ async def interactions(ctx, members, name, error_name, list, reason=None, sra_ur
         if api_random == 'normal':
             image = random.choice(list)
         elif api_random == 'sra':
-            await ctx.trigger_typing()
+            try:
+                await ctx.trigger_typing()
+            except AttributeError:# Slash commands can't trigger typing, so we trigger defer instead.
+                await ctx.defer()
             async with aiohttp.ClientSession() as session:
                 async with session.get(f'https://some-random-api.ml/animu/{sra_url}') as r:
                     if r.status == 200:
@@ -51,5 +57,5 @@ async def feelings(ctx, members, name, list):
             display_list = f"{display_list[0]} and {display_list[1]}"
         else:
             display_list = ', '.join(display_list)
-        embed.description=f"**{ctx.author.display_name}** {name} because of {display_list}"
+        embed.description=f"**{ctx.author.display_name}** {name} because of **{display_list}**"
     await ctx.send(embed=embed)

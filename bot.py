@@ -2,6 +2,7 @@ import discord
 import config
 import traceback
 from discord.ext import commands
+from discord_slash import SlashCommand
 
 
 def get_prefix(bot, message):
@@ -20,9 +21,10 @@ bot = commands.Bot(
     max_messages=10000,
     # intents=discord.Intents.all(),
     status=discord.Status.online,
-    activity=discord.Activity(type=discord.ActivityType.playing, name=f'with you'),
+    activity=discord.Activity(type=discord.ActivityType.playing, name=f'in the sandbox'),
     description="A bot designed to improve chatting and discord usage."
 )
+slash = SlashCommand(client=bot, sync_commands=True, override_type=True, sync_on_cog_reload=True)
 
 # bot.blacklist = {}
 
