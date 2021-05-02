@@ -122,7 +122,7 @@ class Admin(commands.Cog, name="Admin"):
 **Guild name:** {guild.name}
 **Guild owner:** {await self.bot.fetch_user(guild.owner_id)}
 **Guild owner ID:** {guild.owner_id}
-**{len(guild.humans)}** humans & **{len(guild.bots)}** bots
+Approximately **N/A** members
 
 Created on {default.date(guild.created_at)}.
 __**Are you sure you want me to leave this guild?**__
