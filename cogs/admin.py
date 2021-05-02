@@ -15,11 +15,6 @@ class Admin(commands.Cog, name="Admin"):
     def __init__(self, bot):
         self.bot = bot
         self.help_icon = "👑"
-        
-    @commands.Cog.listener('on_guild_join')
-    async def flitz_nerd(self, guild):
-        if guild.id == 715969701771083817:
-            await guild.leave()
 
     @commands.command()
     @admin()
