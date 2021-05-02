@@ -51,6 +51,9 @@ class error(commands.Cog, name="Error"):
         if isinstance(err, commands.NoPrivateMessage):
             return await ctx.send(f"{config.crossmark} **You can only use this command in servers.**")
 
+        if isinstance(err, commands.DisabledCommand):
+            return await ctx.send(f"{config.crossmark} **{ctx.command.qualified_name} is currently disabled.**")
+
         if isinstance(err, commands.CheckFailure):
             await ctx.send(f"{config.crossmark} **You do not have permission to use this command.**")
 
