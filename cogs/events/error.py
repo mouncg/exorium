@@ -26,7 +26,7 @@ class error(commands.Cog, name="Error"):
             return await ctx.send(f"**You are missing required arguments - {err.param}**")
 
         if isinstance(err, commands.CommandOnCooldown):
-            clog = await self.bot.fetch_channel(837690526789533697)
+            clog = await self.bot.get_channel(837690526789533697)
             e = discord.Embed(color=discord.Color.red())
             e.description = f"**{ctx.author} has a `{err.retry_after:.0f}` second cooldown on command `{ctx.command.qualified_name}`**" \
                             f"\nGuild **{ctx.guild}** with ID `{ctx.guild.id}` | User ID: `{ctx.author.id}`"
@@ -62,7 +62,7 @@ class error(commands.Cog, name="Error"):
 
         else:
 
-            elog = await self.bot.fetch_channel(838000482894610462)
+            elog = await self.bot.get_channel(838000482894610462)
             le = discord.Embed(color=discord.Color.red())
             le.description = f"__**Full traceback**__" \
                             f"\n```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
