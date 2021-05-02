@@ -3,6 +3,7 @@ from collections import Counter
 from discord.ext import commands
 from datetime import datetime
 from utils import default
+from bot import get_prefix
 
 class logs(commands.Cog, name="Logs"):
     def __init__(self, bot):
@@ -52,6 +53,15 @@ Icon url: **[Click here]({guild.icon_url})**
 
         await log.send(embed=l)
 
+    @commands.Cog.listener()
+    async def on_message_edit(self, before, after):
+        """ Tries to re-run a command when a message gets edited! """
+        if after.author.bot is True or before.content == after.content:
+            return
+        prefixes = commands.when_mentioned_or('exo ', 'Exo ', 'e!')(self.bot, after)
+        if after.content.startswith(tuple(prefixes)):
+            ctx = await self.bot.get_context(after)
+            msg = await self.bot.invoke(ctx)
 
 def setup(bot):
     bot.add_cog(logs(bot))
