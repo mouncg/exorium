@@ -96,7 +96,7 @@ You can get support here:
         e.set_footer(text=f"avatar: {user}")
         await ctx.send(embed=e)
 
-    @commands.command()
+    @commands.command(aliases=["si"])
     @commands.guild_only()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def serverinfo(self, ctx):
@@ -272,6 +272,7 @@ You can get support here:
 
         e = discord.Embed(color=discord.Color.dark_teal())
         e.set_thumbnail(url=self.bot.user.avatar_url)
+        e.set_image(url="https://cdn.bluewy.xyz/yerZ.png")
 
         users = sum(x.member_count for x in self.bot.guilds)
 
