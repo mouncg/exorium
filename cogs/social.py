@@ -184,9 +184,13 @@ class social(commands.Cog, name="Social"):
             async with cs.get(f"https://pokeapi.co/api/v2/pokemon/{pokemon}") as r:
                 js = await r.json()
 
+            async with cs.get(f"https://some-random-api.ml/pokedex?pokemon={pokemon}") as t:
+                js1 = await t.json()
+
                 abilities = []
                 for x in js['abilities']:
                     abilities.append(f"[{x['ability']['name'].replace('-', ' ').capitalize()}]({x['ability']['url']})")
+
 
                 type = []
                 for x in js['types']:
@@ -194,12 +198,25 @@ class social(commands.Cog, name="Social"):
 
                 e = discord.Embed(color=discord.Color.dark_teal())
                 #e.set_author(name=js['caption'])
-                e.title = js['name']
+                e.title = js['name'] + f" Evo. stage {js1['family']['evolutionStage']}"
                 e.description = f"""
 **Abilities:** {", ".join(abilities)}
 **Type:** {", ".join(type)}
+
+**Description:** {js1['description']}
+**Evolution:** {' - '.join(js1['family']['evolutionLine'])}
+**Egg groups:** {', '.join(js1['egg_groups'])}
+**Species:** {', '.join(js1['species'])}
 """
+                st = js1['stats']
                 e.set_thumbnail(url=js['sprites']['other']['official-artwork']['front_default'])
+                e.add_field(name="Statistics",
+                            value=f"**{st['hp']}** HP\n" \
+                                  f"**{st['attack']}** Attack\n" \
+                                  f"**{st['defense']}** Defense\n" \
+                                  f"**{st['sp_atk']}** Special Attack\n" \
+                                  f"**{st['sp_def']}** Special defense\n" \
+                                  f"**{st['speed']}** Speed")
                 #e.set_footer(text="Made using some-random-api")
                 await ctx.send(embed=e)
 
