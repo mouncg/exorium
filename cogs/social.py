@@ -180,12 +180,16 @@ class social(commands.Cog, name="Social"):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def pokemon(self, ctx, pokemon):
         """ Get pokemon info """
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(f"https://pokeapi.co/api/v2/pokemon/{pokemon}") as r:
-                js = await r.json()
+        try:
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(f"https://pokeapi.co/api/v2/pokemon/{pokemon}") as r:
+                    js = await r.json()
 
-            async with cs.get(f"https://some-random-api.ml/pokedex?pokemon={pokemon}") as t:
-                js1 = await t.json()
+
+                async with cs.get(f"https://some-random-api.ml/pokedex?pokemon={pokemon}") as t:
+                    js1 = await t.json()
+
+
 
                 abilities = []
                 for x in js['abilities']:
@@ -198,8 +202,10 @@ class social(commands.Cog, name="Social"):
 
                 e = discord.Embed(color=discord.Color.dark_teal())
                 #e.set_author(name=js['caption'])
-                e.title = js['name'] + f" Evo. stage {js1['family']['evolutionStage']}"
+                e.title = js['name'].capitalize() + f" Evo. stage {js1['family']['evolutionStage']}"
                 e.description = f"""
+*Read everything on [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/{pokemon}_(Pok%C3%A9mon))*
+
 **Abilities:** {", ".join(abilities)}
 **Type:** {", ".join(type)}
 
@@ -215,10 +221,13 @@ class social(commands.Cog, name="Social"):
                                   f"**{st['attack']}** Attack\n" \
                                   f"**{st['defense']}** Defense\n" \
                                   f"**{st['sp_atk']}** Special Attack\n" \
-                                  f"**{st['sp_def']}** Special defense\n" \
+                                  f"**{st['sp_def']}** Special Defense\n" \
                                   f"**{st['speed']}** Speed")
                 #e.set_footer(text="Made using some-random-api")
                 await ctx.send(embed=e)
+        except Exception:
+            return await ctx.send(f"{config.confused} **Please provide an existent pokemon. If you did, the API might be down.**")
+
 
 def setup(bot):
     bot.add_cog(social(bot))
