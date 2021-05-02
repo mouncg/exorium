@@ -143,7 +143,7 @@ __**Are you sure you want me to leave this guild?**__
                 await guild.leave()
                 await asyncio.sleep(3)
 
-                log = await self.bot.fetch_channel(762203326519181312)
+                log = await self.bot.get_channel(762203326519181312)
 
                 await log.send(f"Forcibly left guild {guild}.")
                 return
