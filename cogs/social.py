@@ -6,6 +6,7 @@ import aiohttp
 import json
 from discord.ext import commands
 from utils import default as functions
+from utils.paginator import Pages
 
 
 class social(commands.Cog, name="Social"):
@@ -169,12 +170,17 @@ class social(commands.Cog, name="Social"):
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f"https://some-random-api.ml/lyrics?title={title}") as r:
                 js = await r.json()
-
-                e = discord.Embed(color=discord.Color.random(), title=js['title'])
-                e.set_author(name=js['author'], url=js['links']['genius'])
-                e.description = js['lyrics']
-
-                await ctx.send(embed=e)
+                
+                lyricsArray = js['lyrics'].split("\n")
+                
+                paginator = Pages(self.context,
+                          title="[{0}]({1}) by {2}".format(js['title'], js['links']['genius'], js['author']),
+                          entries=lyricsArray,
+                          thumbnail=js['thumbnail']['genius'],
+                          per_page=15,
+                          embed_color=discord.Color.dark_teal(),
+                          show_entry_count=True)
+                await paginator.paginate()
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
