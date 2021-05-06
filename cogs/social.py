@@ -179,18 +179,18 @@ class social(commands.Cog, name="Social"):
                         joined_verse = ""
                         verse_count = 0
                         
-                            while True:
-                                v = verses[verse_count:]
-                                if len(verses[verse_count:]) == 0:
-                                    break
+                        while True:
+                            v = verses[verse_count:]
+                            if len(verses[verse_count:]) == 0:
+                                break
                                     
-                                verse_to_be_added = verses[verse_count:][0]
+                            verse_to_be_added = verses[verse_count:][0]
                                 
-                                if (len(joined_verse) + len(verse_to_be_added)) + len("\n\n") > 2000:
-                                    break
+                            if (len(joined_verse) + len(verse_to_be_added)) + len("\n\n") > 2000:
+                                break
                                     
-                                joined_verse = (joined_verse + "\n\n" + verse_to_be_added).strip()
-                                verse_count = verse_count + 1
+                            joined_verse = (joined_verse + "\n\n" + verse_to_be_added).strip()
+                            verse_count = verse_count + 1
                                 
                         verses = verses[verse_count:]
                         joined_verses.append(joined_verse)
