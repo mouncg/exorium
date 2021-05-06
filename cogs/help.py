@@ -66,7 +66,7 @@ You can get support here:
     @commands.cooldown(1, 30, commands.BucketType.user)
     async def suggest(self, ctx, *, suggestion):
         """ Make suggestions for Esquire """
-        channel = self.bot.get_channel(769132481252818954)
+        channel = self.bot.get_channel(839962330787479592)
         if len(suggestion) >= 500:
             return await ctx.send(f"Please make your suggestion shorter then 500 characters.")
         e = discord.Embed(color=discord.Color.orange())
@@ -337,7 +337,7 @@ Hosted on **{platform.platform()}**
     @commands.cooldown(1, 30, commands.BucketType.user)
     async def review(self, ctx, *, review):
         """ Review our bot! """
-        channel = await self.bot.get_channel(833309771959762944)
+        channel = await self.bot.get_channel(839962350521548871)
         e1 = discord.Embed(color=discord.Color.dark_teal())
         e1.set_author(name=f'From {ctx.author}', icon_url=ctx.author.avatar_url)
         e1.description = review
