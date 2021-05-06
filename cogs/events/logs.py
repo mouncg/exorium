@@ -15,7 +15,7 @@ class logs(commands.Cog, name="Logs"):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        log = await self.bot.get_channel(839963272114602055)
+        log = self.bot.get_channel(839963272114602055)
         owner = await self.bot.fetch_user(guild.owner_id)
         owner = str(owner)
 
@@ -35,7 +35,7 @@ Icon url: **[Click here]({guild.icon_url})**
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
-        log = await self.bot.get_channel(839963272114602055)
+        log = self.bot.get_channel(839963272114602055)
         owner = await self.bot.fetch_user(guild.owner_id)
         owner = str(owner)
 
