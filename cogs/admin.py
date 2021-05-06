@@ -10,7 +10,7 @@ def admin():
     return commands.check(predicate)
 
 async def suggestion_command(self, ctx, type, color, reason):
-    if ctx.channel.id != 769132481252818954:
+    if ctx.channel.id != 839962330787479592:
         return await ctx.send(f"{config.crossmark} You must run this command in a suggestion channel!")
     elif ctx.message.reference is None:
         return await ctx.send(f"{config.crossmark} You must reply to the message you want to approve!")
