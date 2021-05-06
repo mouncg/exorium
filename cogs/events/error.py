@@ -23,7 +23,7 @@ class error(commands.Cog, name="Error"):
             return await ctx.send(f"{config.crossmark} **I'm missing {perms} permissions**")
 
         if isinstance(err, commands.MissingRequiredArgument):
-            return await ctx.send(f"**You are missing required arguments - {err.param}**")
+            return await ctx.send(f"{config.crossmark} `{err.param.name}` is a required argument!")
 
         if isinstance(err, commands.CommandOnCooldown):
             clog = self.bot.get_channel(839963291623096320)
