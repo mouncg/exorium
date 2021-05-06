@@ -195,7 +195,7 @@ class social(commands.Cog, name="Social"):
                         verses = verses[verse_count:]
                         joined_verses.append(joined_verse)
                         
-                return joined_verses
+                    return joined_verses
                 
                 verse_array = split_lyrics(js['lyrics'])
                 
