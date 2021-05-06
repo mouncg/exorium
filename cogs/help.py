@@ -57,7 +57,7 @@ class HelpCog(commands.Cog, name="Utility"):
         e.description = f"""
 You can get support here:
 - [support server]({config.support})
-- [Github issue](https://github.com/ThePawKingdom/exorium/issues/new)
+- [Github issue](https://github.com/flitzstudios/exorium/issues/new)
 - [Email us](https://quacky.xyz/email?email=flitzdevelopment@gmail.com)
 """
         await ctx.send(embed=e)
