@@ -171,13 +171,39 @@ class social(commands.Cog, name="Social"):
             async with cs.get(f"https://some-random-api.ml/lyrics?title={title}") as r:
                 js = await r.json()
                 
-                lyricsArray = js['lyrics'].split("\n")
+                def split_lyrics(lyr):
+                    verses = lyr.split("\n\n")
+                    joined_verses = []
+
+                    while len(verses) > 0:
+                        joined_verse = ""
+                        verse_count = 0
+                        
+                            while True:
+                                v = verses[verse_count:]
+                                if len(verses[verse_count:]) == 0:
+                                    break
+                                    
+                                verse_to_be_added = verses[verse_count:][0]
+                                
+                                if (len(joined_verse) + len(verse_to_be_added)) + len("\n\n") > 2000:
+                                    break
+                                    
+                                joined_verse = (joined_verse + "\n\n" + verse_to_be_added).strip()
+                                verse_count = verse_count + 1
+                                
+                        verses = verses[verse_count:]
+                        joined_verses.append(joined_verse)
+                        
+                return joined_verses
+                
+                verse_array = split_lyrics(jsonResponse['lyrics'])
                 
                 paginator = Pages(self.context,
                           title="[{0}]({1}) by {2}".format(js['title'], js['links']['genius'], js['author']),
-                          entries=lyricsArray,
+                          entries=verse_array,
                           thumbnail=js['thumbnail']['genius'],
-                          per_page=15,
+                          per_page=1,
                           embed_color=discord.Color.dark_teal(),
                           show_entry_count=True)
                 await paginator.paginate()
