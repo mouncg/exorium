@@ -337,7 +337,7 @@ Hosted on **{platform.platform()}**
     @commands.cooldown(1, 30, commands.BucketType.user)
     async def review(self, ctx, *, review):
         """ Review our bot! """
-        channel = await self.bot.get_channel(839962350521548871)
+        channel = self.bot.get_channel(839962350521548871)
         e1 = discord.Embed(color=discord.Color.dark_teal())
         e1.set_author(name=f'From {ctx.author}', icon_url=ctx.author.avatar_url)
         e1.description = review
