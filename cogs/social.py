@@ -197,7 +197,7 @@ class social(commands.Cog, name="Social"):
                         
                 return joined_verses
                 
-                verse_array = split_lyrics(jsonResponse['lyrics'])
+                verse_array = split_lyrics(js['lyrics'])
                 
                 paginator = Pages(self.context,
                           title="[{0}]({1}) by {2}".format(js['title'], js['links']['genius'], js['author']),
