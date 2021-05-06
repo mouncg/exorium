@@ -279,7 +279,7 @@ You can get support here:
         e.description = f"""
 __**About**__
 Developers:
-- **[{Joshua}](https://discordrep.com/u/809057677716094997#)**
+- **[{Rika}](https://discordrep.com/u/750470053300011070#)**
 - **[{Moksej}](https://discordrep.com/u/345457928972533773#)**
 - **[{Duck}](https://discordrep.com/u/443217277580738571#)**
 - **[{Fenny}](https://discordrep.com/u/699686304388087858#)**
