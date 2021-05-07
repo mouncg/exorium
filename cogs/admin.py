@@ -35,7 +35,7 @@ class Admin(commands.Cog, name="Admin"):
         self.help_icon = "👑"
     def admin():
         async def predicate(ctx):
-            return ctx.author.id in list(self.bot.owner_ids)
+            return ctx.author.id in self.bot.owner_ids
         return commands.check(predicate)
     @commands.group(invoke_without_command=True, aliases=['s'])
     @admin()
