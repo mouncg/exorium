@@ -4,10 +4,7 @@ import asyncio
 from discord.ext import commands
 from utils import default
 
-def admin():
-    async def predicate(ctx):
-            return ctx.author.id == 809057677716094997 or ctx.author.id == 345457928972533773 or ctx.author.id == 443217277580738571 or ctx.author.id == 699686304388087858
-    return commands.check(predicate)
+
 
 async def suggestion_command(self, ctx, type, color, reason):
     if ctx.channel.id != 839962330787479592:
@@ -36,7 +33,10 @@ class Admin(commands.Cog, name="Admin"):
     def __init__(self, bot):
         self.bot = bot
         self.help_icon = "👑"
-
+    def admin():
+        async def predicate(ctx):
+            return ctx.author.id in list(self.bot.owner_ids)
+        return commands.check(predicate)
     @commands.group(invoke_without_command=True, aliases=['s'])
     @admin()
     async def suggestion(self, ctx):
