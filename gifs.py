@@ -148,7 +148,11 @@ wag = ["https://media.tenor.com/images/391f32ea35c6bd010fe29425f8a689e3/tenor.gi
        "https://media.tenor.com/images/dd137df1f2badd31405967a12d862f28/tenor.gif",
        "https://media.tenor.com/images/7bd999202fde3cb64395725964ff34ac/tenor.gif"]
 
-cookie = ['https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-ms-fields-cookies-024-1544735513.jpg']
+cookie = ['https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-ms-fields-cookies-024-1544735513.jpg', 
+          'https://images-gmi-pmc.edge-generalmills.com/087d17eb-500e-4b26-abd1-4f9ffa96a2c6.jpg', 
+          'https://cdn.sallysbakingaddiction.com/wp-content/uploads/2012/01/mm-cookies.jpg', 
+          'https://www.janespatisserie.com/wp-content/uploads/2020/04/IMG_0744_1-scaled.jpg', 
+          'https://images.squarespace-cdn.com/content/v1/549367d9e4b0b0a3e2543543/1588847414826-FQZTCRKH9B7DBCHWPX04/ke17ZwdGBToddI8pDm48kGBZtRQfXGGrtPZLnhyM-_cUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKc2A05hr64wuCTS4zP7CpzbvVdV_gnisg_uG0ZwZ1tao3WChTLVZ4KTQ-wgmrDxiyo/image-asset.jpeg']
 
 
 nuzzle = ['https://media1.tenor.com/images/412ed5e4675f2efa000882e933f1ffee/tenor.gif?itemid=12530414']
