@@ -5,8 +5,8 @@ from discord.ext import commands
 from utils import default
 
 def admin():
-    async def predicate(self, ctx):
-        return ctx.author.id in self.bot.owner_ids
+    async def predicate(ctx):
+        return ctx.author.id in ctx.bot.owner_ids
     return commands.check(predicate)
 
 async def suggestion_command(self, ctx, type, color, reason):
