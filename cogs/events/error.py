@@ -23,10 +23,10 @@ class error(commands.Cog, name="Error"):
             return await ctx.send(f"{config.crossmark} **I'm missing {perms} permissions**")
 
         if isinstance(err, commands.MissingRequiredArgument):
-            return await ctx.send(f"**You are missing required arguments - {err.param}**")
+            return await ctx.send(f"{config.crossmark} `{err.param.name}` is a required argument!")
 
         if isinstance(err, commands.CommandOnCooldown):
-            clog = await self.bot.get_channel(837690526789533697)
+            clog = self.bot.get_channel(839963291623096320)
             e = discord.Embed(color=discord.Color.red())
             e.description = f"**{ctx.author} has a `{err.retry_after:.0f}` second cooldown on command `{ctx.command.qualified_name}`**" \
                             f"\nGuild **{ctx.guild}** with ID `{ctx.guild.id}` | User ID: `{ctx.author.id}`"
@@ -62,7 +62,7 @@ class error(commands.Cog, name="Error"):
 
         else:
 
-            elog = await self.bot.get_channel(838000482894610462)
+            elog = self.bot.get_channel(839963309540638741)
             le = discord.Embed(color=discord.Color.red())
             le.description = f"__**Full traceback**__" \
                             f"\n```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"

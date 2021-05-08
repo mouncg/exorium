@@ -93,7 +93,7 @@ class social(commands.Cog, name="Social"):
     @commands.command(brief="pat someone!", aliases=["pet"])
     async def pat(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Pat the specified people"""
-        await functions.interactions(ctx, members, "patted", 'pat', gifs.pet, 'pat', reason)
+        await functions.interactions(ctx, members, "patted", 'pat', gifs.pet, reason, 'pat')
 
     @commands.command(brief="Gib cookie")
     async def cookie(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):

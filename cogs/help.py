@@ -57,7 +57,7 @@ class HelpCog(commands.Cog, name="Utility"):
         e.description = f"""
 You can get support here:
 - [support server]({config.support})
-- [Github issue](https://github.com/ThePawKingdom/exorium/issues/new)
+- [Github issue](https://github.com/flitzstudios/exorium/issues/new)
 - [Email us](https://quacky.xyz/email?email=flitzdevelopment@gmail.com)
 """
         await ctx.send(embed=e)
@@ -66,7 +66,7 @@ You can get support here:
     @commands.cooldown(1, 30, commands.BucketType.user)
     async def suggest(self, ctx, *, suggestion):
         """ Make suggestions for Esquire """
-        channel = self.bot.get_channel(769132481252818954)
+        channel = self.bot.get_channel(839962330787479592)
         if len(suggestion) >= 500:
             return await ctx.send(f"Please make your suggestion shorter then 500 characters.")
         e = discord.Embed(color=discord.Color.orange())
@@ -265,7 +265,7 @@ You can get support here:
         Moksej = await self.bot.fetch_user(345457928972533773)
         Duck = await self.bot.fetch_user(443217277580738571)
         Fenny = await self.bot.fetch_user(699686304388087858)
-
+        Rika = await self.bot.fetch_user(750470053300011070)
         devs = [f"{x.name}#{x.discriminator}" for x in
                 self.bot.get_guild(755068089233834074).get_role(828339695314403378).members]
         dev1 = ', '.join(devs)
@@ -279,7 +279,7 @@ You can get support here:
         e.description = f"""
 __**About**__
 Developers:
-- **[{Joshua}](https://discordrep.com/u/809057677716094997#)**
+- **[{Rika}](https://discordrep.com/u/750470053300011070#)**
 - **[{Moksej}](https://discordrep.com/u/345457928972533773#)**
 - **[{Duck}](https://discordrep.com/u/443217277580738571#)**
 - **[{Fenny}](https://discordrep.com/u/699686304388087858#)**
@@ -337,7 +337,7 @@ Hosted on **{platform.platform()}**
     @commands.cooldown(1, 30, commands.BucketType.user)
     async def review(self, ctx, *, review):
         """ Review our bot! """
-        channel = await self.bot.get_channel(833309771959762944)
+        channel = self.bot.get_channel(839962350521548871)
         e1 = discord.Embed(color=discord.Color.dark_teal())
         e1.set_author(name=f'From {ctx.author}', icon_url=ctx.author.avatar_url)
         e1.description = review

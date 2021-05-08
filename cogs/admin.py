@@ -6,11 +6,11 @@ from utils import default
 
 def admin():
     async def predicate(ctx):
-            return ctx.author.id == 809057677716094997 or ctx.author.id == 345457928972533773 or ctx.author.id == 443217277580738571 or ctx.author.id == 699686304388087858
+        return ctx.author.id in ctx.bot.owner_ids
     return commands.check(predicate)
 
 async def suggestion_command(self, ctx, type, color, reason):
-    if ctx.channel.id != 769132481252818954:
+    if ctx.channel.id != 839962330787479592:
         return await ctx.send(f"{config.crossmark} You must run this command in a suggestion channel!")
     elif ctx.message.reference is None:
         return await ctx.send(f"{config.crossmark} You must reply to the message you want to approve!")
@@ -36,7 +36,7 @@ class Admin(commands.Cog, name="Admin"):
     def __init__(self, bot):
         self.bot = bot
         self.help_icon = "👑"
-
+   
     @commands.group(invoke_without_command=True, aliases=['s'])
     @admin()
     async def suggestion(self, ctx):
