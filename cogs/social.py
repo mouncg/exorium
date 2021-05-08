@@ -4,8 +4,10 @@ import gifs
 import random
 import aiohttp
 import json
+import lyricsgenius
 from discord.ext import commands
 from utils import default as functions
+from utils.paginator import Pages
 
 
 class social(commands.Cog, name="Social"):
@@ -27,7 +29,7 @@ class social(commands.Cog, name="Social"):
 
     @commands.command(brief="Hug someone")
     async def hug(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
-       await functions.interactions(ctx, members, "hugged", 'hug', gifs.hug, reason, 'hug')
+        await functions.interactions(ctx, members, "hugged", 'hug', gifs.hug, reason, 'hug')
 
     @commands.command(brief="Bonk someone", enabled=False)
     async def bonk(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
@@ -53,12 +55,12 @@ class social(commands.Cog, name="Social"):
     async def bellyrub(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Give bellyrubs to the specified people"""
         await functions.interactions(ctx, members, "bellyrubbed", 'rub the belly of', gifs.bellyrub, reason)
-   
+
     @commands.command(brief="Nuzzle someone")
     async def nuzzle(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Nuzzle the specified people"""
         await functions.interactions(ctx, members, "nuzzled", 'nuzzles', gifs.nuzzle, reason)
-    
+
     @commands.command(brief="Cuddle someone")
     async def cuddle(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Cuddle the specified people"""
@@ -113,12 +115,13 @@ class social(commands.Cog, name="Social"):
     async def wag(self, ctx, members: commands.Greedy[discord.Member] = None):
         """Wag your tail (Optionally because of specified people)"""
         await functions.feelings(ctx, members, "wags their tail", gifs.wag)
-        
+
     @commands.command(brief="Quack quack!")
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def quack(self, ctx, members: commands.Greedy[discord.Member] = None):
         """Quack (Optionally because of specified people)"""
-        duck_list = [f"https://random-d.uk/api/{random.randint(1,191)}.jpg", f"https://random-d.uk/api/{random.randint(1,42)}.gif"]
+        duck_list = [f"https://random-d.uk/api/{random.randint(1, 191)}.jpg",
+                     f"https://random-d.uk/api/{random.randint(1, 42)}.gif"]
         await functions.feelings(ctx, members, "quacks", duck_list)
 
     @commands.command(brief="random animal fact")
@@ -166,15 +169,60 @@ class social(commands.Cog, name="Social"):
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def lyrics(self, ctx, *, title):
         """ Get song lyrics """
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(f"https://some-random-api.ml/lyrics?title={title}") as r:
-                js = await r.json()
 
-                e = discord.Embed(color=discord.Color.random(), title=js['title'])
-                e.set_author(name=js['author'], url=js['links']['genius'])
-                e.description = js['lyrics']
+        def split_lyrics(lyr, page_size=2048, newline_max=None):
+            verses = lyr.split("\n\n")
 
-                await ctx.send(embed=e)
+            joined_verses = []
+
+            while len(verses) > 0:
+                joined_verse = ""
+                verse_count = 0
+                newline_count = 0
+
+                while True:
+                    v = verses[verse_count:]
+                    if len(verses[verse_count:]) == 0:
+                        break
+
+                    verse_to_be_added = verses[verse_count:][0]
+
+                    if len(verse_to_be_added) > page_size or (newline_max is not None and verse_to_be_added.count("\n") > newline_max):
+                        return None
+                    if (len(joined_verse) + len(verse_to_be_added)) + len("\n\n") > page_size:
+                        break
+                    if newline_max is not None and newline_count > newline_max:
+                        break
+
+                    joined_verse = (joined_verse + "\n\n" + verse_to_be_added).strip()
+                    newline_count = joined_verse.count("\n")
+                    verse_count = verse_count + 1
+
+                verses = verses[verse_count:]
+                joined_verses.append(joined_verse)
+
+            return joined_verses
+
+        genius = lyricsgenius.Genius(config.GENIUSTOKEN, verbose=False)
+
+        song = genius.search_song(title)
+
+        if song is None:
+            return await ctx.send("Couldn't find any song by that title.")
+
+        verses = split_lyrics(song.to_text(), newline_max=30)
+
+        if verses is None:
+            return await ctx.send("Verse size exceeds maximum. You can find the lyrics at {0}".format(song.url))
+
+        paginator = Pages(ctx,
+                          title="{0} by {1}".format(song.title, song.artist),
+                          entries=verses,
+                          thumbnail=song.header_image_url,
+                          per_page=1,
+                          embed_color=discord.Color.dark_teal(),
+                          show_entry_count=True)
+        await paginator.paginate()
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -185,23 +233,19 @@ class social(commands.Cog, name="Social"):
                 async with cs.get(f"https://pokeapi.co/api/v2/pokemon/{pokemon}") as r:
                     js = await r.json()
 
-
                 async with cs.get(f"https://some-random-api.ml/pokedex?pokemon={pokemon}") as t:
                     js1 = await t.json()
-
-
 
                 abilities = []
                 for x in js['abilities']:
                     abilities.append(f"[{x['ability']['name'].replace('-', ' ').capitalize()}]({x['ability']['url']})")
-
 
                 type = []
                 for x in js['types']:
                     type.append(f"[{x['type']['name'].replace('-', ' ').capitalize()}]({x['type']['url']})")
 
                 e = discord.Embed(color=discord.Color.dark_teal())
-                #e.set_author(name=js['caption'])
+                # e.set_author(name=js['caption'])
                 e.title = js['name'].capitalize() + f" Evo. stage {js1['family']['evolutionStage']}"
                 e.description = f"""
 *Read everything on [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/{pokemon}_(Pok%C3%A9mon))*
@@ -223,10 +267,11 @@ class social(commands.Cog, name="Social"):
                                   f"**{st['sp_atk']}** Special Attack\n" \
                                   f"**{st['sp_def']}** Special Defense\n" \
                                   f"**{st['speed']}** Speed")
-                #e.set_footer(text="Made using some-random-api")
+                # e.set_footer(text="Made using some-random-api")
                 await ctx.send(embed=e)
         except Exception:
-            return await ctx.send(f"{config.confused} **Please provide an existent pokemon. If you did, the API might be down.**")
+            return await ctx.send(
+                f"{config.confused} **Please provide an existent pokemon. If you did, the API might be down.**")
 
 
 def setup(bot):
