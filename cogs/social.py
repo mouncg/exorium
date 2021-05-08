@@ -169,7 +169,6 @@ class social(commands.Cog, name="Social"):
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def lyrics(self, ctx, *, title):
         """ Get song lyrics """
-
         def split_lyrics(lyr, page_size=2048, newline_max=None):
             verses = lyr.split("\n\n")
 
@@ -187,7 +186,8 @@ class social(commands.Cog, name="Social"):
 
                     verse_to_be_added = verses[verse_count:][0]
 
-                    if len(verse_to_be_added) > page_size or (newline_max is not None and verse_to_be_added.count("\n") > newline_max):
+                    if len(verse_to_be_added) > page_size or (
+                            newline_max is not None and verse_to_be_added.count("\n") > newline_max):
                         return None
                     if (len(joined_verse) + len(verse_to_be_added)) + len("\n\n") > page_size:
                         break
@@ -210,14 +210,14 @@ class social(commands.Cog, name="Social"):
         if song is None:
             return await ctx.send("Couldn't find any song by that title.")
 
-        verses = split_lyrics(song.to_text(), newline_max=30)
+        verse_array = split_lyrics(song.to_text(), newline_max=30)
 
-        if verses is None:
+        if verse_array is None:
             return await ctx.send("Verse size exceeds maximum. You can find the lyrics at {0}".format(song.url))
 
         paginator = Pages(ctx,
                           title="{0} by {1}".format(song.title, song.artist),
-                          entries=verses,
+                          entries=verse_array,
                           thumbnail=song.header_image_url,
                           per_page=1,
                           embed_color=discord.Color.dark_teal(),
