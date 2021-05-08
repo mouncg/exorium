@@ -94,7 +94,7 @@ class slash(commands.Cog, name="Slash"):
     @cog_ext.cog_slash(name="pat", description="pat someone!", options=[{"name": "member", "description":"The member you want to pat.", "type": 6, "required": True}, {"name": "reason", "description": "The reason you're patting the member.", "type": 3, "required": False}])
     async def slash_pat(self, ctx: SlashContext, member, *, reason=None):
         """Pat the specified people"""
-        await functions.interactions(ctx, [member], "patted", 'pat', gifs.pet, 'pat', reason)
+        await functions.interactions(ctx, [member], "patted", 'pat', gifs.pet, reason, 'pat')
 
     @cog_ext.cog_slash(name="cookie", description="Gib cookie", options=[{"name": "member", "description":"The member you want to give a cookie to.", "type": 6, "required": True}, {"name": "reason", "description": "The reason you're giving a cookie to the member.", "type": 3, "required": False}])
     async def slash_cookie(self, ctx: SlashContext, member, *, reason=None):
