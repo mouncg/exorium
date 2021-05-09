@@ -4,7 +4,6 @@ import gifs
 import random
 import aiohttp
 import json
-import lyricsgenius
 from discord.ext import commands
 from utils import default as functions
 from utils.paginator import Pages
@@ -203,22 +202,25 @@ class social(commands.Cog, name="Social"):
 
             return joined_verses
 
-        genius = lyricsgenius.Genius(config.GENIUSTOKEN, verbose=False)
+        await ctx.trigger_typing()
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get("https://some-random-api.ml/lyrics", params={"title": str(title)}) as r:
+                song = await r.json()
+                try:
+                    song['error']
+                    return await ctx.send("Couldn't find any song by that title.")
+                except KeyError:
+                    pass
 
-        song = genius.search_song(title)
-
-        if song is None:
-            return await ctx.send("Couldn't find any song by that title.")
-
-        verse_array = split_lyrics(song.to_text(), newline_max=30)
+        verse_array = split_lyrics(song['lyrics'], newline_max=30)
 
         if verse_array is None:
-            return await ctx.send("Verse size exceeds maximum. You can find the lyrics at {0}".format(song.url))
+            return await ctx.send("Verse size exceeds maximum. You can find the lyrics at {0}".format(song['links'][list(song['links'])[0]]))
 
         paginator = Pages(ctx,
-                          title="{0} by {1}".format(song.title, song.artist),
+                          title="{0} by {1}".format(song['title'], song['author']),
                           entries=verse_array,
-                          thumbnail=song.header_image_url,
+                          thumbnail=song['thumbnail'][list(song['thumbnail'])[0]],
                           per_page=1,
                           embed_color=discord.Color.dark_teal(),
                           show_entry_count=True)
