@@ -205,7 +205,7 @@ class social(commands.Cog, name="Social"):
 
         genius = lyricsgenius.Genius(config.GENIUSTOKEN, verbose=False)
 
-        song = genius.search_song(title)
+        song = await genius.search_song(title)
 
         if song is None:
             return await ctx.send("Couldn't find any song by that title.")
