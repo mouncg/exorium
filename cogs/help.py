@@ -309,6 +309,8 @@ Hosted on **{platform.platform()}**
         ae = discord.Embed(color=discord.Color.dark_teal())
         ae.description = f"""
 Created by **[{Flitz}](https://discordrep.com/u/809057677716094997)**
+Creation date: **{default.date(self.bot.user.created_at)}**
+Developed and owned by Flitz Studios © 2021
 """
         await ctx.send(embed=ae)
 
