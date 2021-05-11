@@ -146,7 +146,7 @@ class PenguinHelp(commands.HelpCommand):
             except Exception:
                 return
         except Exception:
-            await self.context.send(content="Failed to add reactions", embed=emb)
+            await self.context.send(content="Failed to add reactions")
 
     
     async def send_cog_help(self, cog):
