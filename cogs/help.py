@@ -314,7 +314,7 @@ Created by **[{Flitz}](https://discordrep.com/u/809057677716094997)**
 Creation date: **{default.date(self.bot.user.created_at)}**
 Developed and owned by Flitz Studios © 2021
 
-Lib & version: **[Enhanced discord.py {discord.__version__}
+Lib & version: **[Enhanced discord.py {discord.__version__}](https://github.com/iDutchy/discord.py)**
 Links: **[Support]({config.support})** | **[Invite]({config.invite})** | **[Privacy]({config.privacy})**
 """
         await ctx.send(embed=ae)
