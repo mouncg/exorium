@@ -304,7 +304,7 @@ Hosted on **{platform.platform()}**
     @commands.command()
     async def about(self, ctx):
         """ About exorium """
-        flitz = await self.bot.fetch_user(809057677716094997)
+        Flitz = await self.bot.fetch_user(809057677716094997)
 
         ae = discord.Embed(color=discord.Color.dark_teal())
         ae.description = f"""
