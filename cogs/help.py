@@ -308,7 +308,7 @@ Hosted on **{platform.platform()}**
 
         ae = discord.Embed(color=discord.Color.dark_teal())
         ae.set_image(url="https://cdn.bluewy.xyz/yerZ.png")
-        ae.set_thumbnail(url=self.bot.user.avatar_url)
+        ae.set_author(name=f"About {self.bot.user}",icon_url=self.bot.user.avatar_url)
         ae.description = f"""
 Created by **[{Flitz}](https://discordrep.com/u/809057677716094997)**
 Creation date: **{default.date(self.bot.user.created_at)}**
