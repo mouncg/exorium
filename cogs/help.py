@@ -305,6 +305,9 @@ Hosted on **{platform.platform()}**
     async def about(self, ctx):
         """ About exorium """
         Flitz = await self.bot.fetch_user(809057677716094997)
+        chtypes = Counter(type(c) for c in self.bot.get_all_channels())
+        voice = chtypes[discord.channel.VoiceChannel]
+        text = chtypes[discord.channel.TextChannel]
 
         ae = discord.Embed(color=discord.Color.dark_teal())
         ae.set_image(url="https://cdn.bluewy.xyz/yerZ.png")
@@ -319,7 +322,10 @@ Links: **[Support]({config.support})** | **[Invite]({config.invite})** | **[Priv
 
 Commands: **{len([c for c in set(self.bot.walk_commands())])}**
 Guilds: **{len(self.bot.guilds)}**
-Users: **{sum(x.member_count for x in self.bot.guilds)}
+Users: **{sum(x.member_count for x in self.bot.guilds)}**
+Channels:
+**{voice;,}** voice
+**{text;,}** text
 """
         await ctx.send(embed=ae)
 
