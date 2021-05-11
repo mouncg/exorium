@@ -324,8 +324,8 @@ Commands: **{len([c for c in set(self.bot.walk_commands())])}**
 Guilds: **{len(self.bot.guilds)}**
 Users: **{sum(x.member_count for x in self.bot.guilds)}**
 Channels:
-**{voice}** voice
-**{text}** text
+**{voice:,}** voice
+**{text:,}** text
 """
         await ctx.send(embed=ae)
 
