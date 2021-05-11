@@ -306,7 +306,7 @@ Hosted on **{platform.platform()}**
         """ About exorium """
         flitz = await self.bot.fetch_user(809057677716094997)
 
-        ae = discord.Embed(color=discord.Color.dark_Teal())
+        ae = discord.Embed(color=discord.Color.dark_teal())
         ae.description = f"""
 Created by **[{Flitz}](https://discordrep.com/u/809057677716094997)**
 """
