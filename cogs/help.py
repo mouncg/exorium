@@ -301,6 +301,16 @@ Hosted on **{platform.platform()}**
 
         await ctx.send(embed=e)
 
+    @commands.command()
+    async def about(self, ctx):
+        """ About exorium """
+        flitz = await self.bot.fetch_user(809057677716094997)
+
+        ae = discord.Embed(color=discord.Color.dark_Teal())
+        ae.description = f"""
+Created by **[{Flitz}](https://discordrep.com/u/809057677716094997)**
+"""
+        await ctx.send(embed=ae)
 
     @commands.group(aliases=["emoji", "e"])
     async def emote(self, ctx):
