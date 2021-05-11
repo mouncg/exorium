@@ -316,6 +316,10 @@ Developed and owned by Flitz Studios © 2021
 
 Lib & version: **[Enhanced discord.py {discord.__version__}](https://github.com/iDutchy/discord.py)**
 Links: **[Support]({config.support})** | **[Invite]({config.invite})** | **[Privacy]({config.privacy})**
+
+Commands: **{len([c for c in set(self.bot.walk_commands())])}**
+Guilds: **{len(self.bot.guilds}**
+Users: **{sum(x.member_count for x in self.bot.guilds)}
 """
         await ctx.send(embed=ae)
 
