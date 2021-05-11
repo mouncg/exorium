@@ -449,19 +449,16 @@ Channels:
             e = discord.Embed(color=discord.Color.dark_teal())
             e.description = f"Do you want the message embedded?"
 
-            checkmark = '<a:checkmark:813798012399779841>'
-            crossmark = '<a:cross:813798012626141185>'
-
             def check(r, u):
                 return u.id == ctx.author.id and r.message.id == checkmsg.id
 
             try:
                 checkmsg = await ctx.send(embed=e)
-                await checkmsg.add_reaction(checkmark)
-                await checkmsg.add_reaction(crossmark)
+                await checkmsg.add_reaction(config.checkmark)
+                await checkmsg.add_reaction(config.crossmark)
                 react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
 
-                if str(react) == checkmark:
+                if str(react) == config.checkmark:
                     try:
                         await checkmsg.clear_reactions()
                     except Exception:
@@ -474,7 +471,7 @@ Channels:
                     await checkmsg.edit(embed=embed)
                     return
 
-                if str(react) == crossmark:
+                if str(react) == config.crossmark:
                     try:
                         await checkmsg.clear_reactions()
                     except Exception:
