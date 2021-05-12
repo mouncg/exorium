@@ -126,7 +126,7 @@ class PenguinHelp(commands.HelpCommand):
 
                 cog_emojis = {
                     "<:discovery:719431405905379358>": 'Utility',
-                    "<:hammer:832930785954758687>": 'Moderation',
+                    "<:ban:842138747134541829>": 'Moderation',
                     "👑": 'Admin',
                     "<:hug:642196733706764288>": 'Social',
                     "<:slash:833803136199032882>": 'Slash',
