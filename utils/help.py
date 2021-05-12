@@ -87,7 +87,7 @@ class PenguinHelp(commands.HelpCommand):
 
         emb = discord.Embed(color=discord.Color.dark_teal())
         emb.description = (f"[{s}]({support}) | [{i}]({invite}) "
-                           f"| {boats} | {privacy}\n\n**Made by:** {Rex}\nPrefix: {prefix}\n\n__**[Issue with help command, read here.](https://flitzstudios.instatus.com/incident/ckolicw0k134230cwovdetpd3m5)**__\n\n")
+                           f"| {boats} | {privacy}\n\n**Made by:** {Rex}\nPrefix: {prefix}\n\n")
 
         def check(r, u):
             return u.id in [self.context.author.id, 809057677716094997] and r.message.id == msg.id
