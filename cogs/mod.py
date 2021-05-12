@@ -9,7 +9,7 @@ from utils.checks import BannedMember
 class mod(commands.Cog, name="Moderation"):
     def __init__(self, bot):
         self.bot = bot
-        self.help_icon = "<:hammer:832930785954758687>"
+        self.help_icon = "<:ban:842138747134541829>"
 
     @commands.command(brief="Ban someone")
     @commands.guild_only()
