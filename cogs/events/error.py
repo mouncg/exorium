@@ -65,7 +65,7 @@ class error(commands.Cog, name="Error"):
             return await ctx.send(f"{config.crossmark} **{ctx.command.qualified_name} is currently disabled.**")
 
         if isinstance(err, commands.CheckFailure):
-            pass
+            return
 
         else:
 
