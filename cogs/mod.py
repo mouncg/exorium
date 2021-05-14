@@ -15,7 +15,7 @@ class mod(commands.Cog, name="Moderation"):
     @commands.guild_only()
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True, manage_messages=True)
-    async def ban(self, ctx, member: discord.Member, *, reason="No reason provided"):
+    async def ban(self, ctx, ban_user: discord.User, *, reason="No reason provided"):
         """
         Ban the specified user with the specified reason
         *Reason defaults to __no reason specified__*
@@ -24,13 +24,16 @@ class mod(commands.Cog, name="Moderation"):
         crossmark = '<a:cross:813798012626141185>'
         
         try:
-            if member == ctx.message.author:
+            await ctx.guild.fetch_ban(ban_user)
+            return await ctx.send("You cannot ban someone who is already banned.")
+        except discord.NotFound:
+            pass
+        
+        try:
+            if ban_user == ctx.message.author:
                 return await ctx.send("You can not ban yourself, please try someone else.")
-            
-            if member.top_role > ctx.author.top_role:
-                return await ctx.send("I cannot ban users with a higher role then you.")
 
-            if member == self.bot.user:
+            if ban_user == self.bot.user:
                 
                 def check(r, u):
                     return u.id == ctx.author.id and r.message.id == checkmsg.id
@@ -65,17 +68,24 @@ class mod(commands.Cog, name="Moderation"):
                     return await checkmsg.edit(content="Command timed out, canceling...")
        
             botmember = ctx.guild.me
-            if member.top_role > botmember.top_role:
-                return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to ban has.")
-            await ctx.message.delete()
-            messageok = f"You were banned from `{ctx.guild.name}` with reason:\n\n{reason}"
             try:
-                await member.send(messageok)
-            except discord.errors.HTTPException:
-                pass
-            await member.ban(reason=f"Moderator: {ctx.message.author} | Reason: {reason}")
-            e = discord.Embed(title=f"{member} was banned | {reason}", color=config.red)
-            await ctx.send(embed=e)
+                member = await ctx.guild.fetch_member(ban_user.id)
+                if member.top_role > botmember.top_role:
+                    return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to ban has.")
+                if member.top_role > ctx.author.top_role:
+                    return await ctx.send("I cannot ban users with a higher role then you.")
+                await ctx.message.delete()
+                try:
+                    await member.send(f"You were banned from `{ctx.guild.name}` with reason:\n\n{reason}")
+                except discord.errors.HTTPException:
+                    pass
+                await member.ban(reason=f"Moderator: {ctx.message.author} | Reason: {reason}")
+                e = discord.Embed(title=f"{member} was banned | {reason}", color=config.red)
+                await ctx.send(embed=e)
+            except:
+                await ctx.guild.ban(ban_user, reason=f"Moderator: {ctx.message.author} | Reason: {reason}")
+                e = discord.Embed(title=f"{ban_user} ({ban_user.id}) was banned | {reason}", color=config.red)
+                await ctx.send(embed=e)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
 
