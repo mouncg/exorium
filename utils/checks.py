@@ -21,7 +21,7 @@ class BannedMember(commands.Converter):
 async def lockdown(ctx):
     if ctx.bot.lockdown:
         if ctx.author.id == 345457928972533773:
-            ctx.reinvoke()
+            await ctx.reinvoke()
         else:
             e = discord.Embed(color=discord.Color.red())
             e.description = f"Esquire is currently undergoing maintenance. Please stand by and wait. If you wanna see what's going on or stay updated on the maintenance, you are free to check out [the status page](https://flitzstudios.instatus.com/)"
