@@ -13,6 +13,7 @@ class error(commands.Cog, name="Error"):
     async def bot_check(self, ctx):
         if await checks.lockdown(ctx):
             return False
+        return True
 
 
     @commands.Cog.listener()
