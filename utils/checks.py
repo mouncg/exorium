@@ -21,7 +21,7 @@ class BannedMember(commands.Converter):
 async def lockdown(ctx):
     if ctx.bot.lockdown:
         e = discord.Embed(color=discord.Color.red())
-        e.description = f"{self.bot.user} Is currently undergoing maintenance. Please stand by and wait. If you wanna see what's going on or stay updated on the maintenance, you are free to check out [the status page](https://flitzstudios.instatus.com/)"
+        e.description = f"Esquire is currently undergoing maintenance. Please stand by and wait. If you wanna see what's going on or stay updated on the maintenance, you are free to check out [the status page](https://flitzstudios.instatus.com/)"
         await ctx.send(embed=e)
         return True
     return False
