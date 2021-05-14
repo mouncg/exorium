@@ -226,7 +226,7 @@ __**Are you sure you want me to leave this guild?**__
 """
             await ctx.send(embed=e)
         except Exception:
-            return await ctx.send('**I could not find {user} as user.**')
+            return await ctx.send(f'**I could not find {user} as user.**')
  
 
 
