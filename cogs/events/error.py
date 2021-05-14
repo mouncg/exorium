@@ -10,7 +10,7 @@ class error(commands.Cog, name="Error"):
         self.bot = bot
 
     async def bot_check(self, ctx):
-        if self.bot.lockdown:
+        if self.bot.lockdown is True:
             return await ctx.send(f"{self.bot.user} Is currently undergoing maintenance. Please stand by and wait. If you wanna see what's going on or stay updated on the maintenance, you are free to check out [the status page](https://flitzstudios.instatus.com/)")
             return False
         return True
