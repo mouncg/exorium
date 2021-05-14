@@ -35,7 +35,7 @@ class mod(commands.Cog, name="Moderation"):
                     return u.id == ctx.author.id and r.message.id == checkmsg.id
             
                 try:
-                    checkmsg = await ctx.reply(f"I guess you want me to leave then <:sadcat:647705878597730315> Press the {checkmark} reaction to confirm.")
+                    checkmsg = await ctx.reply(f"I guess you want me to leave then <:sadcat:647705878597730315> Press the {config.checkmark} reaction to confirm.")
                     await checkmsg.add_reaction(config.checkmark)
                     await checkmsg.add_reaction(config.crossmark)
                     react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
@@ -155,7 +155,7 @@ class mod(commands.Cog, name="Moderation"):
                     return u.id == ctx.author.id and r.message.id == checkmsg.id
             
                 try:
-                    checkmsg = await ctx.reply(f"I guess you want me to leave then <:sadcat:647705878597730315> Press the {checkmark} reaction to confirm.")
+                    checkmsg = await ctx.reply(f"I guess you want me to leave then <:sadcat:647705878597730315> Press the {config.checkmark} reaction to confirm.")
                     await checkmsg.add_reaction(config.checkmark)
                     await checkmsg.add_reaction(config.crossmark)
                     react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
