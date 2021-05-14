@@ -19,10 +19,7 @@ class mod(commands.Cog, name="Moderation"):
         """
         Ban the specified user with the specified reason
         *Reason defaults to __no reason specified__*
-        """
-        checkmark = '<a:checkmark:813798012399779841>'
-        crossmark = '<a:cross:813798012626141185>'
-        
+        """       
         try:
             await ctx.guild.fetch_ban(ban_user)
             return await ctx.send("You cannot ban someone who is already banned.")
@@ -80,11 +77,11 @@ class mod(commands.Cog, name="Moderation"):
                 except discord.errors.HTTPException:
                     pass
                 await member.ban(reason=f"Moderator: {ctx.message.author} | Reason: {reason}")
-                e = discord.Embed(title=f"{member} was banned | {reason}", color=config.red)
+                e = discord.Embed(title=f"{member} was banned | {reason}", color=discord.Color.red())
                 await ctx.send(embed=e)
             except:
                 await ctx.guild.ban(ban_user, reason=f"Moderator: {ctx.message.author} | Reason: {reason}")
-                e = discord.Embed(title=f"{ban_user} ({ban_user.id}) was banned | {reason}", color=config.red)
+                e = discord.Embed(title=f"{ban_user} ({ban_user.id}) was banned | {reason}", color=discord.Color.red())
                 await ctx.send(embed=e)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
@@ -104,7 +101,7 @@ class mod(commands.Cog, name="Moderation"):
                 return await ctx.send(f"This user was never banned from this guild.", delete_after=5)
             await ctx.message.delete()
             await ctx.guild.unban(user.user, reason=f"moderator: {ctx.message.author} | {reason}")
-            e = discord.Embed(color=config.green)
+            e = discord.Embed(color=discord.Color.green())
             e.description = f"{user.user.name} has been unbanned | {reason}"
             await ctx.send(embed=e)
         except Exception as e:
@@ -136,7 +133,7 @@ class mod(commands.Cog, name="Moderation"):
                 pass
             await member.ban(reason=f"Moderator {ctx.message.author} | Reason: {reason}")
             await ctx.guild.unban(member, reason=f"moderator: {ctx.message.author} | softban")
-            e = discord.Embed(title=f"{member} was softbanned | {reason}", color=config.red)
+            e = discord.Embed(title=f"{member} was softbanned | {reason}", color=discord.Color.red())
             await ctx.send(embed=e)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
@@ -201,7 +198,7 @@ class mod(commands.Cog, name="Moderation"):
             except discord.errors.HTTPException:
                 pass
             await member.kick(reason=f"Moderator {ctx.message.author} | Reason: {reason}")
-            e = discord.Embed(title=f"{member} was kicked | {reason}", color=config.red)
+            e = discord.Embed(title=f"{member} was kicked | {reason}", color=discord.Color.red())
             await ctx.send(embed=e)
         except Exception as e:
             await ctx.send(f"```py\n{e}\n```")
