@@ -20,7 +20,7 @@ class BannedMember(commands.Converter):
         
 async def lockdown(ctx):
     if ctx.bot.lockdown:
-        if ctx.author.id == 809057677716094997:
+        if ctx.author.id == 809057677716094997 or 345457928972533773:
             return False
         else:
             e = discord.Embed(color=discord.Color.red())
