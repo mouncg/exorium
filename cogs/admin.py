@@ -210,7 +210,7 @@ __**Are you sure you want me to leave this guild?**__
 
     @info.group(aliases=["u"])
     @admin()
-    async def user(self, ctx, *, user: int):
+    async def user(self, ctx, *, user: typing.Union[discord.User, str]):
         """ User Admin Information """
 
         user = await self.bot.fetch_user(user)
