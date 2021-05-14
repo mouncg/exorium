@@ -107,9 +107,6 @@ class Admin(commands.Cog, name="Admin"):
         Forcibly leave a guild through ID
         """
 
-        checkmark = '<a:checkmark:813798012399779841>'
-        crossmark = '<a:cross:813798012626141185>'
-
         def check(r, u):
             return u.id == ctx.author.id and r.message.id == checkmsg.id
 
@@ -130,11 +127,11 @@ __**Are you sure you want me to leave this guild?**__
 """
         try:
             checkmsg = await ctx.send(embed=e)
-            await checkmsg.add_reaction(checkmark)
-            await checkmsg.add_reaction(crossmark)
+            await checkmsg.add_reaction(config.checkmark)
+            await checkmsg.add_reaction(config.crossmark)
             react, user = await self.bot.wait_for('reaction_add', check=check, timeout=30)
 
-            if str(react) == checkmark:
+            if str(react) == config.checkmark:
                 try:
                     await checkmsg.clear_reactions()
                 except Exception:
@@ -149,7 +146,7 @@ __**Are you sure you want me to leave this guild?**__
                 await log.send(f"Forcibly left guild {guild}.")
                 return
 
-            if str(react) == crossmark:
+            if str(react) == config.crossmark:
                 try:
                     await checkmsg.clear_reactions()
                 except Exception:
