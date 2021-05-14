@@ -97,7 +97,7 @@ class mod(commands.Cog, name="Moderation"):
         """
         try:
             if user == self.bot.user or user == ctx.message.author:
-            return await ctx.send(f"This user was never banned from this guild.", delete_after=5)
+                return await ctx.send(f"This user was never banned from this guild.", delete_after=5)
             await ctx.message.delete()
             await ctx.guild.unban(user.user, reason=f"moderator: {ctx.message.author} | {reason}")
             e = discord.Embed(color=discord.Color.green())
