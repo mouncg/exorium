@@ -6,7 +6,7 @@ from discord_slash import SlashCommand
 
 
 def get_prefix(bot, message):
-    prefixes = ["exo ", "e!", "Exo "]
+    prefixes = ["e?"]
     
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
