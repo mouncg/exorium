@@ -46,7 +46,8 @@ class HelpCog(commands.Cog, name="Utility"):
     async def privacy(self, ctx):
         """ Read our privacy policy """
         e = discord.Embed(color=discord.Color.dark_teal())
-        e.description = f"Read Esquire's privacy policy [here]({config.privacy})."
+        e.description = f"Esquire does not collect any data on our users. It only logs when a new guild was joined or left, and when errors/cooldowns occur. We will update this privacy policy accordingly." \
+                        f"If you have any questions you can join the [support server]({config.support})."
         await ctx.send(embed=e)
 
     @commands.command()
