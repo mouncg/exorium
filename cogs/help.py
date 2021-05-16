@@ -17,7 +17,7 @@ class HelpCog(commands.Cog, name="Utility"):
         self.bot = bot
         bot.help_command = PenguinHelp()
         bot.help_command.cog = self
-        self.help_icon = '<:discovery:719431405905379358>'
+        self.help_icon = '<:Discovery:842039427467444224>'
 
     @commands.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
