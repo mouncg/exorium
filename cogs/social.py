@@ -13,7 +13,7 @@ from utils.paginator import Pages
 class social(commands.Cog, name="Social"):
     def __init__(self, bot):
         self.bot = bot
-        self.help_icon = "<:hug:642196733706764288>"
+        self.help_icon = "<:Fifihug:847524779019993178>"
 
     @commands.command(brief="Slap someone", enabled=False)
     async def slap(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):

@@ -59,7 +59,7 @@ class CogHelpPages(menus.MenuPages):
 class PenguinHelp(commands.HelpCommand):
     def __init__(self):
         self.owner_cogs = ['Jishaku']
-        self.admin_cogs = ['admin']
+        self.admin_cogs = ['Admin']
         self.ignore_cogs = ['Error', 'DLP', 'Slash', 'Logs']
         self.help_icon = '<:store:729571108260675604>'
         super().__init__(command_attrs={
@@ -128,7 +128,7 @@ class PenguinHelp(commands.HelpCommand):
                     "<:Discovery:842039427467444224>": 'Utility',
                     "<:ban:842138747134541829>": 'Moderation',
                     "👑": 'Admin',
-                    "<:hug:642196733706764288>": 'Social',
+                    "<:Fifihug:847524779019993178>": 'Social',
                     "<:slash:833803136199032882>": 'Slash',
                     "\U000023f9": 'Stop'
                 }
