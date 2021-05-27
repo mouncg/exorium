@@ -60,7 +60,7 @@ class PenguinHelp(commands.HelpCommand):
     def __init__(self):
         self.owner_cogs = ['Jishaku']
         self.admin_cogs = ['Admin']
-        self.ignore_cogs = ['Error', 'DLP', 'Slash', 'Logs']
+        self.ignore_cogs = ['Error', 'DLP', 'Slash', 'Logs', 'Admin']
         self.help_icon = '<:store:729571108260675604>'
         super().__init__(command_attrs={
             "cooldown": commands.Cooldown(1, 5, commands.BucketType.member),
@@ -101,8 +101,8 @@ class PenguinHelp(commands.HelpCommand):
                 continue
             if extension.qualified_name in self.owner_cogs and not await self.context.bot.is_owner(self.context.author):
                 continue
-            if extension.qualified_name in self.admin_cogs and not await self.context.bot.is_admin(self.context.author):
-                continue
+            #if extension.qualified_name in self.admin_cogs and not await self.context.bot.is_admin(self.context.author):
+            #    continue
             #if extension.qualified_name in self.booster_cogs and not await self.context.bot.is_booster(self.context.author):
             #    continue
             #if await checks.cog_disabled(self.context, str(extension.qualified_name)):
