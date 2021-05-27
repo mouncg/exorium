@@ -267,9 +267,9 @@ You can get support here:
         Duck = await self.bot.fetch_user(443217277580738571)
         Fenny = await self.bot.fetch_user(699686304388087858)
         Rika = await self.bot.fetch_user(750470053300011070)
-        devs = [f"{x.name}#{x.discriminator}" for x in
-                self.bot.get_guild(755068089233834074).get_role(828339695314403378).members]
-        dev1 = ', '.join(devs)
+        # devs = [f"{x.name}#{x.discriminator}" for x in
+        #         self.bot.get_guild(755068089233834074).get_role(828339695314403378).members]
+        # dev1 = ', '.join(devs)
 
         e = discord.Embed(color=discord.Color.dark_teal())
         e.set_thumbnail(url=self.bot.user.avatar_url)
