@@ -107,7 +107,7 @@ class PenguinHelp(commands.HelpCommand):
             #    continue
             #if await checks.cog_disabled(self.context, str(extension.qualified_name)):
             #    continue
-            if not ctx.channel.permissions_for(ctx.author).manage_messages:
+            if not ctx.channel.permissions_for(self.bot.user).manage_messages:
                 continue
             exts.append(f"{extension.help_icon} **{extension.qualified_name}**")
             to_react.append(f"{extension.help_icon}")
