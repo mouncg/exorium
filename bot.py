@@ -50,9 +50,4 @@ for extension in config.extensions:
         print(f'[WARNING] Could not load extension {extension}: {tbe}')
 
 
-#cursor.execute("SELECT * FROM blacklist")
-#blacklist = cursor.fetchall()
-#for result in blacklist:
-#    bot.blacklist[result['id']] = result['reason']
-
 bot.run(config.token)
