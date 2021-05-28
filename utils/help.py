@@ -107,8 +107,6 @@ class PenguinHelp(commands.HelpCommand):
             #    continue
             #if await checks.cog_disabled(self.context, str(extension.qualified_name)):
             #    continue
-            if not ctx.channel.permissions_for(self.context.bot.user).manage_messages:
-                continue
             exts.append(f"{extension.help_icon} **{extension.qualified_name}**")
             to_react.append(f"{extension.help_icon}")
 
@@ -152,6 +150,11 @@ class PenguinHelp(commands.HelpCommand):
 
     
     async def send_cog_help(self, cog):
+        if extension.qualified_name == 'Moderation' and ctx.channel.permissions_for(self.context.bot.user).manage_messages:
+            continue
+        else:
+            return
+        
         commands = []
         for command in await self.filter_commands(cog.get_commands()):
             commands.append(f"`{command.qualified_name}` - **{command.short_doc}**\n")
