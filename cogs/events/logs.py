@@ -9,12 +9,32 @@ class logs(commands.Cog, name="Logs"):
     def __init__(self, bot):
         self.bot = bot
 
+    async def bot_check(self, ctx):
+        if ctx.author == await self.bot.fetch_user(809057677716094997):  # bluewy
+            return True  # even if gets blacklisted can't be blocked from the bot
+
+        try:
+            blacklist_check = self.bot.blacklist[ctx.author.id]
+            if blacklist_check:
+                return False  # they're blacklisted.
+        except Exception:
+            return True
+
     @commands.Cog.listener()
     async def on_command(self, ctx):
         print(f"{datetime.now().__format__('%a %d %b %y, %H:%M')} - {ctx.guild.name} | {ctx.author} > {ctx.message.clean_content}")
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
+        try:
+            blacklist_check = self.bot.blacklist[guild.id]
+        except Exception:
+            blacklist_check = None
+
+        if blacklist_check:
+            print(f"{guild} is blacklisted for {blacklist_check}")
+            return await guild.leave()
+
         log = self.bot.get_channel(839963272114602055)
         owner = await self.bot.fetch_user(guild.owner_id)
         owner = str(owner)
