@@ -51,8 +51,9 @@ Icon url: **[Click here]({guild.icon_url})**
 
             return await log.send(guild.id, embed=l)
 
-        print(f"{guild} is blacklisted for {blacklist_check}")
-        return await guild.leave()
+        else:
+            print(f"{guild} is blacklisted for {blacklist_check}")
+            return await guild.leave()
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
