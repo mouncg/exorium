@@ -33,7 +33,7 @@ mydb = config.DBdata
 bot.database = mydb.cursor()
 bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason VARCHAR(255))")
 bot.database.execute("CREATE TABLE IF NOT EXISTS warnings (guild_id BIGINT, user_id BIGINT, mod_id BIGINT, reason VARCHAR(255), time TIMESTAMP)")
-
+bot.database.commit()
 
 @commands.Cog.listener()
 async def on_ready():
