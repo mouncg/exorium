@@ -151,7 +151,7 @@ class PenguinHelp(commands.HelpCommand):
     
     async def send_cog_help(self, cog):
         commands = []
-        for command in await cog.get_commands():
+        for command in cog.get_commands():
             commands.append(f"`{command.qualified_name}` - **{command.short_doc}**\n")
         
         paginator = Pages(self.context,
