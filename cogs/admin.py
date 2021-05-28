@@ -246,7 +246,7 @@ __**Are you sure you want me to leave this guild?**__
 
         try:
             self.bot.blacklist[user.id]
-            self.bot.database.execute(f"DELETE FROM blacklist WHERE id = {user.id}")
+            self.bot.database.execute(f"DELETE FROM blacklist WHERE id = '{user.id}'")
             self.bot.blacklist.pop(user.id)
             await ctx.send(f"unblacklisted {user}")          
         except Exception:
@@ -262,12 +262,13 @@ __**Are you sure you want me to leave this guild?**__
             return await ctx.send("That server was not found make sure the ID is correct or if I'm in the server.")
         try:
             self.bot.blacklist[server]
-            self.bot.database.execute(f"DELETE FROM blacklist WHERE id = {server}")
+            self.bot.database.execute(f"DELETE FROM blacklist WHERE id = '{server}'")
             self.bot.blacklist.pop(server)
             await ctx.send(f"unblacklisted {server}")          
         except Exception:
             self.bot.database.execute(f"INSERT INTO blacklist VALUES('{server}', '{reason}')")
             self.bot.blacklist[server] = reason
+            await server.leave()
             await ctx.send(f"blacklisted {server}")
 
 
