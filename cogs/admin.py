@@ -263,10 +263,12 @@ __**Are you sure you want me to leave this guild?**__
         try:
             self.bot.blacklist[server]
             cursor.execute(f"DELETE FROM blacklist WHERE id = '{server}'")
+            connection.commit()
             self.bot.blacklist.pop(server)
             await ctx.send(f"unblacklisted {server}")          
         except Exception:
             cursor.execute(f"INSERT INTO blacklist(id, reason) VALUES('{server}', '{reason}')")
+            connection.commit()
             self.bot.blacklist[server] = reason
             guild = self.bot.get_guild(server)
             if guild:
