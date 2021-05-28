@@ -258,8 +258,6 @@ __**Are you sure you want me to leave this guild?**__
     @commands.is_owner()
     async def blacklist_server(self, ctx, server: int, *, reason: str):
         """ Blacklist or unblacklist a server """
-        if not self.bot.get_guild(server):
-            return await ctx.send("That server was not found make sure the ID is correct or if I'm in the server.")
         try:
             self.bot.blacklist[server]
             self.bot.database.execute(f"DELETE FROM blacklist WHERE id = '{server}'")
