@@ -26,23 +26,21 @@ class logs(commands.Cog, name="Logs"):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        try:
-            blacklist_check = self.bot.blacklist[guild.id]
-        except Exception:
-            blacklist_check = None
+        connection = config.connection
+        cursor = connection.cursor()
+        
+        cursor.execute("SELECT * FROM blacklist WHERE id = %s", [guild.id])
+        results = cursor.fetchall()
 
-        if blacklist_check:
-            print(f"{guild} is blacklisted for {blacklist_check}")
-            return await guild.leave()
+        if not results:
+            log = self.bot.get_channel(839963272114602055)
+            owner = await self.bot.fetch_user(guild.owner_id)
+            owner = str(owner)
 
-        log = self.bot.get_channel(839963272114602055)
-        owner = await self.bot.fetch_user(guild.owner_id)
-        owner = str(owner)
-
-        l = discord.Embed(color=discord.Color.green(), title="New guild joined")
-        l.set_author(name=guild, icon_url=guild.icon_url)
-        l.set_footer(text=f"Now in {len(self.bot.guilds)} guilds")
-        l.description = f"""
+            l = discord.Embed(color=discord.Color.green(), title="New guild joined")
+            l.set_author(name=guild, icon_url=guild.icon_url)
+            l.set_footer(text=f"Now in {len(self.bot.guilds)} guilds")
+            l.description = f"""
 Guild **{guild}** ({guild.id})
 Owner: **{owner}** ({guild.owner_id})
 Created on **{default.date(guild.created_at)}**
@@ -51,7 +49,11 @@ Approximately **{guild.member_count}** members
 Icon url: **[Click here]({guild.icon_url})** 
 """
 
-        await log.send(guild.id, embed=l)
+            return await log.send(guild.id, embed=l)
+
+        try:
+            print(f"{guild} is blacklisted for {blacklist_check}")
+            return await guild.leave()
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
