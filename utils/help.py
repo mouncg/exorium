@@ -150,11 +150,6 @@ class PenguinHelp(commands.HelpCommand):
 
     
     async def send_cog_help(self, cog):
-        if extension.qualified_name == 'Moderation' and ctx.channel.permissions_for(self.context.bot.user).manage_messages:
-            continue
-        else:
-            return
-        
         commands = []
         for command in await self.filter_commands(cog.get_commands()):
             commands.append(f"`{command.qualified_name}` - **{command.short_doc}**\n")
