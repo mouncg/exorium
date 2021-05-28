@@ -225,49 +225,6 @@ __**Are you sure you want me to leave this guild?**__
         except Exception:
             return await ctx.send(f'**I could not find {user} as user.**')
 
-    @commands.group(name='blacklist', invoke_without_command=True)  # invoke_without_command means you can have separate permissions/cooldowns for each subcommand
-    @commands.is_owner()
-    async def blacklist(self, ctx):
-        await ctx.send_help(ctx.command)
-
-    @blacklist.command(name='user')
-    @commands.is_owner()
-    async def blacklist_user(self, ctx, user: typing.Union[discord.User, int], *, reason: str):
-        """ Blacklist or unblacklist a user """
-        try:
-            if isinstance(user, discord.User):
-                pass
-            elif isinstance(user, int):
-                user = await self.bot.fetch_user(user)
-        except Exception as e:
-            return await ctx.send(f"Failed to find the user: `{e}`")
-
-        try:
-            self.bot.blacklist[user.id]
-            self.bot.database.execute(f"DELETE FROM blacklist WHERE id = {user.id}")
-            self.bot.blacklist.pop(user.id)
-            await ctx.send(f"unblacklisted {user}")          
-        except Exception:
-            self.bot.database.execute(f"INSERT INTO blacklist(id, reason) VALUES({user.id}, {reason})")
-            self.bot.blacklist[user.id] = reason
-            await ctx.send(f"blacklisted {user}")
-
-    @blacklist.command(name='server')
-    @commands.is_owner()
-    async def blacklist_server(self, ctx, server: int, *, reason: str):
-        """ Blacklist or unblacklist a server """
-        if not self.bot.get_guild(server):
-            return await ctx.send("That server was not found make sure the ID is correct or if I'm in the server.")
-        try:
-            self.bot.blacklist[server]
-            self.bot.database.execute(f"DELETE FROM blacklist WHERE id = {server}")
-            self.bot.blacklist.pop(server)
-            await ctx.send(f"unblacklisted {server}")          
-        except Exception:
-            self.bot.database.execute(f"INSERT INTO blacklist(id, reason) VALUES({server}, {reason})")
-            self.bot.blacklist[server] = reason
-            await ctx.send(f"blacklisted {server}") 
-
 
 def setup(bot):
     bot.add_cog(Admin(bot))
