@@ -27,11 +27,11 @@ bot = commands.Bot(
 slash = SlashCommand(client=bot, sync_commands=True, override_type=True, sync_on_cog_reload=True)
 
 bot.lockdown = True
-bot.blacklist = {}
+# bot.blacklist = {}
 
-mydb = config.DBdata
-bot.database = mydb.cursor()
-bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason VARCHAR(255))")
+# mydb = config.DBdata
+# bot.database = mydb.cursor()
+# bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason VARCHAR(255))")
 
 
 @commands.Cog.listener()
@@ -49,9 +49,9 @@ for extension in config.extensions:
         print(f'[WARNING] Could not load extension {extension}: {tbe}')
 
 
-bot.database.execute("SELECT * FROM blacklist")
-blacklist = bot.database.fetchall()
-for result in blacklist:
-    bot.blacklist[result['id']] = result['reason']
+# bot.database.execute("SELECT * FROM blacklist")
+# blacklist = bot.database.fetchall()
+# for result in blacklist:
+#     bot.blacklist[result['id']] = result['reason']
 
 bot.run(config.token)
