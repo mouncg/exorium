@@ -58,7 +58,7 @@ class CogHelpPages(menus.MenuPages):
 
 class PenguinHelp(commands.HelpCommand):
     def __init__(self):
-        self.owner_cogs = ['Jishaku']
+        self.owner_cogs = ['Jishaku', 'Devishaku']
         self.admin_cogs = ['Admin']
         self.ignore_cogs = ['Error', 'DLP', 'Slash', 'Logs', 'Admin']
         self.help_icon = '<:store:729571108260675604>'
@@ -97,7 +97,7 @@ class PenguinHelp(commands.HelpCommand):
         for extension in set(self.context.bot.cogs.values()):
             if extension.qualified_name in self.ignore_cogs:
                 continue
-            if extension.qualified_name == "Jishaku":
+            if extension.qualified_name == ["Jishaku", "Devishaku"]:
                 continue
             if extension.qualified_name in self.owner_cogs and not await self.context.bot.is_owner(self.context.author):
                 continue
