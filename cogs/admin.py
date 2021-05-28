@@ -258,6 +258,8 @@ __**Are you sure you want me to leave this guild?**__
     @commands.is_owner()
     async def blacklist_server(self, ctx, server: int, *, reason: str):
         """ Blacklist or unblacklist a server """
+        connection = config.connection
+        cursor = connection.cursor()
         try:
             self.bot.blacklist[server]
             cursor.execute(f"DELETE FROM blacklist WHERE id = '{server}'")
