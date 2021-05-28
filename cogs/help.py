@@ -46,8 +46,8 @@ class HelpCog(commands.Cog, name="Utility"):
     async def privacy(self, ctx):
         """ Read our privacy policy """
         e = discord.Embed(color=discord.Color.dark_teal())
-        e.description = f"Esquire does not collect any data on our users. It only logs when a new guild was joined or left, and when errors/cooldowns occur. We will update this privacy policy accordingly.\n\n" \
-                        f"If you have any questions you can join the [support server]({config.support}) or mail joshuaslui0203@gmail.com with your questions."
+        e.description = "Esquire only collects server IDs for server blacklisting, and user IDs for user blacklisting. It also logs guild joins/leaves, cooldowns and full error tracebacks. While that's currently all, the privacy policy can be updated at any time.\n\n" \
+                        f"If you have questions or concerns, you can join our [support server]({config.support}) or mail to joshuaslui0203@gmail.com"
         await ctx.send(embed=e)
 
     @commands.command()
