@@ -268,7 +268,7 @@ __**Are you sure you want me to leave this guild?**__
         except Exception:
             self.bot.database.execute(f"INSERT INTO blacklist VALUES('{server}', '{reason}')")
             self.bot.blacklist[server] = reason
-            await server.leave()
+            await self.bot.get_guild(server).leave()
             await ctx.send(f"blacklisted {server}")
 
 
