@@ -29,11 +29,11 @@ slash = SlashCommand(client=bot, sync_commands=True, override_type=True, sync_on
 bot.lockdown = True
 bot.blacklist = {}
 
-mydb = config.DBdata
-bot.database = mydb.cursor()
-bot.database.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason VARCHAR(255))")
-bot.database.execute("CREATE TABLE IF NOT EXISTS warnings (guild_id BIGINT, user_id BIGINT, mod_id BIGINT, reason VARCHAR(255), time TIMESTAMP)")
-mydb.commit()
+connection = config.connection
+cursor = connection.cursor()
+cursor.execute("CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason VARCHAR(255))")
+cursor.execute("CREATE TABLE IF NOT EXISTS warnings (guild_id BIGINT, user_id BIGINT, mod_id BIGINT, reason VARCHAR(255), time TIMESTAMP)")
+connection.commit()
 
 @commands.Cog.listener()
 async def on_ready():
