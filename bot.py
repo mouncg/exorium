@@ -27,7 +27,7 @@ async def run():
     try:
         await db.execute('CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason TEXT)')
         await db.execute('CREATE TABLE IF NOT EXISTS warnings (guild_id BIGINT, user_id BIGINT, mod_id BIGINT, reason TEXT, time TIMESTAMP)')
-        await bot.start(config.DISCORD_TOKEN)
+        await bot.start(config.token)
     except KeyboardInterrupt:
         await db.close()
         await bot.logout()
