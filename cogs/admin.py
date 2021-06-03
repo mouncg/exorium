@@ -246,11 +246,11 @@ __**Are you sure you want me to leave this guild?**__
 
         try:
             self.bot.blacklist[user.id]
-            self.bot.database.execute(f"DELETE FROM blacklist WHERE id = '{user.id}'")
+            self.bot.db.execute(f"DELETE FROM blacklist WHERE id = '{user.id}'")
             self.bot.blacklist.pop(user.id)
             await ctx.send(f"unblacklisted {user}")          
         except Exception:
-            self.bot.database.execute(f"INSERT INTO blacklist VALUES('{user.id}', '{reason}')")
+            self.bot.db.execute(f"INSERT INTO blacklist VALUES('{user.id}', '{reason}')")
             self.bot.blacklist[user.id] = reason
             await ctx.send(f"blacklisted {user}")
 
@@ -258,16 +258,13 @@ __**Are you sure you want me to leave this guild?**__
     @commands.is_owner()
     async def blacklist_server(self, ctx, server: int, *, reason: str):
         """ Blacklist or unblacklist a server """
-        connection = config.connection
-        cursor = connection.cursor()
         try:
             self.bot.blacklist[server]
-            cursor.execute(f"DELETE FROM blacklist WHERE id = '{server}'")
-            connection.commit()
+            self.bot.db.execute(f"DELETE FROM blacklist WHERE id = '{server}'")
             self.bot.blacklist.pop(server)
             await ctx.send(f"unblacklisted {server}")          
         except Exception:
-            cursor.execute(f"INSERT INTO blacklist(id, reason) VALUES('{server}', '{reason}')")
+            self.bot.db.execute(f"INSERT INTO blacklist(id, reason) VALUES('{server}', '{reason}')")
             connection.commit()
             self.bot.blacklist[server] = reason
             guild = self.bot.get_guild(server)
