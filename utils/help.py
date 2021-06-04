@@ -79,7 +79,7 @@ class PenguinHelp(commands.HelpCommand):
 
         support = config.support
         invite = config.invite
-        prefix = f"`exo `"
+        prefix = f"`e?`"
         s = "Support"
         i = "Bot invite"
         boats = "[discord.boats](https://discord.boats/bot/620990340630970425)"
