@@ -48,7 +48,7 @@ Icon url: **[Click here]({guild.icon_url})**
             return await log.send(guild.id, embed=l)
 
         else:
-            print(f"{guild} is blacklisted for {blacklist_check}")
+            print(f"{guild} ({guild.id} tried adding me, but was blacklisted.")
             await ctx.send("{config.crossmark} {guild.name} ({guild.id} tried adding me, but this guild is blacklisted.")
             return await guild.leave()
 
