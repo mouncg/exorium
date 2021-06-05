@@ -246,11 +246,11 @@ __**Are you sure you want me to leave this guild?**__
 
         try:
             self.bot.blacklist[user.id]
-            self.bot.database.execute(f"DELETE FROM blacklist WHERE id = '{user.id}'")
+            await self.bot.database.execute(f"DELETE FROM blacklist WHERE id = '{user.id}'")
             self.bot.blacklist.pop(user.id)
             await ctx.send(f"unblacklisted {user}")          
         except Exception:
-            self.bot.database.execute(f"INSERT INTO blacklist VALUES('{user.id}', '{reason}')")
+            await self.bot.database.execute(f"INSERT INTO blacklist VALUES('{user.id}', '{reason}')")
             self.bot.blacklist[user.id] = reason
             await ctx.send(f"blacklisted {user}")
 
@@ -260,11 +260,11 @@ __**Are you sure you want me to leave this guild?**__
         """ Blacklist or unblacklist a server """
         try:
             self.bot.blacklist[server]
-            self.bot.database.execute(f"DELETE FROM blacklist WHERE id = '{server}'")
+            await self.bot.database.execute(f"DELETE FROM blacklist WHERE id = '{server}'")
             self.bot.blacklist.pop(server)
             await ctx.send(f"unblacklisted {server}")          
         except Exception:
-            self.bot.database.execute(f"INSERT INTO blacklist(id, reason) VALUES('{server}', '{reason}')")
+            await self.bot.database.execute(f"INSERT INTO blacklist(id, reason) VALUES('{server}', '{reason}')")
             self.bot.blacklist[server] = reason
             guild = self.bot.get_guild(server)
             if guild:
