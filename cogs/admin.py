@@ -207,7 +207,7 @@ __**Are you sure you want me to leave this guild?**__
         await ctx.send(guild.id, embed=e)
 
     @info.group(aliases=["u"])
-    @admin()
+    @commands.is_owner()
     async def user(self, ctx, *, user: typing.Union[discord.User, str]):
         """ User Admin Information """
         try:
