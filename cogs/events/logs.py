@@ -26,10 +26,9 @@ class logs(commands.Cog, name="Logs"):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        await self.bot.database.execute("SELECT * FROM blacklist WHERE id = %s", [guild.id])
-        results = await self.bot.database.fetchall()
+        results = await self.bot.database.execute("SELECT * FROM blacklist WHERE id = %s", [guild.id])
 
-        if not results:
+        if results == 'SELECT 0':
             log = self.bot.get_channel(839963272114602055)
             owner = await self.bot.fetch_user(guild.owner_id)
             owner = str(owner)
@@ -50,6 +49,7 @@ Icon url: **[Click here]({guild.icon_url})**
 
         else:
             print(f"{guild} is blacklisted for {blacklist_check}")
+            await ctx.send("{config.crossmark} {guild.name} ({guild.id} tried adding me, but this guild is blacklisted.")
             return await guild.leave()
 
     @commands.Cog.listener()
