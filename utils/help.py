@@ -75,7 +75,7 @@ class PenguinHelp(commands.HelpCommand):
         """ See bot help """
         ctx = self.context
 
-        Rex = await self.context.bot.fetch_user(839237573595365406)
+        Josh = await self.context.bot.fetch_user(809057677716094997)
 
         support = config.support
         invite = config.invite
@@ -87,7 +87,7 @@ class PenguinHelp(commands.HelpCommand):
 
         emb = discord.Embed(color=discord.Color.dark_teal())
         emb.description = (f"[{s}]({support}) | [{i}]({invite}) "
-                           f"| {boats} | {privacy}\n\n**Made by:** {Rex}\nPrefix: {prefix}\n\n")
+                           f"| {boats} | {privacy}\n\n**Made by:** {Josh}\nPrefix: {prefix}\n\n")
 
         def check(r, u):
             return u.id in [self.context.author.id, 809057677716094997] and r.message.id == msg.id
