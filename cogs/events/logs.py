@@ -26,7 +26,7 @@ class logs(commands.Cog, name="Logs"):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        results = await self.bot.database.execute("SELECT * FROM blacklist WHERE id = %s", [guild.id])
+        results = await self.bot.database.execute(f"SELECT * FROM blacklist WHERE id = {guild.id}")
 
         if results == 'SELECT 0':
             log = self.bot.get_channel(839963272114602055)
