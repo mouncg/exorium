@@ -5,10 +5,10 @@ import typing
 from discord.ext import commands
 from utils import default
 
-def admin():
-    async def predicate(ctx):
-        return ctx.author.id in ctx.bot.owner_ids
-    return commands.check(predicate)
+# def admin():
+#     async def predicate(ctx):
+#         return ctx.author.id in ctx.bot.owner_ids
+#     return commands.check(predicate)
 
 async def suggestion_command(self, ctx, type, color, reason):
     if ctx.channel.id != 839962330787479592:
@@ -39,23 +39,23 @@ class Admin(commands.Cog, name="Admin"):
         self.help_icon = "👑"
    
     @commands.group(invoke_without_command=True, aliases=['s'])
-    @admin()
+    @commands.is_owner()
     async def suggestion(self, ctx):
         """ Manage the Suggestion Queue """
         await ctx.send_help(ctx.command)
 
     @suggestion.command(aliases=['a'])
-    @admin()
+    @commands.is_owner()
     async def approve(self, ctx, *, reason=None):
         await suggestion_command(self, ctx, 'approved', discord.Color.green(), reason)
 
     @suggestion.command(aliases=['d'])
-    @admin()
+    @commands.is_owner()
     async def deny(self, ctx, *, reason=None):
         await suggestion_command(self, ctx, 'denied', discord.Color.red(), reason)
 
     @commands.command()
-    @admin()
+    @commands.is_owner()
     async def load(self, ctx, *, cog):
         """
         Load the specified cog
@@ -65,7 +65,7 @@ class Admin(commands.Cog, name="Admin"):
         print(f"{ctx.author} loaded cog \"{cog}\" successfully.")
 
     @commands.command()
-    @admin()
+    @commands.is_owner()
     async def reload(self, ctx, *, cog='~'):
         """
         Reload a specified/all cogs
@@ -81,7 +81,7 @@ class Admin(commands.Cog, name="Admin"):
             print(f"{ctx.author} reloaded \"{cog}\" successfully.")
 
     @commands.command()
-    @admin()
+    @commands.is_owner()
     async def unload(self, ctx, *, cog):
         """
         Unload the specified cog
@@ -93,7 +93,7 @@ class Admin(commands.Cog, name="Admin"):
         print(f"{ctx.author} unloaded \"{cog}\" Successfully.")
 
     @commands.command()
-    @admin()
+    @commands.is_owner()
     async def shutdown(self, ctx):
         """ Shuts down the bot. """
         await ctx.send('Shutting down.')
@@ -101,7 +101,7 @@ class Admin(commands.Cog, name="Admin"):
         await self.bot.logout()
 
     @commands.command()
-    @admin()
+    @commands.is_owner()
     async def leave(self, ctx, id):
         """
         Forcibly leave a guild through ID
@@ -164,7 +164,7 @@ __**Are you sure you want me to leave this guild?**__
             return await checkmsg.edit(embed=etimeout)
 
     @commands.group(aliases=["i"])
-    @admin()
+    @commands.is_owner()
     async def info(self, ctx):
         """ Display admin user/guild info """
         if ctx.invoked_subcommand is None:
@@ -173,7 +173,7 @@ __**Are you sure you want me to leave this guild?**__
             await ctx.send(embed=e)
 
     @info.group(aliases=["g"])
-    @admin()
+    @commands.is_owner()
     async def guild(self, ctx, *, guild: int):
         """ Guild Admin Information """
 
