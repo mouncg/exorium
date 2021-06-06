@@ -11,7 +11,7 @@ class DiscordListsPost(commands.Cog, name="DLP"):
         self.api.set_auth("top.gg", config.TOPTOKEN)
         self.api.set_auth("discordbotlist.com", config.DBLTOKEN)
         self.api.start_loop()  # Posts the server count automatically every 30 minutes
-        self.delpy = delpy.Client(bot, config.DELTOKEN, bot.loop)
+        self.delpy = delpy.Client(bot, config.DELTOKEN, loop=bot.loop)
         self.update_stats.start()
 
     def cog_unload(self):
