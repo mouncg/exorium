@@ -225,6 +225,12 @@ class mod(commands.Cog, name="Moderation"):
             except Exception as e:
                 await ctx.send(f"```py\n{e}\n```")
 
+    @commands.command()
+    @commands.guild_only()
+    @commands.has_permissions(manage_messages=True)
+    async def warn(self, ctx, *, user: discord.Member, reason="No reason provided"):
+        await ctx.send(f"Testing {user} with {reason} by {ctx.author}")
+
 
 def setup(bot):
     bot.add_cog(mod(bot))
