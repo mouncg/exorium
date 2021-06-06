@@ -28,7 +28,7 @@ async def run():
         await db.execute('CREATE TABLE IF NOT EXISTS blacklist (id BIGINT PRIMARY KEY, reason TEXT)')
         await db.execute('CREATE TABLE IF NOT EXISTS warnings (guild_id BIGINT, user_id BIGINT, mod_id BIGINT, reason TEXT, time TIMESTAMP)')
         res = await db.fetch('SELECT * FROM blacklist')
-        for the_id in red:
+        for the_id in res:
             bot.blacklist[the_id['id']] = the_id['reason']
             print("Loaded blacklist")
 
