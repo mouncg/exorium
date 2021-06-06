@@ -10,7 +10,7 @@ class logs(commands.Cog, name="Logs"):
         self.bot = bot
 
     async def bot_check(self, ctx):
-        if ctx.author == await self.bot.fetch_user(809057677716094997):  # bluewy
+        if ctx.author.id == 809057677716094997:  # bluewy
             return True  # even if gets blacklisted can't be blocked from the bot
 
         try:
@@ -26,9 +26,9 @@ class logs(commands.Cog, name="Logs"):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        results = await self.bot.database.execute(f"SELECT * FROM blacklist WHERE id = {guild.id}")
+        results = await self.bot.database.fetchval(f"SELECT * FROM blacklist WHERE id = $1", guild.id)
 
-        if results == 'SELECT 0':
+        if not results:
             log = self.bot.get_channel(839963272114602055)
             owner = await self.bot.fetch_user(guild.owner_id)
             owner = str(owner)
@@ -57,8 +57,12 @@ Icon url: **[Click here]({guild.icon_url})**
         log = self.bot.get_channel(839963272114602055)
         owner = await self.bot.fetch_user(guild.owner_id)
         owner = str(owner)
+        results = await self.bot.database.fetchval(f"SELECT * FROM blacklist WHERE id = $1", guild.id)
 
-        l = discord.Embed(color=discord.Color.red(), title="Old guild left")
+        if not results:
+            l = discord.Embed(color=discord.Color.red(), title="Old guild left")
+        elif results:
+            l = discord.Embed(color=discord.Color.red(), title="Blacklisted guild left")
         l.set_author(name=guild, icon_url=guild.icon_url)
         l.set_footer(text=f"Now in {len(self.bot.guilds)} guilds")
         l.description = f"""
@@ -75,7 +79,7 @@ Icon url: **[Click here]({guild.icon_url})**
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
         """ Tries to re-run a command when a message gets edited! """
-        if after.author.bot is True or before.content == after.content:
+        if after.author.bot or before.content == after.content:
             return
         prefixes = commands.when_mentioned_or('exo ', 'Exo ', 'e!')(self.bot, after)
         if after.content.startswith(tuple(prefixes)):
