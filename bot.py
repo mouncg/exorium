@@ -40,8 +40,6 @@ class Bot(commands.AutoShardedBot):
             case_insensitive=True,
             status=discord.Status.online,
             activity=discord.Activity(type=discord.ActivityType.playing, name='in the sandbox'),
-            owner_id=809057677716094997,
-            owner_ids=[809057677716094997, 345457928972533773],
             reconnect=True,
             allowed_mentions=discord.AllowedMentions.none(),
             max_messages=10000,
