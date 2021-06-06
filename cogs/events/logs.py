@@ -3,7 +3,6 @@ from collections import Counter
 from discord.ext import commands
 from datetime import datetime
 from utils import default
-from bot import get_prefix
 
 class logs(commands.Cog, name="Logs"):
     def __init__(self, bot):
