@@ -48,7 +48,7 @@ Icon url: **[Click here]({guild.icon_url})**
 
         else:
             print(f"{guild} ({guild.id} tried adding me, but was blacklisted.")
-            await log.send("{config.crossmark} {guild.name} ({guild.id} tried adding me, but this guild is blacklisted.")
+            await log.send(f"{config.crossmark} {guild.name} ({guild.id}) tried adding me, but this guild is blacklisted.")
             return await guild.leave()
 
     @commands.Cog.listener()
