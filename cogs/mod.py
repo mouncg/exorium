@@ -228,7 +228,7 @@ class mod(commands.Cog, name="Moderation"):
     @commands.command()
     @commands.guild_only()
     @commands.has_permissions(manage_messages=True)
-    async def warn(self, ctx, user: commands.greedy[discord.Member], reason="No reason provided"):
+    async def warn(self, ctx, user: commands.Greedy[discord.Member], reason="No reason provided"):
         await ctx.send(f"Testing {user} with {reason} by {ctx.author}")
 
 
