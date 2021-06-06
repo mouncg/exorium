@@ -27,8 +27,8 @@ class logs(commands.Cog, name="Logs"):
     async def on_guild_join(self, guild):
         results = await self.bot.database.fetchval(f"SELECT * FROM blacklist WHERE id = $1", guild.id)
 
+        log = self.bot.get_channel(839963272114602055)
         if not results:
-            log = self.bot.get_channel(839963272114602055)
             owner = await self.bot.fetch_user(guild.owner_id)
             owner = str(owner)
 
