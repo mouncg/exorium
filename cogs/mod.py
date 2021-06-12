@@ -76,7 +76,8 @@ class mod(commands.Cog, name="Moderation"):
                 except discord.errors.HTTPException:
                     pass
                 await member.ban(reason=f"Moderator: {ctx.message.author} | Reason: {reason}")
-                e = discord.Embed(title=f"{member} was banned | {reason}", color=discord.Color.red())
+                e = discord.Embed(color=discord.Color.red())
+                e.description = f"{member} was banned | {reason}"
                 await ctx.send(embed=e)
             except:
                 await ctx.guild.ban(ban_user, reason=f"Moderator: {ctx.message.author} | Reason: {reason}")
