@@ -38,7 +38,7 @@ class HelpCog(commands.Cog, name="Utility"):
     async def invite(self, ctx):
         """ Invite Esquire to your server """
         e = discord.Embed(color=discord.Color.dark_teal())
-        e.description = f'{config.inv}[Default perms]({config.invite})\n {config.inv}[All perms]({config.invite2})'
+        e.description = _('{0}[Default perms]({1})\n {2}[All perms]({3})').format(config.inv, config.invite, config.inv, config.invite2)
         await ctx.send(embed=e)
 
     @commands.command()
@@ -46,8 +46,8 @@ class HelpCog(commands.Cog, name="Utility"):
     async def privacy(self, ctx):
         """ Read our privacy policy """
         e = discord.Embed(color=discord.Color.dark_teal())
-        e.description = "Esquire only collects server IDs for server blacklisting, and user IDs for user blacklisting. It also logs guild joins/leaves, cooldowns and full error tracebacks. While that's currently all, the privacy policy can be updated at any time.\n\n" \
-                        f"If you have questions or concerns, you can join our [support server]({config.support}) or mail to joshuaslui0203@gmail.com"
+        e.description = _("Esquire only collects server IDs for server blacklisting, and user IDs for user blacklisting. It also logs guild joins/leaves, cooldowns and full error tracebacks. While that's currently all, the privacy policy can be updated at any time.\n\n"
+                          "If you have questions or concerns, you can join our [support server]({0}) or mail to joshuaslui0203@gmail.com").format(config.support)
         await ctx.send(embed=e)
 
     @commands.command()
@@ -55,12 +55,12 @@ class HelpCog(commands.Cog, name="Utility"):
     async def support(self, ctx):
         """ Get support with Esquire """
         e = discord.Embed(color=discord.Color.dark_teal())
-        e.description = f"""
+        e.description = _("""
 You can get support here:
-- [support server]({config.support})
+- [support server]({0})
 - [Github issue](https://github.com/flitzstudios/exorium/issues/new)
 - [Email us](https://quacky.xyz/email?email=flitzdevelopment@gmail.com)
-"""
+""").format(config.support)
         await ctx.send(embed=e)
 
     @commands.command()
@@ -69,14 +69,14 @@ You can get support here:
         """ Make suggestions for Esquire """
         channel = self.bot.get_channel(839962330787479592)
         if len(suggestion) >= 500:
-            return await ctx.send(f"Please make your suggestion shorter then 500 characters.")
+            return await ctx.send(_("Please make your suggestion shorter then 500 characters."))
         e = discord.Embed(color=discord.Color.orange())
         e.set_author(icon_url=ctx.message.author.avatar_url, name=ctx.message.author)
         e.description = suggestion
         ra = await channel.send(embed=e)
         await ra.add_reaction(config.checkmark)
         await ra.add_reaction(config.crossmark)
-        await ctx.send(f"Your suggestion was recorded in our support server.")
+        await ctx.send(_("Your suggestion was recorded in our support server."))
 
     @commands.command()
     @commands.guild_only()
@@ -106,17 +106,18 @@ You can get support here:
         owner = await self.bot.fetch_user(ctx.guild.owner_id)
         member_count = ctx.guild.member_count  # last known count because you don't have intents
         features = ", ".join(ctx.guild.features).lower().replace('_', ' ').title() if len(ctx.guild.features) != 0 else None
-        mfa = "Optional" if ctx.guild.mfa_level else "Required"
+        mfa = _("Optional") if ctx.guild.mfa_level else _("Required")
         verification = str(ctx.guild.verification_level).capitalize()
 
         e = discord.Embed(color=discord.Color.dark_teal())
-        e.set_author(name=f"{ctx.guild.name} Information", icon_url=ctx.guild.icon_url)
-        e.add_field(name="**General Information**",
-                    value=f"**Owner:** {owner} ({owner.id})\n**Guild Created At:** {default.date(ctx.guild.created_at)}\n"
-                          f"**Guild Region:** {ctx.guild.region}\n**MFA:** {mfa}\n**Verification Level:** {verification}")
-        e.add_field(name="**Other**",
-                    value=f"**Avg Member Count:** {member_count:,}\n**Text Channels:** {len(ctx.guild.text_channels)}\n"
-                          f"**Voice Channels:** {len(ctx.guild.voice_channels)}")
+        e.set_author(name=_("{0} Information").format(ctx.guild.name), icon_url=ctx.guild.icon_url)
+        e.add_field(name=_("**General Information**"),
+                    value=_("**Owner:** {0} ({1})\n**Guild Created At:** {2}\n"
+                            "**Guild Region:** {3}\n**MFA:** {4}\n**Verification Level:** {5}").format(owner, owner.id, default.date(ctx.guild.created_at), ctx.guild.region, mfa, verification))
+        e.add_field(name=_("**Other**"),
+                    value=_("**Avg Member Count:** {0:,}\n**Text Channels:** {1}\n"
+                            "**Voice Channels:** {2}").format(member_count, len(ctx.guild.text_channels), len(ctx.guild.voice_channels)))
+        #
         if features:
             e.add_field(name="**Server Features**",
                         value=features,
@@ -158,16 +159,16 @@ You can get support here:
         e = discord.Embed(color=user.colour)
         e.set_author(name=user.display_name, icon_url=user.avatar_url)
         e.set_thumbnail(url=user.avatar_url)
-        e.description = f"""
-**Username:** {user}
-**User ID:** {user.id}
-**Created on {default.date(user.created_at)}**
-**Joined on {default.date(user.joined_at)}**
-**Flag value:** {user.public_flags.value}
-**Status:** {status}
-"""
+        e.description = _("""
+**Username:** {0}
+**User ID:** {1}
+**Created on {2}**
+**Joined on {3}**
+**Flag value:** {4}
+**Status:** {5}
+""").format(user, user.id, default.date(user.created_at), default.date(user.joined_at), user.public_flags.value, status)
         if len(uroles) > 0:
-            e.add_field(name=f"__**Roles ({len(user.roles) - 1})**__",
+            e.add_field(name=_("__**Roles ({0})**__").format(len(user.roles) - 1),
                         value=", ".join(uroles), inline=False)
 
         await ctx.send(embed=e)
@@ -178,8 +179,8 @@ You can get support here:
     async def roleinfo(self, ctx, *, role: discord.Role):
         """ See a role's info """
 
-        managed = "Yes" if role.managed else "No"
-        hoisted = "Yes" if role.hoist else "No"
+        managed = _("Yes") if role.managed else _("No")
+        hoisted = _("Yes") if role.hoist else _("No")
         position = len(ctx.guild.roles) - role.position
         permissions = dict(role.permissions)
         perms = []
@@ -199,17 +200,17 @@ You can get support here:
             rolemembers = [f"{', '.join(rolemembers[:10])} (+{len(role.members) - 11})"]
 
         e = discord.Embed(color=role.color)
-        e.description = f"""
-**ID:** {role.id}
-**Created at:** {default.date(role.created_at)}
-**Managed:** {managed}
-**Position:** {position}
-**Hoisted:** {hoisted}
-**Color:** `{role.colour}`
-**Permissions:** `{"`, `".join(perms)}`
-**Members ({len(role.members)}):** {", ".join(rolemembers)} 
-"""
-        await ctx.send(f"Information about role **{role.name}**", embed=e)
+        e.description = _("""
+**ID:** {0}
+**Created at:** {1}
+**Managed:** {2}
+**Position:** {3}
+**Hoisted:** {4}
+**Color:** `{5}`
+**Permissions:** `{6}`
+**Members ({7}):** {8} 
+""").format(role.id, default.date(role.created_at), managed, position, hoisted, role.colour, "`, `".join(perms), len(role.members), ", ".join(rolemembers))
+        await ctx.send(_("Information about role **{0}**").format(role.name), embed=e)
 
     @commands.command()
     @commands.guild_only()
@@ -276,28 +277,29 @@ You can get support here:
 
         users = sum(x.member_count for x in self.bot.guilds)
 
-        e.description = f"""
+        e.description = _("""
 __**About**__
 Developers:
-- **[{Rika}](https://discordrep.com/u/750470053300011070#)**
-- **[{Moksej}](https://discordrep.com/u/345457928972533773#)**
-- **[{Joshua}](https://discordrep.com/u/809057677716094997#)**
-- **[{Fenny}](https://discordrep.com/u/699686304388087858#)**
+- **[{0}](https://discordrep.com/u/750470053300011070#)**
+- **[{1}](https://discordrep.com/u/345457928972533773#)**
+- **[{2}](https://discordrep.com/u/809057677716094997#)**
+- **[{3}](https://discordrep.com/u/699686304388087858#)**
 
-Library: [enhanced dpy {discord.__version__}](https://github.com/iDutchy/discord.py)
+Library: [enhanced dpy {4}](https://github.com/iDutchy/discord.py)
 
 __**Statistics**__
-**{len(self.bot.guilds)}** Guilds
-**{users:,}** Users
-**{text}** text & **{voice}** voice channels
+**{5}** Guilds
+**{6:,}** Users
+**{7}** text & **{8}** voice channels
 
 __**System**__
-Hosted on **{platform.platform()}**
-**{core}** cores
-**{cpup}**% CPU load
-**{mem_usage}**/**{mem}** MB memory used
-**{storage_free}** GB storage free 
-"""
+Hosted on **{9}**
+**{10}** cores
+**{11}**% CPU load
+**{12}**/**{13}** MB memory used
+**{14}** GB storage free 
+""").format(Rika, Moksej, Joshua, Fenny, discord.__version__, len(self.bot.guilds),
+            users, text, voice, platform.platform(), core, cpup, mem_usage, mem, storage_free)
 
         await ctx.send(embed=e)
 
@@ -311,22 +313,23 @@ Hosted on **{platform.platform()}**
 
         ae = discord.Embed(color=discord.Color.dark_teal())
         ae.set_image(url="https://cdn.bluewy.xyz/yerZ.png")
-        ae.set_author(name=f"About {self.bot.user}",icon_url=self.bot.user.avatar_url)
-        ae.description = f"""
-Created by **[{Flitz}](https://discordrep.com/u/809057677716094997)**
-Creation date: **{default.date(self.bot.user.created_at)}**
+        ae.set_author(name=_("About {0}").format(self.bot.user), icon_url=self.bot.user.avatar_url)
+        ae.description = _("""
+Created by **[{0}](https://discordrep.com/u/809057677716094997)**
+Creation date: **{1}**
 Developed and owned by Flitz Studios © 2021
 
-Lib & version: **[Enhanced discord.py {discord.__version__}](https://github.com/iDutchy/discord.py)**
-Links: **[Support]({config.support})** | **[Invite]({config.invite})** | **[Privacy]({config.privacy})**
+Lib & version: **[Enhanced discord.py {2}](https://github.com/iDutchy/discord.py)**
+Links: **[Support]({3})** | **[Invite]({4})** | **[Privacy]({5})**
 
-Commands: **{len([c for c in set(self.bot.walk_commands())])}**
-Guilds: **{len(self.bot.guilds)}**
-Users: **{sum(x.member_count for x in self.bot.guilds)}**
+Commands: **{6}**
+Guilds: **{7}**
+Users: **{8}**
 Channels:
-**{voice:,}** voice
-**{text:,}** text
-"""
+**{9:,}** voice
+**{10:,}** text
+""").format(Flitz, default.date(self.bot.user.created_at), discord.__version__, config.support, config.invite, config.privacy,
+            len([c for c in set(self.bot.walk_commands())]), len(self.bot.guilds), sum(x.member_count for x in self.bot.guilds), voice, text)
         await ctx.send(embed=ae)
 
     @commands.group(aliases=["emoji", "e"])
@@ -334,8 +337,8 @@ Channels:
         """ Get emote info/url """
         if ctx.invoked_subcommand is None:
             #await ctx.send_help(ctx.command)
-            e = discord.Embed(title="Emote help", color=discord.Color.dark_teal())
-            e.description = f"`url` **- Get an emote's URL**\n`info` **- Get info about an emote**"
+            e = discord.Embed(title=_("Emote help"), color=discord.Color.dark_teal())
+            e.description = _("`url` **- Get an emote's URL**\n`info` **- Get info about an emote**")
             await ctx.send(embed=e)
 
     @emote.group(aliases=["link", "u"])
@@ -350,13 +353,13 @@ Channels:
         """ Get info about an emote """
         e = discord.Embed(color=discord.Color.dark_teal())
         e.set_author(name=emote.name, icon_url=emote.guild.icon_url)
-        e.description = f"""
-**Created on {default.date(emote.created_at)}**
-**From** {emote.guild} (`{emote.guild_id}`)
-**Emote ID:** `{emote.id}`
-**Emote URL:** [Click here]({emote.url})
-**Escaped:** \{emote}
-"""
+        e.description = _("""
+**Created on {0}**
+**From** {1} (`{2}`)
+**Emote ID:** `{3}`
+**Emote URL:** [Click here]({4})
+**Escaped:** \{5}
+""").format(default.date(emote.created_at), emote.guild, emote.guild_id, emote.id, emote.url, emote)
         e.set_thumbnail(url=emote.url)
         await ctx.send(embed=e)
 
@@ -366,19 +369,19 @@ Channels:
         """ Review our bot! """
         channel = self.bot.get_channel(839962350521548871)
         e1 = discord.Embed(color=discord.Color.dark_teal())
-        e1.set_author(name=f'From {ctx.author}', icon_url=ctx.author.avatar_url)
+        e1.set_author(name=_('From {0}').format(ctx.author), icon_url=ctx.author.avatar_url)
         e1.description = review
         await channel.send(embed=e1)
-        await ctx.send("Thank you! Your review has been recorded in our support server.")
+        await ctx.send(_("Thank you! Your review has been recorded in our support server."))
 
     @commands.group(aliases=["b"])
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def binary(self, ctx):
         """ Encode/decode binary """
         if ctx.invoked_subcommand is None:
-            e = discord.Embed(color=discord.Color.dark_teal(), title="Binary help")
-            e.description = f"`encode` **- Encode text to binary**" \
-                            f"\n`decode` **- Decode binary to text**"
+            e = discord.Embed(color=discord.Color.dark_teal(), title=_("Binary help"))
+            e.description = _("`encode` **- Encode text to binary**\n"
+                              "`decode` **- Decode binary to text**")
             await ctx.send(embed=e)
 
     @binary.group(aliases=["e"])
@@ -386,7 +389,7 @@ Channels:
     async def encode(self, ctx, *, text):
         """ Encode text to binary """
         if len(text) > 200:
-            return await ctx.send("Please limit it to 200 characters maximum, the bot will error out otherwise.")
+            return await ctx.send(_("Please limit it to 200 characters maximum, the bot will error out otherwise."))
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f"https://some-random-api.ml/binary?text={text}") as r:
                 js = await r.json()
@@ -409,8 +412,8 @@ Channels:
         """ Encode/Decode base64 """
         if ctx.invoked_subcommand is None:
             e = discord.Embed(color=discord.Color.dark_teal(), title="Base64 help")
-            e.description = f"`encode` **- Encode text to base64**" \
-                            f"\n`decode` **- Decode base64 to text**"
+            e.description = _("`encode` **- Encode text to base64**\n"
+                              "`decode` **- Decode base64 to text**")
             await ctx.send(embed=e)
 
     @base64.group(aliases=["e"])
@@ -418,7 +421,7 @@ Channels:
     async def encode(self, ctx, *, text):
         """ Encode text to base64 """
         if len(text) > 1500:
-            return await ctx.send('Please limit it to 1500 characters maximum, the bot will error out otherwise.')
+            return await ctx.send(_('Please limit it to 1500 characters maximum, the bot will error out otherwise.'))
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f"https://some-random-api.ml/base64?encode={text}") as r:
                 js = await r.json()
@@ -442,12 +445,12 @@ Channels:
     async def announce(self, ctx, channel: discord.TextChannel, *, desc):
         """ Announce something """
         if not channel:
-            return await ctx.send('Please provide a channel to use.')
+            return await ctx.send(_('Please provide a channel to use.'))
         if len(desc) > 2000:
-            return await ctx.send('Please make your announcement shorter then 2000 characters.')
+            return await ctx.send(_('Please make your announcement shorter then 2000 characters.'))
         if len(desc) < 2000:
             e = discord.Embed(color=discord.Color.dark_teal())
-            e.description = f"Do you want the message embedded?"
+            e.description = _("Do you want the message embedded?")
 
             def check(r, u):
                 return u.id == ctx.author.id and r.message.id == checkmsg.id
@@ -467,7 +470,7 @@ Channels:
                     e.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
                     await channel.send(embed=e)
 
-                    embed = discord.Embed(color=discord.Color.green(), description=f"Sent embedded announcement in **{channel}**.")
+                    embed = discord.Embed(color=discord.Color.green(), description=_("Sent embedded announcement in **{0}**.").format(channel))
                     await checkmsg.edit(embed=embed)
                     return
 
@@ -478,7 +481,7 @@ Channels:
                         pass
                     await channel.send(desc)
 
-                    embed2 = discord.Embed(color=discord.Color.green(), description=f"Sent plain announcement in **{channel}**.")
+                    embed2 = discord.Embed(color=discord.Color.green(), description=_("Sent plain announcement in **{0}**.").format(channel))
                     await checkmsg.edit(embed=embed2)
                     return
 
@@ -487,7 +490,7 @@ Channels:
                     await checkmsg.clear_reactions()
                 except Exception:
                     pass
-                etimeout = discord.Embed(color=discord.Color.dark_red(), description=f"Command timed out, canceling...")
+                etimeout = discord.Embed(color=discord.Color.dark_red(), description=_("Command timed out, canceling..."))
                 return await checkmsg.edit(embed=etimeout)
 
 
