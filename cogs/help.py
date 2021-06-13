@@ -46,7 +46,7 @@ class HelpCog(commands.Cog, name="Utility"):
     async def privacy(self, ctx):
         """ Read our privacy policy """
         e = discord.Embed(color=discord.Color.dark_teal())
-        e.description = _("Esquire only collects server IDs for server blacklisting, and user IDs for user blacklisting. It also logs guild joins/leaves, cooldowns and full error tracebacks. While that's currently all, the privacy policy can be updated at any time.\n\n"
+        e.description = _("Esquire only collects server IDs for server blacklisting, and user IDs for user blacklisting. It also logs guild joins/leaves, cooldowns and full error tracebacks. While that's currently all, the privacy policy can be updated at any time.\n\n" \
                           "If you have questions or concerns, you can join our [support server]({0}) or mail to joshuaslui0203@gmail.com").format(config.support)
         await ctx.send(embed=e)
 
@@ -112,10 +112,10 @@ You can get support here:
         e = discord.Embed(color=discord.Color.dark_teal())
         e.set_author(name=_("{0} Information").format(ctx.guild.name), icon_url=ctx.guild.icon_url)
         e.add_field(name=_("**General Information**"),
-                    value=_("**Owner:** {0} ({1})\n**Guild Created At:** {2}\n"
+                    value=_("**Owner:** {0} ({1})\n**Guild Created At:** {2}\n" \
                             "**Guild Region:** {3}\n**MFA:** {4}\n**Verification Level:** {5}").format(owner, owner.id, default.date(ctx.guild.created_at), ctx.guild.region, mfa, verification))
         e.add_field(name=_("**Other**"),
-                    value=_("**Avg Member Count:** {0:,}\n**Text Channels:** {1}\n"
+                    value=_("**Avg Member Count:** {0:,}\n**Text Channels:** {1}\n" \
                             "**Voice Channels:** {2}").format(member_count, len(ctx.guild.text_channels), len(ctx.guild.voice_channels)))
         #
         if features:
@@ -380,7 +380,7 @@ Channels:
         """ Encode/decode binary """
         if ctx.invoked_subcommand is None:
             e = discord.Embed(color=discord.Color.dark_teal(), title=_("Binary help"))
-            e.description = _("`encode` **- Encode text to binary**\n"
+            e.description = _("`encode` **- Encode text to binary**\n" \
                               "`decode` **- Decode binary to text**")
             await ctx.send(embed=e)
 
@@ -412,7 +412,7 @@ Channels:
         """ Encode/Decode base64 """
         if ctx.invoked_subcommand is None:
             e = discord.Embed(color=discord.Color.dark_teal(), title="Base64 help")
-            e.description = _("`encode` **- Encode text to base64**\n"
+            e.description = _("`encode` **- Encode text to base64**\n" \
                               "`decode` **- Decode base64 to text**")
             await ctx.send(embed=e)
 
