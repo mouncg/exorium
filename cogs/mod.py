@@ -69,8 +69,11 @@ class mod(commands.Cog, name="Moderation"):
                 if member.top_role > botmember.top_role:
                     return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to ban has.")
                 if member.top_role > ctx.author.top_role:
-                    return await ctx.send("I cannot ban users with a higher role then you.")
-                await ctx.message.delete()
+                    return await ctx.send(_("I cannot ban users with a higher role then you."))
+                try:
+                    await ctx.message.delete()
+                except Exception:
+                    pass
                 try:
                     await member.send(f"You were banned from `{ctx.guild.name}` with reason:\n\n{reason}")
                 except discord.errors.HTTPException:
@@ -98,8 +101,11 @@ class mod(commands.Cog, name="Moderation"):
         """
         try:
             if user == self.bot.user or user == ctx.message.author:
-                return await ctx.send(f"This user was never banned from this guild.", delete_after=5)
-            await ctx.message.delete()
+                return await ctx.send(_("This user was never banned from this guild."), delete_after=5)
+            try:
+                await ctx.message.delete()
+            except Exception:
+                pass
             await ctx.guild.unban(user.user, reason=f"moderator: {ctx.message.author} | {reason}")
             e = discord.Embed(color=discord.Color.green())
             e.description = f"{user.user.name} has been unbanned | {reason}"
@@ -124,9 +130,12 @@ class mod(commands.Cog, name="Moderation"):
                 return await ctx.send(f"Please softban someone else rather than me, thanks.", delete_after=5)
             botmember = ctx.guild.me
             if member.top_role > botmember.top_role: 
-                return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to softban has.")
-            await ctx.message.delete()
-            messageok = f"You were softbanned from `{ctx.guild.name}` with reason:\n\n{reason}"
+                return await ctx.send(_("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to softban has."))
+            try:
+                await ctx.message.delete()
+            except Exception:
+                pass
+            messageok = "You were softbanned from `{ctx.guild.name}` with reason:\n\n{reason}"
             try:
                 await member.send(messageok)
             except discord.errors.HTTPException:
@@ -189,7 +198,10 @@ class mod(commands.Cog, name="Moderation"):
             botmember = ctx.guild.me
             if member.top_role > botmember.top_role:
                 return await ctx.send("My role is too low in the hierarchy. Please move it above the highest role the user you are trying to kick has.")
-            await ctx.message.delete()
+            try:
+                await ctx.message.delete()
+            except Exception:
+                pass
             messageok = f"You've been kicked from __**{ctx.guild.name}**__ with reason:\n\n{reason}"
             try:
                 await member.send(messageok)
@@ -220,7 +232,10 @@ class mod(commands.Cog, name="Moderation"):
             return await ctx.send('Please purge less than 500 messages at a time.', delete_after=10)
         if amount <= 500:
             try:
-                await ctx.message.delete()
+                try:
+                    await ctx.message.delete()
+                except Exception:
+                    pass
                 await ctx.channel.purge(limit=amount, check=ducks_pin_message_check)
                 await ctx.send(f'{ctx.message.author} purged {amount} messages successfully.', delete_after=10)
             except Exception as e:
