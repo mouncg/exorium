@@ -271,6 +271,11 @@ __**Are you sure you want me to leave this guild?**__
                 await guild.leave()
             await ctx.send(f"blacklisted {server}")
 
+    @commands.command()
+    @commands.is_owner()
+    async def ownertest(self, ctx):
+        await ctx.send(_("Hello!"))
+
 
 def setup(bot):
     bot.add_cog(Admin(bot))
