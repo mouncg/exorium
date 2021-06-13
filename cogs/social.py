@@ -19,102 +19,102 @@ class social(commands.Cog, name="Social"):
     async def slap(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Slap the specified people"""
         if str(ctx.author.id) in str(members):
-            return await ctx.send("You can't slap yourself, derp!")
-        await functions.interactions(ctx, members, "slapped", 'slap', gifs.slap, reason)
+            return await ctx.send(_("You can't slap yourself"))
+        await functions.interactions(ctx, members, _("slapped"), _('slap'), gifs.slap, reason)
 
     @commands.command(brief="Snuggle someone")
     async def snuggle(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Snuggle the specified people"""
-        await functions.interactions(ctx, members, "snuggled", 'snuggle', gifs.snuggle, reason)
+        await functions.interactions(ctx, members, _("snuggled"), _('snuggle'), gifs.snuggle, reason)
 
     @commands.command(brief="Hug someone")
     async def hug(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
-        await functions.interactions(ctx, members, "hugged", 'hug', gifs.hug, reason, 'hug')
+        await functions.interactions(ctx, members, _("hugged"), _('hug'), gifs.hug, reason, 'hug')
 
     @commands.command(brief="Bonk someone", enabled=False)
     async def bonk(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Bonk the specified people"""
-        await functions.interactions(ctx, members, "bonked", 'bonk', gifs.bonk, reason)
+        await functions.interactions(ctx, members, _("bonked"), _('bonk'), gifs.bonk, reason)
 
     @commands.command(brief="Boop someone")
     async def boop(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Boop the specified people"""
-        await functions.interactions(ctx, members, "booped", 'boop', gifs.boop, reason)
+        await functions.interactions(ctx, members, _("booped"), _('boop'), gifs.boop, reason)
 
     @commands.command(brief="Smooch someone", aliases=["kiss"])
     async def smooch(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Smooch the specified people"""
-        await functions.interactions(ctx, members, "smooched", 'smooch', gifs.smooch, reason)
+        await functions.interactions(ctx, members, _("smooched"), _('smooch'), gifs.smooch, reason)
 
     @commands.command(brief="Lick someone")
     async def lick(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Lick the specified people"""
-        await functions.interactions(ctx, members, "licked", 'lick', gifs.lick, reason)
+        await functions.interactions(ctx, members, _("licked"), _('lick'), gifs.lick, reason)
 
     @commands.command(brief="Give bellyrubs!")
     async def bellyrub(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Give bellyrubs to the specified people"""
-        await functions.interactions(ctx, members, "bellyrubbed", 'rub the belly of', gifs.bellyrub, reason)
+        await functions.interactions(ctx, members, _("bellyrubbed"), _('rub the belly of'), gifs.bellyrub, reason)
 
     @commands.command(brief="Nuzzle someone")
     async def nuzzle(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Nuzzle the specified people"""
-        await functions.interactions(ctx, members, "nuzzled", 'nuzzles', gifs.nuzzle, reason)
+        await functions.interactions(ctx, members, _("nuzzled"), _('nuzzles'), gifs.nuzzle, reason)
 
     @commands.command(brief="Cuddle someone")
     async def cuddle(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Cuddle the specified people"""
-        await functions.interactions(ctx, members, "cuddled", 'cuddle', gifs.cuddle, reason)
+        await functions.interactions(ctx, members, _("cuddled"), _('cuddle'), gifs.cuddle, reason)
 
     @commands.command(brief="Feed someone")
     async def feed(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Feed the specified people"""
-        await functions.interactions(ctx, members, "fed", 'feed', gifs.feed, reason)
+        await functions.interactions(ctx, members, _("fed"), _('feed'), gifs.feed, reason)
 
     @commands.command(brief="Glomp someone")
     async def glomp(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Glomp on the specified people"""
-        await functions.interactions(ctx, members, "glomped", 'glomp', gifs.glomp, reason)
+        await functions.interactions(ctx, members, _("glomped"), _('glomp'), gifs.glomp, reason)
 
     @commands.command(brief="Highfive someone")
     async def highfive(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Highfive the specified people"""
-        await functions.interactions(ctx, members, "highfived", 'hivefive', gifs.highfive, reason)
+        await functions.interactions(ctx, members, _("highfived"), _('hivefive'), gifs.highfive, reason)
 
     @commands.command(brief="Rawrrrr")
     async def rawr(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Rawr at the specified people"""
-        await functions.interactions(ctx, members, "rawred at", 'rawr at', gifs.rawr, reason)
+        await functions.interactions(ctx, members, _("rawred at"), _('rawr at'), gifs.rawr, reason)
 
     @commands.command(brief="Howl to the moon, or someone", aliases=["howl"])
     async def awoo(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Howl at the specified people"""
-        await functions.interactions(ctx, members, "howled at", 'howl at', gifs.awoo)
+        await functions.interactions(ctx, members, _("howled at"), _('howl at'), gifs.awoo)
 
     @commands.command(brief="pat someone!", aliases=["pet"])
     async def pat(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Pat the specified people"""
-        await functions.interactions(ctx, members, "patted", 'pat', gifs.pet, reason, 'pat')
+        await functions.interactions(ctx, members, _("patted"), _('pat'), gifs.pet, reason, _('pat'))
 
     @commands.command(brief="Gib cookie")
     async def cookie(self, ctx, members: commands.Greedy[discord.Member] = None, *, reason=None):
         """Give cookies to the specified people"""
-        await functions.interactions(ctx, members, "gave a cookie to", 'give a cookie to', gifs.cookie, reason)
+        await functions.interactions(ctx, members, _("gave a cookie to"), _('give a cookie to'), gifs.cookie, reason)
 
     @commands.command(brief="Blushies!")
     async def blush(self, ctx, members: commands.Greedy[discord.Member] = None):
         """Blush (optionally because of specified people)"""
-        await functions.feelings(ctx, members, "blushes", gifs.blush)
+        await functions.feelings(ctx, members, _("blushes"), gifs.blush)
 
     @commands.command(brief="Be happy")
     async def happy(self, ctx, members: commands.Greedy[discord.Member] = None):
         """Be happy (optionally because of specified people)"""
-        await functions.feelings(ctx, members, "smiles", gifs.happy)
+        await functions.feelings(ctx, members, _("smiles"), gifs.happy)
 
     @commands.command(brief="wag yer tail")
     async def wag(self, ctx, members: commands.Greedy[discord.Member] = None):
         """Wag your tail (Optionally because of specified people)"""
-        await functions.feelings(ctx, members, "wags their tail", gifs.wag)
+        await functions.feelings(ctx, members, _("wags their tail"), gifs.wag)
 
     @commands.command(brief="Quack quack!")
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -122,9 +122,9 @@ class social(commands.Cog, name="Social"):
         """Quack (Optionally because of specified people)"""
         duck_list = [f"https://random-d.uk/api/{random.randint(1, 191)}.jpg",
                      f"https://random-d.uk/api/{random.randint(1, 42)}.gif"]
-        await functions.feelings(ctx, members, "quacks", duck_list)
+        await functions.feelings(ctx, members, _("quacks"), duck_list)
 
-    @commands.command(brief="random animal fact")
+    @commands.command(brief="random animal fact", enabled=False)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def fact(self, ctx):
         """ Get animal facts! """
@@ -149,7 +149,7 @@ class social(commands.Cog, name="Social"):
             async with cs.get("https://randomfox.ca/floof/") as r:
                 js = await r.json()
 
-                e = discord.Embed(title="Floofy fox!", color=discord.Color.orange())
+                e = discord.Embed(title=_("Floofy fox!"), color=discord.Color.orange())
                 e.set_image(url=js['image'])
                 await ctx.send(embed=e)
 
@@ -208,15 +208,15 @@ class social(commands.Cog, name="Social"):
         song = await genius.search_song(title)
 
         if song is None:
-            return await ctx.send("Couldn't find any song by that title.")
+            return await ctx.send(_("Couldn't find any song by that title."))
 
         verse_array = split_lyrics(song.to_text(), newline_max=30)
 
         if verse_array is None:
-            return await ctx.send("Verse size exceeds maximum. You can find the lyrics at {0}".format(song.url))
+            return await ctx.send(_("Verse size exceeds maximum. You can find the lyrics at {0}").format(song.url))
 
         paginator = Pages(ctx,
-                          title="{0} by {1}".format(song.title, song.artist),
+                          title=_("{0} by {1}").format(song.title, song.artist),
                           entries=verse_array,
                           thumbnail=song.header_image_url,
                           per_page=1,
@@ -247,17 +247,18 @@ class social(commands.Cog, name="Social"):
                 e = discord.Embed(color=discord.Color.dark_teal())
                 # e.set_author(name=js['caption'])
                 e.title = js['name'].capitalize() + f" Evo. stage {js1['family']['evolutionStage']}"
-                e.description = f"""
-*Read everything on [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/{pokemon}_(Pok%C3%A9mon))*
+                e.description = _("""
+*Read everything on [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/{0}_(Pok%C3%A9mon))*
 
-**Abilities:** {", ".join(abilities)}
-**Type:** {", ".join(type)}
+**Abilities:** {1}
+**Type:** {2}
 
-**Description:** {js1['description']}
-**Evolution:** {' - '.join(js1['family']['evolutionLine'])}
-**Egg groups:** {', '.join(js1['egg_groups'])}
-**Species:** {', '.join(js1['species'])}
-"""
+**Description:** {3}
+**Evolution:** {4}
+**Egg groups:** {5}
+**Species:** {6}
+""").format(pokemon, ", ".join(type), js1['description'], ' - '.join(js1['family']['evolutionLine']),
+            ', '.join(js1['egg_groups']), ', '.join(js1['species']))
                 st = js1['stats']
                 e.set_thumbnail(url=js['sprites']['other']['official-artwork']['front_default'])
                 e.add_field(name="Statistics",
