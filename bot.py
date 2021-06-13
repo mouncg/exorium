@@ -7,6 +7,7 @@ import asyncpg
 
 from discord.ext import commands
 from discord_slash import SlashCommand
+from utils import i18n
 
 
 def get_prefix(bot, message):
@@ -65,7 +66,20 @@ class Bot(commands.AutoShardedBot):
         self.blacklist = {}
     
     async def on_ready(self):
-        print('Bot has started successfully.')
+        print(_('Bot has started successfully.'))
+
+    async def on_message(self, message):
+        if message.author.bot:
+            return
+        try:
+            ctx = await self.get_context(message)
+            if message.guild:
+                i18n.current_locale.set(self.translations.get(message.guild.id, 'en_US'))
+            if ctx.valid:
+                await self.invoke(ctx)
+        except Exception as e:
+            print(e)
+            return
 
 
 loop = asyncio.get_event_loop()
