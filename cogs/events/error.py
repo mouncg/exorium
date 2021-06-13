@@ -23,49 +23,48 @@ class error(commands.Cog, name="Error"):
 
         if isinstance(err, commands.MissingPermissions):
             perms = "`" + '`, `'.join(err.missing_perms) + "`"
-            return await ctx.send(f"{config.crossmark} **You are missing {perms} permissions.**")
+            return await ctx.send(_("{0} **You are missing {1} permissions.**").format(config.crossmark, perms))
 
         if isinstance(err, commands.BotMissingPermissions):
             perms = "`" + '`, `'.join(err.missing_perms) + "`"
-            return await ctx.send(f"{config.crossmark} **I'm missing {perms} permissions**")
+            return await ctx.send(_("{0} **I'm missing {1} permissions**").format(config.crossmark, perms))
 
         if isinstance(err, commands.MissingRequiredArgument):
-            return await ctx.send(f"{config.crossmark} **`{err.param.name}` is a required argument!**")
+            return await ctx.send(_("{0} **`{1}` is a required argument!**").format(config.crossmark, err.param.name))
 
         if isinstance(err, commands.CommandOnCooldown):
             clog = self.bot.get_channel(839963291623096320)
             e = discord.Embed(color=discord.Color.red())
-            e.description = f"**{ctx.author} has a `{err.retry_after:.0f}` second cooldown on command `{ctx.command.qualified_name}`**" \
-                            f"\nGuild **{ctx.guild}** with ID `{ctx.guild.id}` | User ID: `{ctx.author.id}`"
+            e.description = _("**{0} has a `{1:.0f}` second cooldown on command `{2}`**\nGuild **{3}** with ID `{4}` | User ID: `{5}`").format(ctx.author, err.retry_after, ctx.command.qualified_name, ctx.guild, ctx.guild.id, ctx.author.id)
             await clog.send(embed=e)
-            return await ctx.send(f"`{ctx.command.qualified_name}` **is on cooldown for __{err.retry_after:.0f}__ more seconds.**")
+            return await ctx.send(_("`{0}` **is on cooldown for __{1:.0f}__ more seconds.**").format(ctx.command.qualified_name, err.retry_after))
 
         if isinstance(err, commands.NotOwner):
-            return await ctx.send(f"{config.crossmark} **Only __bot owners__ can use this command.**")
+            return await ctx.send(_("{0} **Only __bot owners__ can use this command.**").format(config.crossmark))
 
         if isinstance(err, commands.MemberNotFound):
-            return await ctx.send(f"{config.confused} **Could not find user `{err.argument}`**")
+            return await ctx.send(_("{0} **Could not find user `{1}`**").format(config.confused, err.argument))
 
         if isinstance(err, commands.ChannelNotFound):
-            return await ctx.send(f"{config.confused} **Could not find channel `{err.argument}`**")
+            return await ctx.send(_("{0} **Could not find channel `{1}`**").format(config.confused, err.argument))
 
         if isinstance(err, commands.MessageNotFound):
-            return await ctx.send(f"{config.confused} **Could not find message `{err.argument}`**")
+            return await ctx.send(_("{0} **Could not find message `{1}`**").format(config.confused, err.argument))
 
         if isinstance(err, commands.RoleNotFound):
-            return await ctx.send(f"{config.confused} **Could not find this role**")
+            return await ctx.send(_("{0} **Could not find this role**").format(config.confused))
         
         if isinstance(err, commands.EmojiNotFound):
-            return await ctx.send(f"{config.confused} **Could not find emote `{err.emote}~**")
+            return await ctx.send(_("{0} **Could not find emote `{1}~**").format(config.confused, err.emote))
         
         if isinstance(err, discord.NotFound):
-            return await ctx.send("I could not find the argument you have provided.")
+            return await ctx.send(_("I could not find the argument you have provided."))
 
         if isinstance(err, commands.NoPrivateMessage):
-            return await ctx.send(f"{config.crossmark} **You can only use this command in servers.**")
+            return await ctx.send(_("{0} **You can only use this command in servers.**").format(config.crossmark))
 
         if isinstance(err, commands.DisabledCommand):
-            return await ctx.send(f"{config.crossmark} **{ctx.command.qualified_name} is currently disabled.**")
+            return await ctx.send(_("{0} **{1} is currently disabled.**").format(config.crossmark, ctx.command.qualified_name))
 
         if isinstance(err, commands.CheckFailure):
             return
@@ -74,8 +73,8 @@ class error(commands.Cog, name="Error"):
 
             elog = self.bot.get_channel(839963309540638741)
             le = discord.Embed(color=discord.Color.red())
-            le.description = f"__**Full traceback**__" \
-                            f"\n```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
+            le.description = f"__**Full traceback**__\n" \
+                             f"\n```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
             le.set_author(name=f"{ctx.author} | {ctx.author.id} (Guild {ctx.guild.id})", icon_url=ctx.author.avatar_url)
             await elog.send(embed=le)
 
@@ -84,7 +83,7 @@ class error(commands.Cog, name="Error"):
 
             e = discord.Embed(title="traceback", color=discord.Color.red())
             e.description = f"```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
-            e.set_footer(text="Do you want a developer to join and investigate?")
+            e.set_footer(text=_("Do you want a developer to join and investigate?"))
             try:
                 checkmsg = await ctx.reply(embed=e)
                 await checkmsg.add_reaction(config.checkmark)
@@ -99,7 +98,7 @@ class error(commands.Cog, name="Error"):
 
                     se = discord.Embed(title="traceback", color=discord.Color.red())
                     se.description = f"```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
-                    se.set_footer(text="A developer will join soon. Thank you.")
+                    se.set_footer(text=_("A developer will join soon. Thank you."))
 
                     await checkmsg.edit(embed=se)
                     invite = await ctx.channel.create_invite()
@@ -113,7 +112,7 @@ class error(commands.Cog, name="Error"):
 
                     se = discord.Embed(title="traceback", color=discord.Color.red())
                     se.description = f"```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
-                    se.set_footer(text="A invite will not be created.")
+                    se.set_footer(text=_("A invite will not be created."))
 
                     return await checkmsg.edit(embed=se)
 
@@ -125,7 +124,7 @@ class error(commands.Cog, name="Error"):
 
                 se = discord.Embed(title="traceback", color=discord.Color.red())
                 se.description = f"```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
-                se.set_footer(text="Automatically canceled notifications.")
+                se.set_footer(text=_("Automatically canceled notifications."))
 
                 return await checkmsg.edit(embed=se)
 
