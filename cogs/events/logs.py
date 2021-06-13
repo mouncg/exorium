@@ -80,7 +80,7 @@ Icon url: **[Click here]({guild.icon_url})**
         """ Tries to re-run a command when a message gets edited! """
         if after.author.bot or before.content == after.content:
             return
-        prefixes = commands.when_mentioned_or('exo ', 'Exo ', 'e!')(self.bot, after)
+        prefixes = commands.when_mentioned_or('e?')(self.bot, after)
         if after.content.startswith(tuple(prefixes)):
             ctx = await self.bot.get_context(after)
             msg = await self.bot.invoke(ctx)
