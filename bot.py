@@ -64,6 +64,7 @@ class Bot(commands.AutoShardedBot):
         self.database = kwargs.pop('database', None)
         self.lockdown = True
         self.blacklist = {}
+        self.translations = {}
     
     async def on_ready(self):
         print(_('Bot has started successfully.'))
