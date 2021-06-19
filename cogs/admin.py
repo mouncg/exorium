@@ -5,6 +5,7 @@ import typing
 from discord.ext import commands
 from prettytable import PrettyTable
 from utils import default
+from utils.paginator import TextPages
 
 # def admin():
 #     async def predicate(ctx):
