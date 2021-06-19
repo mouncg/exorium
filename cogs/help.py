@@ -396,7 +396,7 @@ Channels:
 
     @binary.group(aliases=["d"])
     @commands.cooldown(1, 2, commands.BucketType.user)
-    async def decode(self, ctx, *, binary):
+    async def decode(ctx, *, binary):
         """ Decode binary to text """
         async with aiohttp.ClientSession() as cs:
             async with cs.get(f"https://some-random-api.ml/binary?decode={binary}") as r:
