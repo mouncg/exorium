@@ -3,6 +3,7 @@ import discord
 import asyncio
 import typing
 from discord.ext import commands
+from prettytable import PrettyTable
 from utils import default
 
 # def admin():
