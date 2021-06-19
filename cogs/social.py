@@ -261,18 +261,17 @@ class social(commands.Cog, name="Social"):
             ', '.join(js1['egg_groups']), ', '.join(js1['species']))
                 st = js1['stats']
                 e.set_thumbnail(url=js['sprites']['other']['official-artwork']['front_default'])
-                e.add_field(name="Statistics",
-                            value=f"**{st['hp']}** HP\n" \
-                                  f"**{st['attack']}** Attack\n" \
-                                  f"**{st['defense']}** Defense\n" \
-                                  f"**{st['sp_atk']}** Special Attack\n" \
-                                  f"**{st['sp_def']}** Special Defense\n" \
-                                  f"**{st['speed']}** Speed")
+                e.add_field(name=_("Statistics"),
+                            value=_("**{0}** HP\n" \
+                                    "**{1}** Attack\n" \
+                                    "**{2}** Defense\n" \
+                                    "**{3}** Special Attack\n" \
+                                    "**{4}** Special Defense\n" \
+                                    "**{5}** Speed").format(st['hp'], st['attack'], st['defense'], st['sp_atk'], st['sp_def'], st['speed']))
                 # e.set_footer(text="Made using some-random-api")
                 await ctx.send(embed=e)
         except Exception:
-            return await ctx.send(
-                f"{config.confused} **Please provide an existent pokemon. If you did, the API might be down.**")
+            return await ctx.send(_("{0} **Please provide an existent pokemon. If you did, the API might be down.**").format(config.confused))
 
 
 def setup(bot):
