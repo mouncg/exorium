@@ -253,3 +253,24 @@ class Pages:
                 pass  # can't remove it so don't bother doing so
 
             await self.match()
+
+class TextPages(Pages):
+    """Uses a commands.Paginator internally to paginate some text."""
+
+    def __init__(self, ctx, text, *, prefix='```ml', suffix='```', max_size=2000):
+        paginator = CommandPaginator(prefix=prefix, suffix=suffix, max_size=max_size - 200)
+        for line in text.split('\n'):
+            paginator.add_line(line)
+
+        super().__init__(ctx, entries=paginator.pages, per_page=1, show_entry_count=False)
+
+    def get_page(self, page):
+        return self.entries[page - 1]
+
+    def get_embed(self, entries, page, *, first=False):
+        return None
+
+    def get_content(self, entry, page, *, first=False):
+        if self.maximum_pages > 1:
+            return f'{entry}\nPage {page}/{self.maximum_pages}'
+        return entry
