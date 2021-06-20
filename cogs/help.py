@@ -374,7 +374,7 @@ Channels:
         await channel.send(embed=e1)
         await ctx.send(_("Thank you! Your review has been recorded in our support server."))
 
-    @commands.group(aliases=["b"])
+    @commands.group(aliases=["b"], enabled=False)
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def binary(self, ctx):
         """ Encode/decode binary """
@@ -384,7 +384,7 @@ Channels:
                               "`decode` **- Decode binary to text**")
             await ctx.send(embed=e)
 
-    @binary.group(aliases=["e"])
+    @binary.group(aliases=["e"], enabled=False)
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def encode(self, ctx, *, text):
         """ Encode text to binary """
@@ -396,7 +396,7 @@ Channels:
 
                 await ctx.send(js['binary'])
 
-    @binary.group(aliases=["d"])
+    @binary.group(aliases=["d"], enabled=False)
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def decode(ctx, *, binary):
         """ Decode binary to text """
@@ -406,7 +406,7 @@ Channels:
 
                 await ctx.send(js['text'])
 
-    @commands.group(aliases=["b64"])
+    @commands.group(aliases=["b64"], enabled=False)
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def base64(self, ctx):
         """ Encode/Decode base64 """
@@ -416,7 +416,7 @@ Channels:
                               "`decode` **- Decode base64 to text**")
             await ctx.send(embed=e)
 
-    @base64.group(aliases=["e"])
+    @base64.group(aliases=["e"], enabled=False)
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def encode(self, ctx, *, text):
         """ Encode text to base64 """
@@ -428,7 +428,7 @@ Channels:
 
                 await ctx.send(js['base64'])
 
-    @base64.group(aliases=["d"])
+    @base64.group(aliases=["d"], enabled=False)
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def decode(self, ctx, *, base64):
         """ Decode base64 to text """
