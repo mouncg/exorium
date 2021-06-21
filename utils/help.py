@@ -128,6 +128,7 @@ class PenguinHelp(commands.HelpCommand):
                     "<:Discovery:842039427467444224>": 'Utility',
                     "<:ban:842138747134541829>": 'Moderation',
                     "👑": 'Admin',
+                    "💰": 'Currency',
                     "<:Fifihug:847524779019993178>": 'Social',
                     "<:slash:833803136199032882>": 'Slash',
                     "\U000023f9": 'Stop'
