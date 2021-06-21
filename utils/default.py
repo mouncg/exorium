@@ -59,3 +59,25 @@ async def feelings(ctx, members, name, list):
             display_list = ', '.join(display_list)
         embed.description=f"**{ctx.author.display_name}** {name} because of **{display_list}**"
     await ctx.send(embed=embed)
+
+async def currencylogs(self, ctx, action, money, author, user):
+    dbchan = await self.bot.database.fetchval("SELECT channel_id FROM moneylogs WHERE guild_id = $1", ctx.guild.id)
+    balance = await self.bot.database.fetchval("SELECT money FROM balance WHERE guild_id = $1 AND user_id = $2", ctx.guild.id, ctx.author)
+    targbal = await self.bot.database.fetchval("SELECT money FROM balance WHERE guild_id = $1 AND user_id = $2", ctx.guild.id, user)
+
+    if not dbchan:
+        return
+
+    else:
+        channel = self.bot.get_channel(dbchan)
+
+        if targbal is None:
+            targbal = 0
+
+        e = discord.Embed(color=discord.Color.dark_gold())
+        e.title = f"{action}"
+        e.set_author(name='system' if author == self.bot.user else author, icon_url=author.avatar_url)
+        e.description = f"**Targeted:** {user} ({user.id})\n\nUser now has **{targbal}** ezeqs in their balance."
+        e.set_footer(text=f"ID: {author.id}")
+        await channel.send(embed=e)
+
