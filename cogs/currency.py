@@ -11,13 +11,9 @@ class currency(commands.Cog, name="Currency"):
         self.bot = bot
         self.help_icon = '💰'
 
-    @commands.command()
-    async def testthisplease(self, ctx):
-        """ fuck you~ """
-        await ctx.reply('no')
-
-    @commands.command()
-    @commands.is_owner()
+    @commands.command(aliases=['setbal'])
+    @commands.has_permissions(manage_guild=True)
+    @commands.cooldown(1, 30, commands.BucketType.user)
     async def setbalance(self, ctx, member: discord.Member, balance: int):
         """ set someone's balance """
         query = """
@@ -43,7 +39,8 @@ AND balance.user_id = $1
 
         # await channel.send(f"User {ctx.author} has added {balance} to {member}'s balance.")
 
-    @commands.command()
+    @commands.command(aliases=['resetbal'])
+    @commands.cooldown(1, 30, commands.BucketType.user)
     async def resetbalance(self, ctx):
         """ Reset your balance to 0"""
         checkmsg = await ctx.send("Are you sure you want to reset your balance?")
@@ -80,7 +77,8 @@ AND balance.user_id = $1
                 pass
             return await checkmsg.edit(content=_("Command timed out, canceling..."))
 
-    @commands.command()
+    @commands.command(aliases=['bal'])
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def balance(self, ctx, member: discord.Member = None):
         """ check your balance """
         if member is None:
@@ -106,6 +104,7 @@ AND balance.user_id = $1
             print(e)
 
     @commands.command()
+    @commands.cooldown(1, 500, commands.BucketType.user)
     async def work(self, ctx):
         """ Work for your money """
         addbal = random.randint(200, 300)
@@ -140,6 +139,7 @@ AND balance.user_id = $1
             await ctx.send(embed=e)
 
     @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def pay(self, ctx, member: discord.Member, bal: int):
         """ Pay someone with the money YOU earned """
         if member == ctx.author:
@@ -167,7 +167,9 @@ AND balance.user_id = $1
         # self, ctx, action, money, author, user
         await functions.currencylogs(self, ctx, 'Payment', bal, ctx.author, member)
 
-    @commands.command()
+    @commands.command(aliases=['clogs'])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.has_permissions(manage_guild=True)
     async def currencylogs(self, ctx, channel: discord.TextChannel = None):
         """ This enables all currency logs in the specified channel """
 
