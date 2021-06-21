@@ -124,22 +124,17 @@ class social(commands.Cog, name="Social"):
                      f"https://random-d.uk/api/{random.randint(1, 42)}.gif"]
         await functions.feelings(ctx, members, "quacks", duck_list)
 
-    @commands.command(brief="random animal fact")
+    @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def fact(self, ctx):
-        """ Get animal facts! """
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get("https://some-random-api.ml/facts/dog") as r:
-                async with cs.get("https://some-random-api.ml/facts/cat") as c:
-                    async with cs.get("https://some-random-api.ml/facts/panda") as p:
-                        async with cs.get("https://some-random-api.ml/facts/fox") as f:
-                            async with cs.get("https://some-random-api.ml/facts/bird") as b:
-                                async with cs.get("https://some-random-api.ml/facts/koala") as k:
-                                    facts = [r, c, p, f, b, k]
-                                    rc = random.choice(facts)
-                                    js = await rc.json()
+        facts = random.choice(["https://some-random-api.ml/facts/dog", "https://some-random-api.ml/facts/cat", "https://some-random-api.ml/facts/panda",
+                               "https://some-random-api.ml/facts/fox", "https://some-random-api.ml/facts/bird", "https://some-random-api.ml/facts/koala"])
 
-                                    await ctx.send(js['fact'])
+        async with aiohttp.ClientSession() as cs:
+            async with cs.get(facts) as r:
+                js = await r.json()
+
+                await ctx.send(js['fact'])
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
