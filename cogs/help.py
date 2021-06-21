@@ -113,7 +113,7 @@ You can get support here:
         e.set_author(name=_("{0} Information").format(ctx.guild.name), icon_url=ctx.guild.icon_url)
         e.add_field(name=_("**General Information**"),
                     value=_("**Owner:** {0} ({1})\n**Guild Created At:** {2}\n" \
-                            "**Guild Region:** {3}\n**MFA:** {4}\n**Verification Level:** {5}").format(owner, owner.id, default.date(ctx.guild.created_at), ctx.guild.region, mfa, verification))
+                            "**MFA:** {3}\n**Verification Level:** {4}").format(owner, owner.id, default.date(ctx.guild.created_at), mfa, verification))
         e.add_field(name=_("**Other**"),
                     value=_("**Avg Member Count:** {0:,}\n**Text Channels:** {1}\n" \
                             "**Voice Channels:** {2}").format(member_count, len(ctx.guild.text_channels), len(ctx.guild.voice_channels)))
