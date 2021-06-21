@@ -49,7 +49,7 @@ class Bot(commands.AutoShardedBot):
             reconnect=True,
             allowed_mentions=discord.AllowedMentions.none(),
             max_messages=10000,
-            intents=discord.Intents.default()
+            intents=discord.Intents.all()
         )
 
         for extension in config.extensions:
