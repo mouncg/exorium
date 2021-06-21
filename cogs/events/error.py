@@ -66,6 +66,9 @@ class error(commands.Cog, name="Error"):
         if isinstance(err, commands.DisabledCommand):
             return await ctx.send(_("{0} **{1} is currently disabled.**").format(config.crossmark, ctx.command.qualified_name))
 
+        #if not isinstance(err, int):
+        #    return await ctx.send("You must specify a number!")
+
         if isinstance(err, commands.CheckFailure):
             return
 
@@ -77,6 +80,7 @@ class error(commands.Cog, name="Error"):
                              f"\n```py\n{''.join(traceback.format_exception(type(err), err, err.__traceback__))}\n```"
             le.set_author(name=f"{ctx.author} | {ctx.author.id} (Guild {ctx.guild.id})", icon_url=ctx.author.avatar_url)
             await elog.send(embed=le)
+            print(err.__traceback__)
 
             def check(r, u):
                 return u.id == ctx.author.id and r.message.id == checkmsg.id
