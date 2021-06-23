@@ -11,7 +11,7 @@ from utils import i18n
 
 
 def get_prefix(bot, message):
-    prefixes = ["e?"]
+    prefixes = ["e?", "E?"]
     
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
