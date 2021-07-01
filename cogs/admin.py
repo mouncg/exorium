@@ -236,7 +236,7 @@ __**Are you sure you want me to leave this guild?**__
 
     @blacklist.command(name='user')
     @commands.is_owner()
-    async def blacklist_user(self, ctx, user: typing.Union[discord.User, int], *, reason: str):
+    async def blacklist_user(self, ctx, user: typing.Union[discord.User, int], *, reason: str = 'No reason provided'):
         """ Blacklist or unblacklist a user """
         try:
             if isinstance(user, discord.User):
@@ -266,7 +266,7 @@ __**Are you sure you want me to leave this guild?**__
 
     @blacklist.command(name='server')
     @commands.is_owner()
-    async def blacklist_server(self, ctx, server: int, *, reason: str):
+    async def blacklist_server(self, ctx, server: int, *, reason: str = 'No reason provided'):
         """ Blacklist or unblacklist a server """
         try:
             self.bot.blacklist[server]
