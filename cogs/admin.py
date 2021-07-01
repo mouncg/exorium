@@ -254,6 +254,14 @@ __**Are you sure you want me to leave this guild?**__
         except Exception:
             await self.bot.database.execute("INSERT INTO blacklist VALUES($1, $2)", user.id, reason)
             self.bot.blacklist[user.id] = reason
+            bluser = await self.bot.fetch_user(user.id)
+            e = discord.Embed(title=f"{user.name} ({user.id}) blacklisted", color=discord.Color.dark_red())
+            e.description = f"Your account has been blacklisted by an administrator or developer at Esquire. If you wish to know why, you can join the [support server]({config.support}). Please however note that no one is obligated to explain to you why your account was blacklisted. Please also check [our terms of use](https://glenntwebs.github.io/esqweb/legal.html) here."
+            e.set_thumbnail(url=self.bot.user.avatar_url)
+            try:
+                await bluser.send(embed=e)
+            except discord.Forbidden:
+                pass
             await ctx.send(f"blacklisted {user}")
 
     @blacklist.command(name='server')
@@ -270,6 +278,15 @@ __**Are you sure you want me to leave this guild?**__
             self.bot.blacklist[server] = reason
             guild = self.bot.get_guild(server)
             if guild:
+
+                owner = await self.bot.fetch_user(guild.owner_id)
+                e = discord.Embed(title=f"{guild.name} ({guild.id}) blacklisted", color=discord.Color.dark_red())
+                e.description = f"Your server has been blacklisted by an administrator or developer at Esquire. If you wish to know why, you can join the [support server]({config.support}). Please however note that no one is obligated to explain to you why your server was blacklisted. Please also check [our terms of use](https://glenntwebs.github.io/esqweb/legal.html) here."
+                e.set_thumbnail(url=self.bot.user.avatar_url)
+                try:
+                    await owner.send(embed=e)
+                except discord.Forbidden:
+                    pass
                 await guild.leave()
             await ctx.send(f"blacklisted {server}")
 
