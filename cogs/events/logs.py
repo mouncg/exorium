@@ -21,7 +21,11 @@ class logs(commands.Cog, name="Logs"):
 
     @commands.Cog.listener()
     async def on_command(self, ctx):
-        print(f"{datetime.now().__format__('%a %d %b %y, %H:%M')} - {ctx.guild.name} | {ctx.author} > {ctx.message.clean_content}")
+        if ctx.guild:
+            print(f"{datetime.now().__format__('%a %d %b %y, %H:%M')} - {ctx.guild.name} | {ctx.author} > {ctx.message.clean_content}")
+        else:
+            print(f"{datetime.now().__format__('%a %d %b %y, %H:%M')} - Direct Messages | {ctx.author} > {ctx.message.clean_content}")
+
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
