@@ -46,8 +46,7 @@ class HelpCog(commands.Cog, name="Utility"):
     async def privacy(self, ctx):
         """ Read our privacy policy """
         e = discord.Embed(color=discord.Color.dark_teal())
-        e.description = _("Esquire only collects server IDs for server blacklisting, and user IDs for user blacklisting. It also logs guild joins/leaves, cooldowns and full error tracebacks. While that's currently all, the privacy policy can be updated at any time.\n\n" \
-                          "If you have questions or concerns, you can join our [support server]({0}) or mail to joshuaslui0203@gmail.com").format(config.support)
+        e.description = _("You can read our privacy policy [on our website](https://glenntwebs.github.io/esqweb/legal.html)")
         await ctx.send(embed=e)
 
     @commands.command()
