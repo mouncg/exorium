@@ -108,12 +108,14 @@ AND balance.user_id = $1
     async def work(self, ctx):
         """ Work for your money """
         addbal = random.randint(100, 500)
-        response1 = f"You went to work and earned {addbal:,} through your hard work!"
+        chargebal = random.randint(100, 200)
+        response1 = f"You went to work and earned {addbal:,} Ezeqs through your hard work!"
         response2 = f"You came late, and lost any chance for earning money today."
+        response3 = f"You broke the machines while working, and the boss charged back {chargebal:,} Ezegs"
 
-        rc = random.choice([response1, response2])
+        rc = random.choice([response1, response2, response3])
 
-        if rc == f"You went to work and earned {addbal:,} through your hard work!":
+        if rc is response1:
 
             query = """
             INSERT INTO balance VALUES($1, $2, $3)
@@ -131,8 +133,23 @@ AND balance.user_id = $1
             e.set_footer(text="Do e?suggest to suggest responses and other things!")
             await ctx.send(embed=e)
 
+        if rc is response3:
+            query = """
+            INSERT INTO balance VALUES($1, $2, $3)
+            ON CONFLICT (user_id, guild_id) DO UPDATE
+            SET money = balance.money - $3
+            WHERE balance.guild_id = $2
+            AND balance.user_id = $1
+            """
 
-        else:
+            await self.bot.database.execute(query, ctx.author.id, ctx.guild.id, chargebal)
+            await functions.currencylogs(self, ctx, 'Balance updated', chargebal, self.bot.user, ctx.author)
+            e = discord.Embed(color=discord.Color.bright_red())
+            e.description = response3
+            e.set_footer(text="Do e?suggest to suggest responses and other things!")
+            await ctx.send(embed=e)
+
+        if rc is response2:
             e = discord.Embed(color=discord.Color.bright_red())
             e.description = response2
             e.set_footer(text="Do e?suggest to suggest responses and other things!")
