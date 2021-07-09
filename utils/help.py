@@ -60,7 +60,7 @@ class PenguinHelp(commands.HelpCommand):
     def __init__(self):
         self.owner_cogs = ['Jishaku', 'Devishaku']
         self.admin_cogs = ['Admin']
-        self.ignore_cogs = ['Error', 'DLP', 'Slash', 'Logs', 'Admin', 'Devishaku']
+        self.ignore_cogs = ['Error', 'DLP', 'Slash', 'Logs', 'Admin', 'Devishaku', 'Jishaku']
         self.help_icon = '<:store:729571108260675604>'
         super().__init__(command_attrs={
             "cooldown": commands.Cooldown(1, 5, commands.BucketType.member),
@@ -125,7 +125,7 @@ class PenguinHelp(commands.HelpCommand):
                 await msg.add_reaction('\U000023f9')
 
                 cog_emojis = {
-                    "<:Discovery:842039427467444224>": 'Utility',
+                    "<:Discovery:863113880402133022>": 'Utility',
                     "<:ban:842138747134541829>": 'Moderation',
                     "👑": 'Admin',
                     "💰": 'Currency',
