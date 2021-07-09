@@ -247,7 +247,7 @@ You can get support here:
         e.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=e)
 
-    @commands.command(aliases=["statistics"])
+    @commands.command(aliases=["statistics", "about"])
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def stats(self, ctx):
         """ See Esquire's statistics """
@@ -281,51 +281,24 @@ Developers:
 - **[{1}](https://discordrep.com/u/345457928972533773#)**
 
 Library: [enhanced dpy {2}](https://github.com/iDutchy/discord.py)
+Links: [github](https://github.com/Foxx-org/exorium) | [Support]({3}) | [Invite]({4}) | [Privacy]({5})
 
 __**Statistics**__
-**{3}** Guilds
-**{4:,}** Users
-**{5}** text & **{6}** voice channels
+**{6}** Guilds
+**{7:,}** Users
+**{8:,}** text & **{9:,}** voice channels
+**{10:,}** Commands
 
 __**System**__
-Hosted on **{7}**
-**{8}** cores
-**{9}**% CPU load
-**{10}**/**{11}** MB memory used
-**{12}** GB storage free 
-""").format(Joshua, Moksej, discord.__version__, len(self.bot.guilds),
-            users, text, voice, platform.platform(), core, cpup, mem_usage, mem, storage_free)
+Hosted on **{11}**
+**{12}** cores
+**{13}**% CPU load
+**{14}**/**{15}** MB memory used
+**{16}** GB storage free 
+""").format(Joshua, Moksej, discord.__version__, config.support, config.invite, config.privacy, len(self.bot.guilds),
+            users, text, voice, len([c for c in set(self.bot.walk_commands())]), platform.platform(), core, cpup, mem_usage, mem, storage_free)
 
         await ctx.send(embed=e)
-
-    @commands.command()
-    async def about(self, ctx):
-        """ About exorium """
-        Flitz = await self.bot.fetch_user(809057677716094997)
-        chtypes = Counter(type(c) for c in self.bot.get_all_channels())
-        voice = chtypes[discord.channel.VoiceChannel]
-        text = chtypes[discord.channel.TextChannel]
-
-        ae = discord.Embed(color=discord.Color.dark_teal())
-        ae.set_image(url="https://cdn.bluewy.xyz/yerZ.png")
-        ae.set_author(name=_("About {0}").format(self.bot.user), icon_url=self.bot.user.avatar_url)
-        ae.description = _("""
-Created by **[{0}](https://discordrep.com/u/809057677716094997)**
-Creation date: **{1}**
-Developed and owned by Flitz Studios © 2021
-
-Lib & version: **[Enhanced discord.py {2}](https://github.com/iDutchy/discord.py)**
-Links: **[Support]({3})** | **[Invite]({4})** | **[Privacy]({5})**
-
-Commands: **{6}**
-Guilds: **{7}**
-Users: **{8}**
-Channels:
-**{9:,}** voice
-**{10:,}** text
-""").format(Flitz, default.date(self.bot.user.created_at), discord.__version__, config.support, config.invite, config.privacy,
-            len([c for c in set(self.bot.walk_commands())]), len(self.bot.guilds), sum(x.member_count for x in self.bot.guilds), voice, text)
-        await ctx.send(embed=ae)
 
     @commands.group(aliases=["emoji", "e"])
     async def emote(self, ctx):
