@@ -27,7 +27,7 @@ AND balance.user_id = $1
         await self.bot.database.execute(query, member.id, ctx.guild.id, balance)
         e = discord.Embed(color=discord.Color.grass())
         e.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-        e.description = f"Updated {member.mention}'s balance\nnew balance: **{balance}** ezeqs"
+        e.description = f"Updated {member.mention}'s balance\nnew balance: **{balance:,}** ezeqs"
         await ctx.send(embed=e)
         await functions.currencylogs(self, ctx, 'Balance manually adjusted', balance, ctx.author, member)
         # dbchan = await self.bot.database.fetchval("SELECT channel_id FROM moneylogs WHERE guild_id = $1", ctx.guild.id)
@@ -95,9 +95,9 @@ AND balance.user_id = $1
             e = discord.Embed(color=discord.Color.grassy_green())
             e.title = f"{member}'s balance"
             if member is ctx.author:
-                e.description = f"You have **{results}** ezeqs."
+                e.description = f"You have **{int(results):,}** ezeqs."
             else:
-                e.description = f"They have **{results}** ezeqs."
+                e.description = f"They have **{int(results):,}** ezeqs."
 
             await ctx.send(embed=e)
         except Exception as e:
@@ -107,13 +107,13 @@ AND balance.user_id = $1
     @commands.cooldown(1, 500, commands.BucketType.user)
     async def work(self, ctx):
         """ Work for your money """
-        addbal = random.randint(200, 300)
-        response1 = f"You went to work and earned {addbal} through your hard work!"
+        addbal = random.randint(100, 500)
+        response1 = f"You went to work and earned {addbal:,} through your hard work!"
         response2 = f"You came late, and lost any chance for earning money today."
 
         rc = random.choice([response1, response2])
 
-        if rc == f"You went to work and earned {addbal} through your hard work!":
+        if rc == f"You went to work and earned {addbal:,} through your hard work!":
 
             query = """
             INSERT INTO balance VALUES($1, $2, $3)
@@ -163,7 +163,7 @@ AND balance.user_id = $1
                 """
 
         await self.bot.database.execute(query, member.id, ctx.guild.id, bal)
-        await ctx.send(f"{bal} has been transferred over to {member}'s balance.")
+        await ctx.send(f"{bal:,} has been transferred over to {member}'s balance.")
         # self, ctx, action, money, author, user
         await functions.currencylogs(self, ctx, 'Payment', bal, ctx.author, member)
 
