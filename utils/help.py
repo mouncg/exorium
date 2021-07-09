@@ -130,6 +130,7 @@ class PenguinHelp(commands.HelpCommand):
                     "👑": 'Admin',
                     "💰": 'Currency',
                     "<:Fifihug:847524779019993178>": 'Social',
+                    "<:cog:863130088547287070>": 'Management',
                     "<:slash:833803136199032882>": 'Slash',
                     "\U000023f9": 'Stop'
                 }

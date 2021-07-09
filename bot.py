@@ -9,13 +9,6 @@ from discord.ext import commands
 from discord_slash import SlashCommand
 from utils import i18n
 
-
-def get_prefix(bot, message):
-    prefixes = ["e?", "E?"]
-    
-    return commands.when_mentioned_or(*prefixes)(bot, message)
-
-
 async def run():
     db = await asyncpg.create_pool(**config.DB_CONN_INFO)
 
@@ -30,6 +23,7 @@ async def run():
         await db.execute('CREATE TABLE IF NOT EXISTS warnings (guild_id BIGINT, user_id BIGINT, mod_id BIGINT, reason TEXT, time TIMESTAMP)')
         await db.execute("CREATE TABLE IF NOT EXISTS balance (user_id BIGINT, guild_id BIGINT, money BIGINT, CONSTRAINT CompKey_ID_NAME PRIMARY KEY (user_id, guild_id))")
         await db.execute("CREATE TABLE IF NOT EXISTS moneylogs (guild_id BIGINT PRIMARY KEY, channel_id BIGINT)")
+        await db.execute("CREATE TABLE IF NOT EXISTS guildprefix (guild_id BIGINT PRIMARY KEY, prefix TEXT)")
         res = await db.fetch('SELECT * FROM blacklist')
         for the_id in res:
             bot.blacklist[the_id['id']] = the_id['reason']
@@ -40,6 +34,12 @@ async def run():
         await db.close()
         await bot.logout()
 
+
+async def get_prefix(bot, message):
+    results = await bot.database.fetchval(f"SELECT prefix FROM guildprefix WHERE guild_id = $1", message.guild.id)
+    prefixes = ["e?", "E?"] if not results else [f"{results}"]
+
+    return commands.when_mentioned_or(*prefixes)(bot, message)
 
 class Bot(commands.AutoShardedBot):
     def __init__(self, **kwargs):
