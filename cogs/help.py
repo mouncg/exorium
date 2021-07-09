@@ -265,8 +265,6 @@ You can get support here:
 
         Joshua = await self.bot.fetch_user(809057677716094997)
         Moksej = await self.bot.fetch_user(345457928972533773)
-        Fenny = await self.bot.fetch_user(699686304388087858)
-        Rika = await self.bot.fetch_user(750470053300011070)
         # devs = [f"{x.name}#{x.discriminator}" for x in
         #         self.bot.get_guild(755068089233834074).get_role(828339695314403378).members]
         # dev1 = ', '.join(devs)
@@ -280,25 +278,23 @@ You can get support here:
         e.description = _("""
 __**About**__
 Developers:
-- **[{0}](https://discordrep.com/u/750470053300011070#)**
+- **[{0}](https://discordrep.com/u/809057677716094997#)**
 - **[{1}](https://discordrep.com/u/345457928972533773#)**
-- **[{2}](https://discordrep.com/u/809057677716094997#)**
-- **[{3}](https://discordrep.com/u/699686304388087858#)**
 
-Library: [enhanced dpy {4}](https://github.com/iDutchy/discord.py)
+Library: [enhanced dpy {2}](https://github.com/iDutchy/discord.py)
 
 __**Statistics**__
-**{5}** Guilds
-**{6:,}** Users
-**{7}** text & **{8}** voice channels
+**{3}** Guilds
+**{4:,}** Users
+**{5}** text & **{6}** voice channels
 
 __**System**__
-Hosted on **{9}**
-**{10}** cores
-**{11}**% CPU load
-**{12}**/**{13}** MB memory used
-**{14}** GB storage free 
-""").format(Rika, Moksej, Joshua, Fenny, discord.__version__, len(self.bot.guilds),
+Hosted on **{7}**
+**{8}** cores
+**{9}**% CPU load
+**{10}**/**{11}** MB memory used
+**{12}** GB storage free 
+""").format(Joshua, Moksej, discord.__version__, len(self.bot.guilds),
             users, text, voice, platform.platform(), core, cpup, mem_usage, mem, storage_free)
 
         await ctx.send(embed=e)
