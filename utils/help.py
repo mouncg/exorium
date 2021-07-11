@@ -58,9 +58,9 @@ class CogHelpPages(menus.MenuPages):
 
 class PenguinHelp(commands.HelpCommand):
     def __init__(self):
-        self.owner_cogs = ['Jishaku']
-        self.admin_cogs = ['admin']
-        self.ignore_cogs = ['Error']
+        self.owner_cogs = ['Jishaku', 'Devishaku']
+        self.admin_cogs = ['Admin']
+        self.ignore_cogs = ['Error', 'DLP', 'Slash', 'Logs', 'Admin', 'Devishaku', 'Jishaku']
         self.help_icon = '<:store:729571108260675604>'
         super().__init__(command_attrs={
             "cooldown": commands.Cooldown(1, 5, commands.BucketType.member),
@@ -75,11 +75,11 @@ class PenguinHelp(commands.HelpCommand):
         """ See bot help """
         ctx = self.context
 
-        Flitz = await self.context.bot.fetch_user(809057677716094997)
+        Josh = await self.context.bot.fetch_user(809057677716094997)
 
         support = config.support
         invite = config.invite
-        prefix = f"`exo `"
+        prefix = f"`e?`"
         s = "Support"
         i = "Bot invite"
         boats = "[discord.boats](https://discord.boats/bot/620990340630970425)"
@@ -87,7 +87,7 @@ class PenguinHelp(commands.HelpCommand):
 
         emb = discord.Embed(color=discord.Color.dark_teal())
         emb.description = (f"[{s}]({support}) | [{i}]({invite}) "
-                           f"| {boats} | {privacy}\n\n**Made by:** {Flitz}\n{prefix}\n\n")
+                           f"| {boats} | {privacy}\n\n**Made by:** {Josh}\nPrefix: {prefix}\n\n")
 
         def check(r, u):
             return u.id in [self.context.author.id, 809057677716094997] and r.message.id == msg.id
@@ -97,12 +97,12 @@ class PenguinHelp(commands.HelpCommand):
         for extension in set(self.context.bot.cogs.values()):
             if extension.qualified_name in self.ignore_cogs:
                 continue
-            if extension.qualified_name == "Jishaku":
+            if extension.qualified_name == ["Jishaku", "Devishaku"]:
                 continue
             if extension.qualified_name in self.owner_cogs and not await self.context.bot.is_owner(self.context.author):
                 continue
-            if extension.qualified_name in self.admin_cogs and not await self.context.bot.is_admin(self.context.author):
-                continue
+            #if extension.qualified_name in self.admin_cogs and not await self.context.bot.is_admin(self.context.author):
+            #    continue
             #if extension.qualified_name in self.booster_cogs and not await self.context.bot.is_booster(self.context.author):
             #    continue
             #if await checks.cog_disabled(self.context, str(extension.qualified_name)):
@@ -125,10 +125,13 @@ class PenguinHelp(commands.HelpCommand):
                 await msg.add_reaction('\U000023f9')
 
                 cog_emojis = {
-                    "<:discovery:719431405905379358>": 'Utility',
-                    "<:hammer:832930785954758687>": 'Moderation',
+                    "<:Discovery:863113880402133022>": 'Utility',
+                    "<:ban:842138747134541829>": 'Moderation',
                     "👑": 'Admin',
-                    "<:hug:642196733706764288>": 'Social',
+                    "💰": 'Currency',
+                    "<:Fifihug:847524779019993178>": 'Social',
+                    "<:cog:863130088547287070>": 'Management',
+                    "<:slash:833803136199032882>": 'Slash',
                     "\U000023f9": 'Stop'
                 }
                 react, user = await self.context.bot.wait_for('reaction_add', check=check, timeout=300.0)
@@ -145,12 +148,12 @@ class PenguinHelp(commands.HelpCommand):
             except Exception:
                 return
         except Exception:
-            await self.context.send(content="Failed to add reactions", embed=emb)
+            await self.context.send(content="Failed to add reactions")
 
     
     async def send_cog_help(self, cog):
         commands = []
-        for command in await self.filter_commands(cog.get_commands()):
+        for command in cog.get_commands():
             commands.append(f"`{command.qualified_name}` - **{command.short_doc}**\n")
         
         paginator = Pages(self.context,

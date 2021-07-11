@@ -1,12 +1,44 @@
-TOKEN = ''
+import discord
+import mysql.connector
 
-extensions = ['jishaku',
+# The bot token, which defines what bot to start
+token = 'bot token'
+
+# This loads the cogs.
+extensions = ['jishaku', # Jishaku is an extension we use for debugging and testing (https://github.com/Gorialis/jishaku)
               'cogs.help',
-              'cogs.error']
+              'cogs.events.error',
+              'cogs.events.logs',
+              #'cogs.events.statcord', # Fix statcord posting when Statcord self is fixed
+              'cogs.social',
+              'cogs.admin',
+              'cogs.DLP',
+              'cogs.social_slash',
+              'cogs.mod']
 
-invite = "https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot"
-privacy = "https://discord.com/api/oauth2/authorize?client_id=620990340630970425&permissions=335932630&scope=bot"
-support = "https://discord.gg/CEHkNky"
+# links related to the bot (invite2 is a admin invite link with permission integer 8)
+invite = ""
+invite2 = ""
+privacy = ""
+support = ""
 
-checkmark = "<a:checkmark:813798012399779841>"
-crossmark = "<a:cross:813798012626141185>"
+# emotes
+checkmark = ""
+crossmark = ""
+confused = ""
+inv = ""
+
+# The tokens for APIs
+DELTOKEN = ""
+TOPTOKEN = ""
+DBLTOKEN = ""
+STATTOKEN = ""
+GENIUSTOKEN = ""
+
+# Connect to the database
+DB_CONN_INFO = {
+    "user": "",
+    "password": "",
+    "host": "",
+    "database": ""
+}
